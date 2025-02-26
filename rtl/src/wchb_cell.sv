@@ -12,7 +12,7 @@ module wchb_cell #(
    output logic o_ack,
 
    //Output aclk
-   output logic aclk
+   output logic o_aclk
 );
 
    /* Combinational Logic */
@@ -26,11 +26,11 @@ module wchb_cell #(
       .a(i_req),
       .b(ack_n),
       .rst(rst),
-      .o(aclk)
+      .o(o_aclk)
    );
 
    /* Output assignment */
-   assign o_ack = aclk;
-   assign o_req = aclk;
+   assign o_ack = o_aclk;
+   assign o_req = o_aclk;
 
 endmodule
