@@ -12,7 +12,7 @@ module ariscv_ctrlpath #(
 )(
    /* INTERFACE */
    input  logic         rst_async_n,
-   output logic [5:0]   o_aclk;
+   output logic [5:0]   o_aclk
 );
 
    /* Local signals and parameters */
@@ -37,11 +37,11 @@ module ariscv_ctrlpath #(
 
 
    /* WCHB cells */
-   wchb_cell #(
+   //wchb_cell #(
 
-   ) uu_cell_PC_FD (
+   //) uu_cell_PC_FD (
 
-   );
+   //);
 
 
    /* Forks and Joins */

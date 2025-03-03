@@ -3,7 +3,7 @@ module wchb_cell #(
    parameter INIT = 0 //Init. value: 1 = set; 0 = reset
 )(
    /* INTERFACE */
-   input  logic rst,
+   input  logic rst_n,
 
    //Async cell signals
    input  logic i_req,
@@ -25,8 +25,8 @@ module wchb_cell #(
    ) uu_c_element (
       .a(i_req),
       .b(ack_n),
-      .rst(rst),
-      .o(o_aclk)
+      .rst_n(rst_n),
+      .s(o_aclk)
    );
 
    /* Output assignment */

@@ -3,19 +3,19 @@ module c_element #(
 )(
    input  logic a,
    input  logic b,
-   input  logic rst,
+   input  logic rst_n,
    output logic s
 );
 
    always_comb begin
-      if (rst) begin
-         o = INIT;
+      if (!rst_n) begin
+         s = INIT;
       end
       else begin
          case ({a,b})
-            2'b00: o = 1'b0;
-            2'b11: o = 1'b1;
-            default: o = o;
+            2'b00: s = 1'b0;
+            2'b11: s = 1'b1;
+            default: s = s;
          endcase
       end
    end
