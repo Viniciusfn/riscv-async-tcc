@@ -7,7 +7,7 @@ int main(int argc, char **argv)
     // Construct context object, design object, and trace object
     VerilatedContext *m_contextp = new VerilatedContext; // Context
     VerilatedVcdC *m_tracep = new VerilatedVcdC;         // Trace
-    Vtb_wchb_cell *m_duvp = new Vtb_wchb_cell;                 // Design
+    Vtb_wchb_cell *m_duvp = new Vtb_wchb_cell;           // Design
     // Trace configuration
     m_contextp->traceEverOn(true);     // Turn on trace switch in context
     m_duvp->trace(m_tracep, 1);        // Set depth to 3
