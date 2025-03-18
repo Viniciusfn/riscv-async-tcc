@@ -1,0 +1,63 @@
+[*]
+[*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
+[*] Tue Mar 18 00:46:18 2025
+[*]
+[dumpfile] "/home/vini/riscv-async-tcc/workspace/wave_trace.vcd"
+[dumpfile_mtime] "Mon Mar 17 23:45:12 2025"
+[dumpfile_size] 10997
+[savefile] "/home/vini/riscv-async-tcc/workspace/ariscv_ctrlpath.gtkw"
+[timestart] 0
+[size] 1908 1047
+[pos] -1 -1
+*-11.717791 10000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] tb_ariscv_ctrlpath.
+[sst_width] 214
+[signals_width] 205
+[sst_expanded] 1
+[sst_vpaned_height] 309
+@28
+tb_ariscv_ctrlpath.dut.rst_async_n
+@800022
+tb_ariscv_ctrlpath.dut.o_aclk[5:0]
+@28
+(0)tb_ariscv_ctrlpath.dut.o_aclk[5:0]
+(1)tb_ariscv_ctrlpath.dut.o_aclk[5:0]
+(2)tb_ariscv_ctrlpath.dut.o_aclk[5:0]
+(3)tb_ariscv_ctrlpath.dut.o_aclk[5:0]
+(4)tb_ariscv_ctrlpath.dut.o_aclk[5:0]
+(5)tb_ariscv_ctrlpath.dut.o_aclk[5:0]
+@1001200
+-group_end
+@28
+tb_ariscv_ctrlpath.dut.req_J1_PC
+tb_ariscv_ctrlpath.dut.req_PC_F1
+tb_ariscv_ctrlpath.dut.req_F1_FD
+tb_ariscv_ctrlpath.dut.req_FD_J2
+tb_ariscv_ctrlpath.dut.req_J2_DE
+tb_ariscv_ctrlpath.dut.req_DE_EM
+tb_ariscv_ctrlpath.dut.req_EM_F2
+tb_ariscv_ctrlpath.dut.req_F2_MW
+tb_ariscv_ctrlpath.dut.req_MW_REG
+tb_ariscv_ctrlpath.dut.req_REG_J2
+@29
+tb_ariscv_ctrlpath.dut.req_F2_J1
+@28
+tb_ariscv_ctrlpath.dut.req_F1_L1
+tb_ariscv_ctrlpath.dut.req_L1_L2
+tb_ariscv_ctrlpath.dut.req_L2_J1
+tb_ariscv_ctrlpath.dut.ack_J1_PC
+tb_ariscv_ctrlpath.dut.ack_DE_EM
+tb_ariscv_ctrlpath.dut.ack_EM_F2
+tb_ariscv_ctrlpath.dut.ack_F1_FD
+tb_ariscv_ctrlpath.dut.ack_F1_L1
+tb_ariscv_ctrlpath.dut.ack_F2_J1
+tb_ariscv_ctrlpath.dut.ack_F2_MW
+tb_ariscv_ctrlpath.dut.ack_FD_J2
+tb_ariscv_ctrlpath.dut.ack_J2_DE
+tb_ariscv_ctrlpath.dut.ack_L1_L2
+tb_ariscv_ctrlpath.dut.ack_L2_J1
+tb_ariscv_ctrlpath.dut.ack_MW_REG
+tb_ariscv_ctrlpath.dut.ack_PC_F1
+tb_ariscv_ctrlpath.dut.ack_REG_J2
+[pattern_trace] 1
+[pattern_trace] 0

@@ -17,7 +17,7 @@ module ariscv_ctrlpath #(
    parameter INIT_DE       = 0,
    parameter INIT_EM       = 0,
    parameter INIT_MW       = 0,
-   parameter INIT_REG      = 0,
+   parameter INIT_REG      = 1,
    parameter INIT_LOOP1    = 0,
    parameter INIT_LOOP2    = 0
 )(
@@ -137,8 +137,8 @@ module ariscv_ctrlpath #(
    ) uu_cell_LOOP2 (
       .rst_n   (rst_async_n),
       .i_req   (req_L1_L2_delayed),
-      .i_ack   (req_L2_J1),
-      .o_req   (ack_L2_J1),
+      .i_ack   (ack_L2_J1),
+      .o_req   (req_L2_J1),
       .o_ack   (ack_L1_L2),
       .o_aclk  ()
    );

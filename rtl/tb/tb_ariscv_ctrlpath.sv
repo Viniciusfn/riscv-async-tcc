@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 1ns
 `define CLK_PERIOD 2 //ns
 
 module tb_ariscv_ctrlpath;
@@ -33,7 +33,6 @@ module tb_ariscv_ctrlpath;
       $display("~ ariscv_ctrlpath test start.");
 
       repeat(20)@(negedge clk);
-      
 
       $display("~ ariscv_ctrlpath test complete!");
    endtask
