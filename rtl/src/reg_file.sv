@@ -1,22 +1,22 @@
 module reg_file #(
    /* PARAMETERS */
-   parameter ADDR_NBW      = 5,
-   parameter DATA_NBW      = 32
+   parameter NBW_ADDR      = 5,
+   parameter NBW_DATA      = 32
 )(
    /* INTERFACE */
    input  logic                  clk,
    input  logic                  rst_async_n,
    input  logic                  i_wr_en,
-   input  logic [ADDR_NBW-1:0]   i_rd_addr_1,
-   input  logic [ADDR_NBW-1:0]   i_rd_addr_2,
-   input  logic [ADDR_NBW-1:0]   i_wr_addr_3,
-   input  logic [DATA_NBW-1:0]   i_wr_dt,
-   output logic [DATA_NBW-1:0]   o_rd_dt_1,
-   output logic [DATA_NBW-1:0]   o_rd_dt_2,
+   input  logic [NBW_ADDR-1:0]   i_rd_addr_1,
+   input  logic [NBW_ADDR-1:0]   i_rd_addr_2,
+   input  logic [NBW_ADDR-1:0]   i_wr_addr_3,
+   input  logic [NBW_DATA-1:0]   i_wr_dt,
+   output logic [NBW_DATA-1:0]   o_rd_dt_1,
+   output logic [NBW_DATA-1:0]   o_rd_dt_2
 );
 
    /* Local signals and parameters */
-   logic [DATA_NBW-1:0]    reg_dt [(2**ADDR_NBW)-1:0];
+   logic [NBW_DATA-1:0]    reg_dt [(2**NBW_ADDR)-1:0];
 
    /* Assignments */
    assign o_rd_dt_1 = reg_dt[i_rd_addr_1];
