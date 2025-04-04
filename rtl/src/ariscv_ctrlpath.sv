@@ -6,20 +6,20 @@ module ariscv_ctrlpath #(
    parameter DELAY_PC_FD   = 1,
    parameter DELAY_FD_DE   = 1,
    parameter DELAY_DE_EM   = 1,
+   parameter DELAY_DE_PC   = 1,
    parameter DELAY_EM_MW   = 1,
-   parameter DELAY_EM_PC   = 1,
    parameter DELAY_MW_REG  = 1,
    parameter DELAY_REG_DE  = 1,
    parameter DELAY_LOOP    = 1,
    // Initialization
-   parameter INIT_PC       = 1,
+   parameter INIT_PC       = 0,
    parameter INIT_FD       = 0,
-   parameter INIT_DE       = 0,
+   parameter INIT_DE       = 1,
    parameter INIT_EM       = 0,
    parameter INIT_MW       = 0,
    parameter INIT_REG      = 1,
    parameter INIT_LOOP1    = 0,
-   parameter INIT_LOOP2    = 0
+   parameter INIT_LOOP2    = 1
 )(
    /* INTERFACE */
    input  logic                  rst_async_n,
@@ -31,14 +31,14 @@ module ariscv_ctrlpath #(
    logic req_L1_L2, ack_L1_L2;
    logic req_L2_J1, ack_L2_J1;
    logic req_FD_J2, ack_FD_J2;
-   logic req_DE_EM, ack_DE_EM;
-   logic req_EM_F2, ack_EM_F2;
+   logic req_DE_F2, ack_DE_F2;
+   logic req_EM_MW, ack_EM_MW;
    logic req_MW_REG, ack_MW_REG;
    logic req_REG_J2, ack_REG_J2;
 
    logic req_F1_L1, ack_F1_L1;
    logic req_F1_FD, ack_F1_FD;
-   logic req_F2_MW, ack_F2_MW;
+   logic req_F2_EM, ack_F2_EM;
    logic req_F2_J1, ack_F2_J1;
    logic req_J1_PC, ack_J1_PC;
    logic req_J2_DE, ack_J2_DE;
@@ -46,13 +46,13 @@ module ariscv_ctrlpath #(
    logic req_L1_L2_delayed;
    logic req_L2_J1_delayed;
    logic req_FD_J2_delayed;
-   logic req_DE_EM_delayed;
+   logic req_EM_MW_delayed;
    logic req_MW_REG_delayed;
    logic req_REG_J2_delayed;
    logic req_F1_L1_delayed;
    logic req_F1_FD_delayed;
    logic req_F2_J1_delayed;
-   logic req_F2_MW_delayed;
+   logic req_F2_EM_delayed;
 
    /* WCHB cells */
    wchb_cell #(
@@ -82,8 +82,8 @@ module ariscv_ctrlpath #(
    ) uu_cell_DE (
       .rst_n   (rst_async_n),
       .i_req   (req_J2_DE),
-      .i_ack   (ack_DE_EM),
-      .o_req   (req_DE_EM),
+      .i_ack   (ack_DE_F2),
+      .o_req   (req_DE_F2),
       .o_ack   (ack_J2_DE),
       .o_aclk  (o_aclk[2])
    );
@@ -92,10 +92,10 @@ module ariscv_ctrlpath #(
       .INIT    (INIT_EM)
    ) uu_cell_EM (
       .rst_n   (rst_async_n),
-      .i_req   (req_DE_EM_delayed),
-      .i_ack   (ack_EM_F2),
-      .o_req   (req_EM_F2),
-      .o_ack   (ack_DE_EM),
+      .i_req   (req_F2_EM_delayed),
+      .i_ack   (ack_EM_MW),
+      .o_req   (req_EM_MW),
+      .o_ack   (ack_F2_EM),
       .o_aclk  (o_aclk[3])
    );
 
@@ -103,10 +103,10 @@ module ariscv_ctrlpath #(
       .INIT    (INIT_MW)
    ) uu_cell_MW (
       .rst_n   (rst_async_n),
-      .i_req   (req_F2_MW_delayed),
+      .i_req   (req_EM_MW_delayed),
       .i_ack   (ack_MW_REG),
       .o_req   (req_MW_REG),
-      .o_ack   (ack_F2_MW),
+      .o_ack   (ack_EM_MW),
       .o_aclk  (o_aclk[4])
    );
 
@@ -160,12 +160,12 @@ module ariscv_ctrlpath #(
       .INIT    (0)
    ) uu_fork_F2 (
       .rst_n   (rst_async_n),
-      .i_req   (req_EM_F2),
-      .o_ack   (ack_EM_F2),
+      .i_req   (req_DE_F2),
+      .o_ack   (ack_DE_F2),
       .o_req_0 (req_F2_J1),
       .i_ack_0 (ack_F2_J1),
-      .o_req_1 (req_F2_MW),
-      .i_ack_1 (ack_F2_MW)
+      .o_req_1 (req_F2_EM),
+      .i_ack_1 (ack_F2_EM)
    );
 
    wchb_join #(
@@ -201,6 +201,13 @@ module ariscv_ctrlpath #(
    );
 
    delay #(
+      .DELAY   (DELAY_PC_FD)
+   ) uu_dly_PC_FD (
+      .i_data  (req_F1_FD),
+      .o_data  (req_F1_FD_delayed)
+   );
+
+   delay #(
       .DELAY   (DELAY_LOOP)
    ) uu_dly_L1_L2 (
       .i_data  (req_L1_L2),
@@ -222,10 +229,24 @@ module ariscv_ctrlpath #(
    );
 
    delay #(
+      .DELAY   (DELAY_DE_PC)
+   ) uu_dly_DE_PC (
+      .i_data  (req_F2_J1),
+      .o_data  (req_F2_J1_delayed)
+   );
+
+   delay #(
       .DELAY   (DELAY_DE_EM)
    ) uu_dly_DE_EM (
-      .i_data  (req_DE_EM),
-      .o_data  (req_DE_EM_delayed)
+      .i_data  (req_F2_EM),
+      .o_data  (req_F2_EM_delayed)
+   );
+
+   delay #(
+      .DELAY   (DELAY_EM_MW)
+   ) uu_dly_EM_MW (
+      .i_data  (req_EM_MW),
+      .o_data  (req_EM_MW_delayed)
    );
 
    delay #(
@@ -240,27 +261,6 @@ module ariscv_ctrlpath #(
    ) uu_dly_REG_J2 (
       .i_data  (req_REG_J2),
       .o_data  (req_REG_J2_delayed)
-   );
-
-   delay #(
-      .DELAY   (DELAY_PC_FD)
-   ) uu_dly_F1_FD (
-      .i_data  (req_F1_FD),
-      .o_data  (req_F1_FD_delayed)
-   );
-
-   delay #(
-      .DELAY   (DELAY_EM_PC)
-   ) uu_dly_F2_J1 (
-      .i_data  (req_F2_J1),
-      .o_data  (req_F2_J1_delayed)
-   );
-
-   delay #(
-      .DELAY   (DELAY_EM_MW)
-   ) uu_dly_F2_MW (
-      .i_data  (req_F2_MW),
-      .o_data  (req_F2_MW_delayed)
    );
 
 endmodule
