@@ -26,6 +26,9 @@ module ariscv_exec #(
    output logic [NBW_REGISTER-1:0]  o_writeData,
    output logic [NBW_ADDR-1:0]      o_wr_addr_reg,
    output logic [NBW_PC-1:0]        o_pc_plus4_em,
+   output logic                     o_regWrite,
+   output logic [1:0]               o_resultSrc,
+   output logic                     o_memWrite,
    // TO PC
    output logic [NBW_PC-1:0]        o_pcTarget,
    output logic                     o_PCSrc
@@ -43,6 +46,9 @@ module ariscv_exec #(
    assign o_writeData = writeData_ff;
    assign o_wr_addr_reg = wr_addr_reg_ff;
    assign o_pc_plus4_em = pc_plus4_em_ff;
+   assign o_regWrite  = i_regWrite;
+   assign o_resultSrc = i_resultSrc;
+   assign o_memWrite  = i_memWrite;
 
    /* Assignments */
    assign alu_srcB_w = (i_aluSrc) ? i_immExt : i_rd2;
