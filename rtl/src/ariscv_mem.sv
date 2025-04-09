@@ -1,6 +1,5 @@
 module ariscv_mem #(
    /* PARAMETERS */
-   parameter DT_MEM_SIZE         = 256,
    parameter NBW_REGISTER        = 32,
    parameter NBW_ADDR            = 5,
    parameter NBW_PC              = 32
@@ -22,11 +21,21 @@ module ariscv_mem #(
    output logic [NBW_ADDR-1:0]      o_wr_addr_reg,
    output logic [NBW_PC-1:0]        o_pc_plus4,
    output logic                     o_regWrite,
-   output logic [1:0]               o_resultSrc
+   output logic [1:0]               o_resultSrc,
+   // DATA MEMORY
+   output logic [NBW_REGISTER-1:0]  o_writeData,
+   output logic [NBW_ADDR-1:0]      o_writeAddr,
+   output logic                     o_memWrite,
+   output logic [NBW_REGISTER-1:0]  i_readData
 );
 
    /* Local signals and parameters */
    logic [NBW_REGISTER-1:0]   readData_w;
+
+   /* Assignments */
+   assign o_writeData = i_writeData;
+   assign o_writeAddr = i_aluResult;
+   assign o_memWrite = i_memWrite;
 
    /* FF */
    always_ff @( posedge aclk or negedge rst_async_n ) begin : mw_reg
@@ -40,25 +49,12 @@ module ariscv_mem #(
       end
       else begin
          o_aluResult    <= i_aluResult;
-         o_readData     <= readData_w;
+         o_readData     <= i_readData;
          o_wr_addr_reg  <= i_wr_addr_reg;
          o_pc_plus4     <= i_pc_plus4;
          o_regWrite     <= i_regWrite;
          o_resultSrc    <= i_resultSrc;
       end
    end
-
-   /* Memory */
-   dt_mem_model #(
-      .MEM_SIZE      (DT_MEM_SIZE),
-      .NBW_DATA      (NBW_REGISTER),
-      .NBW_ADDR      (NBW_REGISTER)
-   ) uu_dt_mem (
-      .aclk          (aclk),
-      .i_writeData   (i_writeData),
-      .i_writeAddr   (i_aluResult),
-      .i_memWrite    (i_memWrite),
-      .o_readData    (readData_w)
-   );
 
 endmodule
