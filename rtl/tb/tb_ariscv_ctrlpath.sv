@@ -21,15 +21,12 @@ module tb_ariscv_ctrlpath;
    );
 
    /* TB SIGNALS */
-   integer i;
 
    /* CLOCKS */
    always #`CLK_PERIOD clk = ~clk;
 
    /* TASKS */
    task test_ariscv_ctrlpath(inout integer err_count);
-      integer i;
-
       $display("~ ariscv_ctrlpath test start.");
 
       repeat(20)@(negedge clk);

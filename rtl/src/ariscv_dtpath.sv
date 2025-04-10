@@ -5,7 +5,6 @@ module ariscv_dtpath #(
    parameter NBW_REGISTER  = 32,
    parameter NBW_ADDR      = 32,
    parameter NBW_PC        = 32
-   
 )(
    /* INTERFACE */
    input  logic [ACLK_NBW-1:0]   i_aclk,
@@ -96,8 +95,8 @@ module ariscv_dtpath #(
       .rst_async_n      (rst_async_n),
       // FROM FETCH
       .i_inst           (inst),
-      .i_pc_fd          (pc_fd),
-      .i_pc_plus4_fd    (pc_plus4_fd),
+      .i_pc             (pc_fd),
+      .i_pc_plus4       (pc_plus4_fd),
       // FROM WRITEBACK
       .i_wr_dt_reg      (wr_dt_reg),
       .i_wr_addr_reg    (wr_addr_reg_wd),

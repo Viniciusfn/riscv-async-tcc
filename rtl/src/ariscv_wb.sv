@@ -15,8 +15,7 @@ module ariscv_wb #(
    // TO DECODE
    output logic [NBW_REGISTER-1:0]        o_result,
    output logic [NBW_ADDR-1:0]            o_wr_addr_reg,
-   output logic                           o_regWrite,
-
+   output logic                           o_regWrite
 );
 
    /* Output Assignments */
