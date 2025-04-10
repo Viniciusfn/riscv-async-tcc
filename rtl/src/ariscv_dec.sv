@@ -11,8 +11,8 @@ module ariscv_dec #(
    input  logic                     rst_async_n,
    // FROM FETCH
    input  logic [NBW_INST-1:0]      i_inst,
-   input  logic [NBW_PC-1:0]        i_pc_fd,
-   input  logic [NBW_PC-1:0]        i_pc_plus4_fd,
+   input  logic [NBW_PC-1:0]        i_pc,
+   input  logic [NBW_PC-1:0]        i_pc_plus4,
    // FROM WRITEBACK
    input  logic [NBW_REGISTER-1:0]  i_wr_dt_reg,
    input  logic [NBW_ADDR-1:0]      i_wr_addr_reg,
@@ -22,8 +22,8 @@ module ariscv_dec #(
    output logic [NBW_REGISTER-1:0]  o_rd2,
    output logic [NBW_REGISTER-1:0]  o_immExt,
    output logic [NBW_ADDR-1:0]      o_wr_addr_reg,
-   output logic [NBW_PC-1:0]        o_pc_de,
-   output logic [NBW_PC-1:0]        o_pc_plus4_de,
+   output logic [NBW_PC-1:0]        o_pc,
+   output logic [NBW_PC-1:0]        o_pc_plus4,
    output logic                     o_regWrite,
    output logic [1:0]               o_resultSrc,
    output logic                     o_memWrite,
@@ -59,15 +59,15 @@ module ariscv_dec #(
          rd2_ff         <= '0;
          immExt_ff      <= '0;
          o_wr_addr_reg  <= '0;
-         o_pc_de        <= '0;
-         o_pc_plus4_de  <= '0;
+         o_pc           <= '0;
+         o_pc_plus4     <= '0;
       end
       else begin
          rd1_ff         <= rd1_w;
          rd2_ff         <= rd2_w;
          o_wr_addr_reg  <= i_inst[11:7];
-         o_pc_de        <= i_pc_fd;
-         o_pc_plus4_de  <= i_pc_plus4_fd;
+         o_pc           <= i_pc;
+         o_pc_plus4     <= i_pc_plus4;
          o_regWrite     <= regWrite_w;
          o_resultSrc    <= resultSrc_w;
          o_memWrite     <= memWrite_w;

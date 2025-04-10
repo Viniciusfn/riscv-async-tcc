@@ -16,7 +16,7 @@ module ariscv_fetch #(
    output logic [NBW_INST-1:0]   o_inst,
    // INSTR MEM
    input  logic [NBW_INST-1:0]   i_inst,
-   output logic [NBW_PC-1:0]     o_pc
+   output logic [NBW_PC-1:0]     o_pc_mem
 );
 
    /* Local signals and parameters */
@@ -29,7 +29,7 @@ module ariscv_fetch #(
    logic [NBW_INST-1:0]    inst_ff;
 
    /* Output Assignments */
-   assign o_pc = pc_ff;
+   assign o_pc_mem = pc_ff;
    assign o_inst = inst_ff;
    assign o_pc_fd = pc_fd_ff;
    assign o_pc_plus4 = pc_plus4_ff;
