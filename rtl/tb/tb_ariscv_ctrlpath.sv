@@ -5,16 +5,16 @@ module tb_ariscv_ctrlpath;
 
    /* PARAMETERS */
    // RB
-   parameter ACLK_NBW         = 6;
+   parameter NBW_ACLK         = 6;
 
    /* INTERFACE */
    logic                      clk;
    logic                      rst_async_n;
-   logic [ACLK_NBW-1:0]       o_aclk;
+   logic [NBW_ACLK-1:0]       o_aclk;
 
    /* DUT */
    ariscv_ctrlpath #(
-      .ACLK_NBW               (ACLK_NBW)
+      .NBW_ACLK               (NBW_ACLK)
    ) dut (
       .rst_async_n            (rst_async_n),
       .o_aclk                 (o_aclk)

@@ -1,7 +1,7 @@
 module ariscv_ctrlpath #(
    /* PARAMETERS */
    //
-   parameter ACLK_NBW      = 6,
+   parameter NBW_ACLK      = 6,
    // Delays: DELAY_Source_Receiver
    parameter DELAY_PC_FD   = 1,
    parameter DELAY_FD_DE   = 1,
@@ -23,7 +23,7 @@ module ariscv_ctrlpath #(
 )(
    /* INTERFACE */
    input  logic                  rst_async_n,
-   output logic [ACLK_NBW-1:0]   o_aclk
+   output logic [NBW_ACLK-1:0]   o_aclk
 );
 
    /* Local signals and parameters */

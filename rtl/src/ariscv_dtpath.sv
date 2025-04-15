@@ -1,13 +1,13 @@
 module ariscv_dtpath #(
    /* PARAMETERS */
-   parameter ACLK_NBW      = 6,
+   parameter NBW_ACLK      = 6,
    parameter NBW_INST      = 32,
    parameter NBW_REGISTER  = 32,
    parameter NBW_ADDR      = 32,
    parameter NBW_PC        = 32
 )(
    /* INTERFACE */
-   input  logic [ACLK_NBW-1:0]   i_aclk,
+   input  logic [NBW_ACLK-1:0]   i_aclk,
    input  logic                  rst_async_n,
 
    // INSTR MEM
