@@ -1,5 +1,5 @@
 module c_element #(
-   parameter INIT = 0 //Init. value: 1 = set; 0 = reset
+   parameter bit INIT = 0 //Init. value: 1 = set; 0 = reset
 )(
    input  logic a,
    input  logic b,

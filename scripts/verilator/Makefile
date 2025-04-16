@@ -1,11 +1,12 @@
 ROOT_DIR 	:= /home/vini/riscv-async-tcc
-TB_NAME  	:= tb_ariscv_ctrlpath
+TB_NAME  	:= tb_ariscv
 SRC_DIR  	:= $(ROOT_DIR)/rtl/src
 TB_DIR		:= $(ROOT_DIR)/rtl/tb
 SRC_FILE 	:= $(shell find $(SRC_DIR) -name '*.sv') '$(TB_DIR)/$(TB_NAME).sv'
 CPP_WRAPPER	:= --main #$(ROOT_DIR)/scripts/verilator/sim_main.cpp 
 WAVE_FILE	:= wave_trace.vcd
-COMP_FLAGS 	:= --cc -Wall -Wno-fatal -Wno-TIMESCALEMOD --assert --exe --trace --trace-structs --build --timing
+NO_WARNINGS := -Wno-fatal -Wno-TIMESCALEMOD -Wno-UNOPTFLAT -Wno-IMPORTSTAR -Wno-VARHIDDEN
+COMP_FLAGS 	:= --cc -Wall $(NO_WARNINGS) --assert --exe --trace --trace-structs --build --timing 
 
 .PHONY: all compile run clean
 

@@ -11,13 +11,14 @@ module inst_mem_model #(
 );
 
    /* Local signals and parameters */
-   logic [NBW_INST:0] memory [MEM_SIZE-1:0];
+   logic [NBW_INST-1:0] memory [MEM_SIZE-1:0];
 
    always_comb begin
-      o_inst = memory[i_pc[31:2]];
+      o_inst = memory[i_pc[$clog2(MEM_SIZE)+1:2]];
       if(i_pc!=32'hfffffffc) begin
-         $display("\n==> PC: %h", i_pc); //DEBUG
-         $display("==> Loaded instruction: %h", memory[i_pc[31:2]]); //DEBUG
+         $display("\n------ Inst-Mem access ------");
+         $display("==> PC: %h", i_pc);
+         $display("==> Loaded instruction: %h", memory[i_pc[$clog2(MEM_SIZE)+1:2]]);
       end
    end
 

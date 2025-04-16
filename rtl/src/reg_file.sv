@@ -20,13 +20,12 @@ module reg_file #(
 
    /* Assignments */
    assign o_rd_dt_1 = reg_dt[i_rd_addr_1];
-   assign o_rd_dt_2 = reg_dt[i_rd_addr_1];
-
+   assign o_rd_dt_2 = reg_dt[i_rd_addr_2];
 
    /* FF */
    always_ff @( posedge clk or negedge rst_async_n ) begin
       if(!rst_async_n) begin
-         reg_dt <= '0;
+         reg_dt <= '{default: {NBW_DATA{1'b0}}};
       end
       else if (i_wr_en && (i_wr_addr_3 != '0)) begin
          reg_dt[i_wr_addr_3] <= i_wr_dt;

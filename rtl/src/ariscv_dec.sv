@@ -61,20 +61,25 @@ module ariscv_dec #(
          o_wr_addr_reg  <= '0;
          o_pc           <= '0;
          o_pc_plus4     <= '0;
+         o_jump         <= '0;
+         o_branch       <= '0;
+         o_aluControl   <= '0;
+         o_aluSrc       <= '0;
       end
       else begin
          rd1_ff         <= rd1_w;
          rd2_ff         <= rd2_w;
+         immExt_ff      <= immExt_w;
          o_wr_addr_reg  <= i_inst[11:7];
          o_pc           <= i_pc;
          o_pc_plus4     <= i_pc_plus4;
-         o_regWrite     <= regWrite_w;
-         o_resultSrc    <= resultSrc_w;
-         o_memWrite     <= memWrite_w;
          o_jump         <= jump_w;
          o_branch       <= branch_w;
          o_aluControl   <= aluControl_w;
          o_aluSrc       <= aluSrc_w;
+         o_memWrite     <= memWrite_w;
+         o_regWrite     <= regWrite_w;
+         o_resultSrc    <= resultSrc_w;
       end
    end
    
@@ -89,7 +94,7 @@ module ariscv_dec #(
       .i_wr_en       (i_wr_en_reg),
       .i_rd_addr_1   (i_inst[19:15]),
       .i_rd_addr_2   (i_inst[24:20]),
-      .i_wr_addr_3   (i_wr_dt_addr),
+      .i_wr_addr_3   (i_wr_addr_reg),
       .i_wr_dt       (i_wr_dt_reg),
       .o_rd_dt_1     (rd1_w),
       .o_rd_dt_2     (rd2_w)

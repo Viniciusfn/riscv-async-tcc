@@ -86,7 +86,7 @@ module ctrl_unit #(
             o_immSrc = 2'bxx;
             o_aluSrc = 1'bx;
             o_memWrite = 1'bx;
-            o_resultSrc = 1'bx;
+            o_resultSrc = 2'bxx;
             o_branch = 1'bx;
             ALUOp_w = 2'bxx;
             o_jump = 1'bx;

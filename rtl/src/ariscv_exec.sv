@@ -39,24 +39,24 @@ module ariscv_exec #(
    logic  [NBW_REGISTER-1:0]        aluResult_w, aluResult_ff;
    logic  [NBW_REGISTER-1:0]        writeData_w, writeData_ff;
    logic  [NBW_ADDR-1:0]            wr_addr_reg_w, wr_addr_reg_ff;
-   logic  [NBW_PC-1:0]              pc_plus4_em_w, pc_plus4_em_ff;
+   logic  [NBW_PC-1:0]              pc_plus4_w, pc_plus4_ff;
 
    /* Output Assignments */
    assign o_aluResult = aluResult_ff;
    assign o_writeData = writeData_ff;
    assign o_wr_addr_reg = wr_addr_reg_ff;
-   assign o_pc_plus4_em = pc_plus4_em_ff;
+   assign o_pc_plus4 = pc_plus4_ff;
    assign o_regWrite  = i_regWrite;
    assign o_resultSrc = i_resultSrc;
    assign o_memWrite  = i_memWrite;
 
    /* Assignments */
    assign alu_srcB_w = (i_aluSrc) ? i_immExt : i_rd2;
-   assign o_pcTarget = i_immExt + i_pc_de;
+   assign o_pcTarget = i_immExt + i_pc;
    assign o_PCSrc = i_jump || (i_branch && zero_w);
    assign writeData_w = i_rd2;
    assign wr_addr_reg_w = i_wr_addr_reg;
-   assign pc_plus4_em_w = i_pc_plus4_de;
+   assign pc_plus4_w = i_pc_plus4;
 
    /* FF */
    always_ff @(posedge em_aclk or negedge rst_async_n) begin : em_reg
@@ -64,13 +64,13 @@ module ariscv_exec #(
          aluResult_ff <= '0;
          writeData_ff <= '0;
          wr_addr_reg_ff <= '0;
-         pc_plus4_em_ff <= '0;
+         pc_plus4_ff <= '0;
       end
       else begin
          aluResult_ff <= aluResult_w;
          writeData_ff <= writeData_w;
          wr_addr_reg_ff <= wr_addr_reg_w;
-         pc_plus4_em_ff <= pc_plus4_em_w;
+         pc_plus4_ff <= pc_plus4_w;
       end
    end
 

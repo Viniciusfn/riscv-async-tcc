@@ -15,11 +15,11 @@ module ariscv_dtpath #(
    output logic [NBW_PC-1:0]     o_pc,
 
    // DATA MEM
-   output logic                  o_mem_clk,
-   output logic [NBW_DATA-1:0]   o_writeData,
-   output logic [NBW_ADDR-1:0]   o_writeAddr,
-   output logic                  o_memWrite,
-   output logic [NBW_DATA-1:0]   i_readData
+   output logic                     o_mem_clk,
+   output logic [NBW_REGISTER-1:0]  o_writeData,
+   output logic [NBW_REGISTER-1:0]  o_writeAddr,
+   output logic                     o_memWrite,
+   input  logic [NBW_REGISTER-1:0]  i_readData
 );
    /* Local signals and parameters */
    // EXECUTE-FETCH
@@ -63,6 +63,9 @@ module ariscv_dtpath #(
    logic                     regWrite_mw;
    logic [1:0]               resultSrc_mw;
    /**/
+
+   /* OUTPUT ASSIGNMENTS */
+   assign o_mem_clk = i_aclk[4];
 
    /* Instances */
    ariscv_fetch #(
@@ -186,16 +189,16 @@ module ariscv_dtpath #(
       .NBW_ADDR      (NBW_ADDR)
    ) uu_wb (
       // FROM MEM
-      .i_readData    (aluResult_mw),
-      .i_aluResult   (readData),
-      .i_pc_plus4    (wr_addr_reg_mw),
-      .o_wr_addr_reg (pc_plus4_mw),
-      .i_regWrite    (regWrite_mw),
-      .i_resultSrc   (resultSrc_mw),
+      .i_readData       (aluResult_mw),
+      .i_aluResult      (readData),
+      .i_pc_plus4       (pc_plus4_mw),
+      .i_wr_addr_reg    (wr_addr_reg_mw),
+      .i_regWrite       (regWrite_mw),
+      .i_resultSrc      (resultSrc_mw),
       // TO DECODE
-      .o_result      (wr_dt_reg),
-      .o_wr_addr_reg (wr_addr_reg_wd),
-      .o_regWrite    (wr_en_reg)
+      .o_result         (wr_dt_reg),
+      .o_wr_addr_reg    (wr_addr_reg_wd),
+      .o_regWrite       (wr_en_reg)
    );
 
 endmodule

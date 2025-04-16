@@ -35,7 +35,7 @@ module ariscv_fetch #(
    assign o_pc_plus4 = pc_plus4_ff;
 
    /* PC logic */
-   assign pc_plus4_w = pc_ff + 3'd4;
+   assign pc_plus4_w = pc_ff + {{(NBW_PC-3){1'b0}}, 3'd4};
    assign next_pc_w = (i_pc_src) ?i_pc_target :o_pc_plus4;
 
    /* FF */

@@ -18,14 +18,14 @@ module dt_mem_model #(
    /* Memory */
    always_ff @(posedge aclk) begin
       if (i_memWrite) begin
-         mem[i_writeAddr[31:2]] <= i_writeData;
+         mem[i_writeAddr[$clog2(MEM_SIZE)+1:2]] <= i_writeData;
       end
       else begin
-         mem[i_writeAddr[31:2]] <= mem[i_writeAddr[31:2]];
+         mem[i_writeAddr[$clog2(MEM_SIZE)+1:2]] <= mem[i_writeAddr[$clog2(MEM_SIZE)+1:2]];
       end
    end
 
-   assign o_readData = mem[i_writeAddr[31:2]];
+   assign o_readData = mem[i_writeAddr[$clog2(MEM_SIZE)+1:2]];
    
 
 endmodule

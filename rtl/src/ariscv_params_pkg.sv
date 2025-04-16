@@ -14,14 +14,14 @@ package ariscv_params_pkg;
       int DELAY_REG_DE;
       int DELAY_LOOP;
          // Initialization
-      int INIT_PC;
-      int INIT_FD;
-      int INIT_DE;
-      int INIT_EM;
-      int INIT_MW;
-      int INIT_REG;
-      int INIT_LOOP1;
-      int INIT_LOOP2;
+      bit INIT_PC;
+      bit INIT_FD;
+      bit INIT_DE;
+      bit INIT_EM;
+      bit INIT_MW;
+      bit INIT_REG;
+      bit INIT_LOOP1;
+      bit INIT_LOOP2;
 
       // DTPATH
       int NBW_INST;
@@ -56,7 +56,7 @@ package ariscv_params_pkg;
       // DTPATH
       NBW_INST       : 32,
       NBW_REGISTER   : 32,
-      NBW_ADDR       : 32,
+      NBW_ADDR       : 5,
       NBW_PC         : 32
    };
 

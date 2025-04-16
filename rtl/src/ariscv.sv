@@ -11,11 +11,11 @@ module ariscv #(
    output logic [ARISCV_PARAMS.NBW_PC-1:0]      o_pc,
 
    // DATA MEM
-   output logic                                 o_mem_clk,
-   output logic [ARISCV_PARAMS.NBW_DATA-1:0]    o_writeData,
-   output logic [ARISCV_PARAMS.NBW_ADDR-1:0]    o_writeAddr,
-   output logic                                 o_memWrite,
-   output logic [ARISCV_PARAMS.NBW_DATA-1:0]    i_readData
+   output logic                                    o_mem_clk,
+   output logic [ARISCV_PARAMS.NBW_REGISTER-1:0]   o_writeData,
+   output logic [ARISCV_PARAMS.NBW_REGISTER-1:0]   o_writeAddr,
+   output logic                                    o_memWrite,
+   input  logic [ARISCV_PARAMS.NBW_REGISTER-1:0]   i_readData
 );
    /* Local signals and parameters */
    logic [ARISCV_PARAMS.NBW_ACLK-1:0]   aclk;

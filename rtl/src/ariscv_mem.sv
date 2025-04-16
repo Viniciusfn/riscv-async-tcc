@@ -24,14 +24,10 @@ module ariscv_mem #(
    output logic [1:0]               o_resultSrc,
    // DATA MEMORY
    output logic [NBW_REGISTER-1:0]  o_writeData,
-   output logic [NBW_ADDR-1:0]      o_writeAddr,
+   output logic [NBW_REGISTER-1:0]  o_writeAddr,
    output logic                     o_memWrite,
-   output logic [NBW_REGISTER-1:0]  i_readData
+   input  logic [NBW_REGISTER-1:0]  i_readData
 );
-
-   /* Local signals and parameters */
-   logic [NBW_REGISTER-1:0]   readData_w;
-
    /* Assignments */
    assign o_writeData = i_writeData;
    assign o_writeAddr = i_aluResult;

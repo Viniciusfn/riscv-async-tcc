@@ -9,7 +9,7 @@ module ariscv_wb #(
    input  logic [NBW_REGISTER-1:0]        i_readData,
    input  logic [NBW_REGISTER-1:0]        i_aluResult,
    input  logic [NBW_PC-1:0]              i_pc_plus4,
-   input  logic [NBW_ADDR-1:0]            o_wr_addr_reg,
+   input  logic [NBW_ADDR-1:0]            i_wr_addr_reg,
    input  logic                           i_regWrite,
    input  logic [1:0]                     i_resultSrc,
    // TO DECODE
