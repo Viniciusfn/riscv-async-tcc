@@ -1,13 +1,14 @@
-`timescale 1ns / 1ps
+`timescale 1ns / 1ns
 
 import ariscv_params_pkg::*;
 
 module tb_ariscv;
 
    /* PARAMETERS */
-   parameter FILE_NAME = "../mem/inst_mem";
-   parameter INST_MEM_SIZE = 256;
-   parameter DT_MEM_SIZE = 256;
+   localparam FILE_NAME = "../mem/inst_mem";
+   localparam INST_MEM_SIZE = 256;
+   localparam DT_MEM_SIZE = 256;
+   localparam VERBOSE = 0; 
 
    /* INTERFACE */
    logic                                 rst_async_n;
@@ -42,7 +43,8 @@ module tb_ariscv;
       .FILE_NAME  (FILE_NAME),
       .MEM_SIZE   (INST_MEM_SIZE),
       .NBW_INST   (ARISCV_PARAMS.NBW_INST),
-      .NBW_PC     (ARISCV_PARAMS.NBW_PC)
+      .NBW_PC     (ARISCV_PARAMS.NBW_PC),
+      .VERBOSE    (VERBOSE)
    ) uu_inst_mem (
       .i_pc       (pc),
       .o_inst     (inst)
@@ -74,13 +76,15 @@ module tb_ariscv;
    /* TEST SEQUENCE */
    initial begin
       static integer err_count = 0;
+      $dumpfile("wave_trace.vcd");
+      $dumpvars(0, tb_ariscv);
 
       /* INITIALIZING */
       rst_async_n = 1'b1;
 
       /* RESET */
-      rst_async_n = 0;
-      #100 rst_async_n = 1;
+      #10 rst_async_n = 0;
+      #10 rst_async_n = 1;
 
       $display("==> Testbench start...\n");
 
