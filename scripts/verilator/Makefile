@@ -6,7 +6,8 @@ SRC_FILE 	:= $(shell find $(SRC_DIR) -name '*.sv') '$(TB_DIR)/$(TB_NAME).sv'
 CPP_WRAPPER	:= --main #$(ROOT_DIR)/scripts/verilator/sim_main.cpp 
 WAVE_FILE	:= wave_trace.vcd
 NO_WARNINGS := -Wno-fatal -Wno-TIMESCALEMOD -Wno-UNOPTFLAT -Wno-IMPORTSTAR -Wno-VARHIDDEN
-COMP_FLAGS 	:= --cc -Wall $(NO_WARNINGS) --assert --exe --trace --trace-structs --build --timing 
+COMP_FLAGS 	:= --cc -Wall $(NO_WARNINGS) --assert --exe --trace --trace-structs --build --timing
+GTKWFILE 	:= wave_view.gtkw
 
 .PHONY: all compile run clean
 
@@ -19,7 +20,7 @@ run: compile
 	./obj_dir/V$(TB_NAME)
 
 debug:
-	gtkwave $(WAVE_FILE)
+	gtkwave $(WAVE_FILE) -a $(GTKWFILE)
 
 clean:
 	rm -rf obj_dir $(WAVE_FILE)

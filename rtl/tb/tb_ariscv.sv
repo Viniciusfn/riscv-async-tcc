@@ -67,7 +67,9 @@ module tb_ariscv;
 
       $display("~ test_basic test start.");
 
-      #1000     
+      repeat(3) @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
+      assert(dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[4] == 'hF);
+
 
       $display("~ test_basic test complete!");
 

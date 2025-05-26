@@ -57,7 +57,7 @@ module ariscv_dtpath #(
    logic                     memWrite_em;
    // MEMORY-WRITEBACK
    logic [NBW_REGISTER-1:0]  aluResult_mw;
-   logic [NBW_REGISTER-1:0]  readData;
+   logic [NBW_REGISTER-1:0]  readData_mw;
    logic [NBW_ADDR-1:0]      wr_addr_reg_mw;
    logic [NBW_PC-1:0]        pc_plus4_mw;
    logic                     regWrite_mw;
@@ -171,7 +171,7 @@ module ariscv_dtpath #(
       .i_memWrite    (memWrite_em),
       // TO WB
       .o_aluResult   (aluResult_mw),
-      .o_readData    (readData),
+      .o_readData    (readData_mw),
       .o_wr_addr_reg (wr_addr_reg_mw),
       .o_pc_plus4    (pc_plus4_mw),
       .o_regWrite    (regWrite_mw),
@@ -189,8 +189,8 @@ module ariscv_dtpath #(
       .NBW_ADDR      (NBW_ADDR)
    ) uu_wb (
       // FROM MEM
-      .i_readData       (aluResult_mw),
-      .i_aluResult      (readData),
+      .i_readData       (readData_mw),
+      .i_aluResult      (aluResult_mw),
       .i_pc_plus4       (pc_plus4_mw),
       .i_wr_addr_reg    (wr_addr_reg_mw),
       .i_regWrite       (regWrite_mw),
