@@ -1,10 +1,10 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon May 26 23:14:00 2025
+[*] Mon May 26 23:38:00 2025
 [*]
 [dumpfile] "/home/vini/riscv-async-tcc/workspace/wave_trace.vcd"
-[dumpfile_mtime] "Mon May 26 23:11:26 2025"
-[dumpfile_size] 27810
+[dumpfile_mtime] "Mon May 26 23:37:43 2025"
+[dumpfile_size] 30220
 [savefile] "/home/vini/riscv-async-tcc/workspace/wave_view.gtkw"
 [timestart] 0
 [size] 1908 1047
@@ -15,17 +15,16 @@
 [treeopen] tb_ariscv.dut.
 [treeopen] tb_ariscv.dut.uu_dtpath.
 [treeopen] tb_ariscv.dut.uu_dtpath.uu_dec.
-[sst_width] 280
-[signals_width] 166
+[sst_width] 232
+[signals_width] 242
 [sst_expanded] 1
 [sst_vpaned_height] 309
 @28
 tb_ariscv.dut.rst_async_n
 @800022
 tb_ariscv.dut.aclk[5:0]
-@29
-(0)tb_ariscv.dut.aclk[5:0]
 @28
+(0)tb_ariscv.dut.aclk[5:0]
 (1)tb_ariscv.dut.aclk[5:0]
 (2)tb_ariscv.dut.aclk[5:0]
 (3)tb_ariscv.dut.aclk[5:0]
@@ -39,8 +38,9 @@ tb_ariscv.dut.i_inst[31:0]
 @28
 tb_ariscv.dut.o_mem_clk
 tb_ariscv.dut.o_memWrite
-@22
+@23
 tb_ariscv.dut.o_writeData[31:0]
+@22
 tb_ariscv.dut.o_writeAddr[31:0]
 tb_ariscv.dut.i_readData[31:0]
 tb_ariscv.dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[1][31:0]

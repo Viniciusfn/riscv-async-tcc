@@ -66,11 +66,18 @@ module tb_ariscv;
    task test_basic(inout integer err_count);
 
       $display("~ test_basic test start.");
+      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
 
-      repeat(3) @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
+      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
       assert(dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[4] == 'hF);
+      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
+      assert(dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[1] == 'h19);
+      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
+      assert(dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[2] == 'h28);
+      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
+      assert(dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[3] == 'h28);
 
-
+      #10
       $display("~ test_basic test complete!");
 
    endtask
