@@ -9,23 +9,44 @@ module dt_mem_model #(
    input  logic [NBW_DATA-1:0]   i_writeData,
    input  logic [NBW_ADDR-1:0]   i_writeAddr,
    input  logic                  i_memWrite,
+   input  logic [2:0]            i_writeWidth,
    output logic [NBW_DATA-1:0]   o_readData
 );
 
    /* Local signals and parameters */
    logic [NBW_DATA-1:0] mem [MEM_SIZE-1:0];
+   logic [$clog2(MEM_SIZE)+1:2]  word_addr_w;
+   logic                         half_word_addr_w;
+   logic                         byte_addr_w;
+
+   /* Assignments */
+   assign word_addr_w = i_writeAddr[$clog2(MEM_SIZE)+1:2];
+   assign half_word_addr_w = i_writeAddr[1];
+   assign byte_addr_w = i_writeAddr[0];
 
    /* Memory */
    always_ff @(posedge aclk) begin
       if (i_memWrite) begin
-         mem[i_writeAddr[$clog2(MEM_SIZE)+1:2]] <= i_writeData;
-      end
-      else begin
-         mem[i_writeAddr[$clog2(MEM_SIZE)+1:2]] <= mem[i_writeAddr[$clog2(MEM_SIZE)+1:2]];
+         case(i_writeWidth)
+            000: begin //SB
+               case({half_word_addr_w, byte_addr_w})
+                  2'b00:   mem[word_addr_w][7:0]   <= i_writeData[7:0];
+                  2'b01:   mem[word_addr_w][15:8]  <= i_writeData[7:0];
+                  2'b10:   mem[word_addr_w][23:16] <= i_writeData[7:0];
+                  default: mem[word_addr_w][31:24] <= i_writeData[7:0];
+               endcase
+            end
+            001: //SH
+               case(half_word_addr_w)
+                  1'b0:       mem[word_addr_w][15:0] <= i_writeData[15:0];
+                  default: mem[word_addr_w][31:16] <= i_writeData[15:0];
+               endcase
+            010: mem[word_addr_w] <= i_writeData; //SW
+            default: mem[word_addr_w] <= '0;
+         endcase
       end
    end
 
-   assign o_readData = mem[i_writeAddr[$clog2(MEM_SIZE)+1:2]];
-   
+   assign o_readData = mem[word_addr_w];
 
 endmodule

@@ -19,6 +19,7 @@ module ariscv_dtpath #(
    output logic [NBW_REGISTER-1:0]  o_writeData,
    output logic [NBW_REGISTER-1:0]  o_writeAddr,
    output logic                     o_memWrite,
+   output logic [2:0]               o_writeWidth,
    input  logic [NBW_REGISTER-1:0]  i_readData
 );
    /* Local signals and parameters */
@@ -43,25 +44,27 @@ module ariscv_dtpath #(
    logic                      branch;
    logic [2:0]                aluControl;
    logic                      aluSrc;
+   logic [2:0]                funct3_de;
    // WRITEBACK-DECODE
-   logic [NBW_REGISTER-1:0]  wr_dt_reg;
-   logic [NBW_ADDR-1:0]      wr_addr_reg_wd;
-   logic                     wr_en_reg;
+   logic [NBW_REGISTER-1:0]   wr_dt_reg;
+   logic [NBW_ADDR-1:0]       wr_addr_reg_wd;
+   logic                      wr_en_reg;
    // EXECUTE-MEMORY
-   logic [NBW_REGISTER-1:0]  aluResult_em;
-   logic [NBW_REGISTER-1:0]  writeData;
-   logic [NBW_ADDR-1:0]      wr_addr_reg_em;
-   logic [NBW_PC-1:0]        pc_plus4_em;
-   logic                     regWrite_em;
-   logic [1:0]               resultSrc_em;
-   logic                     memWrite_em;
+   logic [NBW_REGISTER-1:0]   aluResult_em;
+   logic [NBW_REGISTER-1:0]   writeData;
+   logic [NBW_ADDR-1:0]       wr_addr_reg_em;
+   logic [NBW_PC-1:0]         pc_plus4_em;
+   logic                      regWrite_em;
+   logic [1:0]                resultSrc_em;
+   logic                      memWrite_em;
+   logic [2:0]                funct3_em;
    // MEMORY-WRITEBACK
-   logic [NBW_REGISTER-1:0]  aluResult_mw;
-   logic [NBW_REGISTER-1:0]  readData_mw;
-   logic [NBW_ADDR-1:0]      wr_addr_reg_mw;
-   logic [NBW_PC-1:0]        pc_plus4_mw;
-   logic                     regWrite_mw;
-   logic [1:0]               resultSrc_mw;
+   logic [NBW_REGISTER-1:0]   aluResult_mw;
+   logic [NBW_REGISTER-1:0]   readData_mw;
+   logic [NBW_ADDR-1:0]       wr_addr_reg_mw;
+   logic [NBW_PC-1:0]         pc_plus4_mw;
+   logic                      regWrite_mw;
+   logic [1:0]                resultSrc_mw;
    /**/
 
    /* OUTPUT ASSIGNMENTS */
@@ -117,7 +120,8 @@ module ariscv_dtpath #(
       .o_jump           (jump),
       .o_branch         (branch),
       .o_aluControl     (aluControl),
-      .o_aluSrc         (aluSrc)
+      .o_aluSrc         (aluSrc),
+      .o_funct3         (funct3_de)
    );
 
    ariscv_exec #(
@@ -141,6 +145,7 @@ module ariscv_dtpath #(
       .i_branch      (branch),
       .i_aluControl  (aluControl),
       .i_aluSrc      (aluSrc),
+      .i_funct3      (funct3_de),
       // TO MEMORY
       .o_aluResult   (aluResult_em),
       .o_writeData   (writeData),
@@ -149,6 +154,7 @@ module ariscv_dtpath #(
       .o_regWrite    (regWrite_em),
       .o_resultSrc   (resultSrc_em),
       .o_memWrite    (memWrite_em),
+      .o_funct3      (funct3_em),
       // TO PC
       .o_pcTarget    (pc_target),
       .o_PCSrc       (pc_src)
@@ -169,6 +175,7 @@ module ariscv_dtpath #(
       .i_regWrite    (regWrite_em),
       .i_resultSrc   (resultSrc_em),
       .i_memWrite    (memWrite_em),
+      .i_funct3      (funct3_em),
       // TO WB
       .o_aluResult   (aluResult_mw),
       .o_readData    (readData_mw),
@@ -180,6 +187,7 @@ module ariscv_dtpath #(
       .o_writeData   (o_writeData),
       .o_writeAddr   (o_writeAddr),
       .o_memWrite    (o_memWrite),
+      .o_writeWidth  (o_writeWidth),
       .i_readData    (i_readData)
    );
 

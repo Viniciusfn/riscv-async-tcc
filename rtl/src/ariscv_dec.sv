@@ -30,7 +30,8 @@ module ariscv_dec #(
    output logic                     o_jump,
    output logic                     o_branch,
    output logic [2:0]               o_aluControl,
-   output logic                     o_aluSrc
+   output logic                     o_aluSrc,
+   output logic [2:0]               o_funct3
 );
 
    /* Local signals and parameters */
@@ -65,6 +66,7 @@ module ariscv_dec #(
          o_branch       <= '0;
          o_aluControl   <= '0;
          o_aluSrc       <= '0;
+         o_funct3       <= '0;
       end
       else begin
          rd1_ff         <= rd1_w;
@@ -80,6 +82,7 @@ module ariscv_dec #(
          o_memWrite     <= memWrite_w;
          o_regWrite     <= regWrite_w;
          o_resultSrc    <= resultSrc_w;
+         o_funct3       <= i_inst[14:12];
       end
    end
    
@@ -94,7 +97,7 @@ module ariscv_dec #(
       .i_wr_en       (i_wr_en_reg),
       .i_rd_addr_1   (i_inst[19:15]),
       .i_rd_addr_2   (i_inst[24:20]),
-      .i_wr_addr_3   (i_wr_addr_reg),
+      .i_wr_addr     (i_wr_addr_reg),
       .i_wr_dt       (i_wr_dt_reg),
       .o_rd_dt_1     (rd1_w),
       .o_rd_dt_2     (rd2_w)

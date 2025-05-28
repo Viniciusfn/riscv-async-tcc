@@ -21,6 +21,7 @@ module ariscv_exec #(
    input  logic                     i_branch,
    input  logic [2:0]               i_aluControl,
    input  logic                     i_aluSrc,
+   input  logic [2:0]               i_funct3,
    // TO MEMORY
    output logic [NBW_REGISTER-1:0]  o_aluResult,
    output logic [NBW_REGISTER-1:0]  o_writeData,
@@ -29,6 +30,7 @@ module ariscv_exec #(
    output logic                     o_regWrite,
    output logic [1:0]               o_resultSrc,
    output logic                     o_memWrite,
+   output logic [2:0]               o_funct3,
    // TO PC
    output logic [NBW_PC-1:0]        o_pcTarget,
    output logic                     o_PCSrc
@@ -46,9 +48,6 @@ module ariscv_exec #(
    assign o_writeData = writeData_ff;
    assign o_wr_addr_reg = wr_addr_reg_ff;
    assign o_pc_plus4 = pc_plus4_ff;
-   assign o_regWrite  = i_regWrite;
-   assign o_resultSrc = i_resultSrc;
-   assign o_memWrite  = i_memWrite;
 
    /* Assignments */
    assign alu_srcB_w = (i_aluSrc) ? i_immExt : i_rd2;
@@ -65,12 +64,20 @@ module ariscv_exec #(
          writeData_ff <= '0;
          wr_addr_reg_ff <= '0;
          pc_plus4_ff <= '0;
+         o_regWrite  <= '0;
+         o_resultSrc <= '0;
+         o_memWrite  <= '0;
+         o_funct3 <= '0;
       end
       else begin
          aluResult_ff <= aluResult_w;
          writeData_ff <= writeData_w;
          wr_addr_reg_ff <= wr_addr_reg_w;
          pc_plus4_ff <= pc_plus4_w;
+         o_regWrite  <= i_regWrite;
+         o_resultSrc <= i_resultSrc;
+         o_memWrite  <= i_memWrite;
+         o_funct3 <= i_funct3;
       end
    end
 

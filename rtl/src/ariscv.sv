@@ -15,6 +15,7 @@ module ariscv #(
    output logic [ARISCV_PARAMS.NBW_REGISTER-1:0]   o_writeData,
    output logic [ARISCV_PARAMS.NBW_REGISTER-1:0]   o_writeAddr,
    output logic                                    o_memWrite,
+   output logic [2:0]                              o_writeWidth,
    input  logic [ARISCV_PARAMS.NBW_REGISTER-1:0]   i_readData
 );
    /* Local signals and parameters */
@@ -36,6 +37,7 @@ module ariscv #(
       .o_writeData   (o_writeData),
       .o_writeAddr   (o_writeAddr),
       .o_memWrite    (o_memWrite),
+      .o_writeWidth  (o_writeWidth),
       .i_readData    (i_readData)
    );
 

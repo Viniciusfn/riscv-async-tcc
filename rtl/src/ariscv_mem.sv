@@ -15,6 +15,7 @@ module ariscv_mem #(
    input  logic                     i_regWrite,
    input  logic [1:0]               i_resultSrc,
    input  logic                     i_memWrite,
+   input  logic [2:0]               i_funct3,
    // TO WB
    output logic [NBW_REGISTER-1:0]  o_aluResult,
    output logic [NBW_REGISTER-1:0]  o_readData,
@@ -26,12 +27,14 @@ module ariscv_mem #(
    output logic [NBW_REGISTER-1:0]  o_writeData,
    output logic [NBW_REGISTER-1:0]  o_writeAddr,
    output logic                     o_memWrite,
+   output logic [2:0]               o_writeWidth,
    input  logic [NBW_REGISTER-1:0]  i_readData
 );
    /* Assignments */
    assign o_writeData = i_writeData;
    assign o_writeAddr = i_aluResult;
    assign o_memWrite = i_memWrite;
+   assign o_writeWidth = i_funct3;
 
    /* FF */
    always_ff @( posedge aclk or negedge rst_async_n ) begin : mw_reg

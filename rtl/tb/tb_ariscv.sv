@@ -22,6 +22,7 @@ module tb_ariscv;
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] writeData;
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] writeAddr;
    logic                                  memWrite;
+   logic                                  writeWidth;
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] readData;
 
    /* DUT */
@@ -35,6 +36,7 @@ module tb_ariscv;
       .o_writeData   (writeData),
       .o_writeAddr   (writeAddr),
       .o_memWrite    (memWrite),
+      .o_writeWidth  (writeWidth),
       .i_readData    (readData)
    );
 
@@ -59,23 +61,50 @@ module tb_ariscv;
       .i_writeData   (writeData),
       .i_writeAddr   (writeAddr),
       .i_memWrite    (memWrite),
+      .i_writeWidth  (writeWidth),
       .o_readData    (readData)
    );
+
+   /* Testbench local parameters and signals */
+   logic [ARISCV_PARAMS.NBW_REGISTER-1:0] aux;
+   logic [ARISCV_PARAMS.NBW_REGISTER-1:0]    tb_reg_dt [(2**ARISCV_PARAMS.NBW_ADDR)-1:0];
+   logic reg_clk;
+
+   assign tb_reg_dt = dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt;
+   assign reg_clk = dut.uu_dtpath.uu_dec.uu_reg_file.clk;
 
    /* TASKS */
    task test_basic(inout integer err_count);
 
       $display("~ test_basic test start.");
-      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
+      @(negedge reg_clk);
 
-      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
-      assert(dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[4] == 'hF);
-      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
-      assert(dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[1] == 'h19);
-      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
-      assert(dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[2] == 'h28);
-      @(negedge dut.uu_dtpath.uu_dec.uu_reg_file.clk);
-      assert(dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[3] == 'h28);
+      // ADDI
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 'hF) else err_count+=1;
+      @(negedge reg_clk);
+      assert(tb_reg_dt[1] == 'h19);
+
+      // ADD
+      @(negedge reg_clk);
+      assert(tb_reg_dt[2] == tb_reg_dt[1] + tb_reg_dt[4]);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[3] == tb_reg_dt[2]);
+
+      // SW
+      @(negedge uu_dt_mem.aclk);
+      aux = tb_reg_dt[1] + 'h23;
+      assert(uu_dt_mem.mem[aux[$clog2(DT_MEM_SIZE)+1:2]] == tb_reg_dt[3]);
+
+      // SH
+      @(negedge uu_dt_mem.aclk);
+      aux = tb_reg_dt[2] + 'h2;
+      assert(uu_dt_mem.mem[aux[$clog2(DT_MEM_SIZE)+1:2]][16*(aux[1]+1)-1 -: 16] == tb_reg_dt[3][15:0]);
+
+      // SB
+      @(negedge uu_dt_mem.aclk);
+      aux = tb_reg_dt[4] + 'h3;
+      assert(uu_dt_mem.mem[aux[$clog2(DT_MEM_SIZE)+1:2]][8*(aux[1:0]+1)-1 -: 8] == tb_reg_dt[3][7:0]);
 
       #10
       $display("~ test_basic test complete!");
@@ -98,13 +127,14 @@ module tb_ariscv;
       $display("==> Testbench start...\n");
 
       test_basic(err_count);
+      $display("\n");
 
-      if(err_count > 0) begin
-         $display("\n=== FAIL! %d assertions were violated. ===\n", err_count);
-      end
-      else begin
-         $display("\n=== PASS! All assertions passed. ===\n");
-      end
+      //if(err_count > 0) begin
+      //   $display("\n=== FAIL! %d assertions were violated. ===\n", err_count);
+      //end
+      //else begin
+      //   $display("\n=== PASS! All assertions passed. ===\n");
+      //end
 
       $finish;
    end
