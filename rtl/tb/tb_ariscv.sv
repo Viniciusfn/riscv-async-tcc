@@ -22,7 +22,7 @@ module tb_ariscv;
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] writeData;
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] writeAddr;
    logic                                  memWrite;
-   logic                                  writeWidth;
+   logic [2:0]                            writeWidth;
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] readData;
 
    /* DUT */
@@ -79,11 +79,12 @@ module tb_ariscv;
       $display("~ test_basic test start.");
       @(negedge reg_clk);
 
+      /* Operators tests */
       // ADDI
       @(negedge reg_clk);
-      assert(tb_reg_dt[4] == 'hF) else err_count+=1;
+      assert(tb_reg_dt[4] == 'hA5A) else err_count+=1;
       @(negedge reg_clk);
-      assert(tb_reg_dt[1] == 'h19);
+      assert(tb_reg_dt[1] == 'hA + tb_reg_dt[4]);
 
       // ADD
       @(negedge reg_clk);
@@ -91,6 +92,7 @@ module tb_ariscv;
       @(negedge reg_clk);
       assert(tb_reg_dt[3] == tb_reg_dt[2]);
 
+      /* Save tests*/
       // SW
       @(negedge uu_dt_mem.aclk);
       aux = tb_reg_dt[1] + 'h23;
@@ -105,6 +107,36 @@ module tb_ariscv;
       @(negedge uu_dt_mem.aclk);
       aux = tb_reg_dt[4] + 'h3;
       assert(uu_dt_mem.mem[aux[$clog2(DT_MEM_SIZE)+1:2]][8*(aux[1:0]+1)-1 -: 8] == tb_reg_dt[3][7:0]);
+
+      /* Load tests */      
+      //LB
+      @(negedge uu_dt_mem.aclk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[5] == {{24{tb_reg_dt[3][7]}},  tb_reg_dt[3][7:0]});
+
+      //LH
+      @(negedge reg_clk);
+      assert(tb_reg_dt[6] == {{16{tb_reg_dt[3][15]}}, tb_reg_dt[3][15:0]});
+
+      //LW
+      @(negedge reg_clk);
+      assert(tb_reg_dt[7] == tb_reg_dt[3]);
+
+      //LBU
+      @(negedge reg_clk);
+      assert(tb_reg_dt[8] == {{24{1'b0}}, tb_reg_dt[3][7:0]});
+
+      //LHU
+      @(negedge reg_clk);
+      assert(tb_reg_dt[9] == {{16{1'b0}}, tb_reg_dt[3][15:0]});
+
+
+      /* Branch tests */
+      // TODO
+
+
+      /* Jump tests */
+      // TODO
 
       #10
       $display("~ test_basic test complete!");
