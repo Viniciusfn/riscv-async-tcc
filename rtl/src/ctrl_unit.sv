@@ -109,9 +109,10 @@ module ctrl_unit #(
                   end
                end
                3'b010: o_aluControl = 3'b101; // slt
+               3'b011: o_aluControl = 3'b110; // sltu
                3'b110: o_aluControl = 3'b011; // or
                3'b111: o_aluControl = 3'b010; // and
-               default: o_aluControl = 3'bxxx;
+               default:o_aluControl = 3'bxxx;
             endcase
          end
          default: o_aluControl = 3'bxxx;

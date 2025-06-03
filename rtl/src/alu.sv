@@ -17,6 +17,7 @@ module alu #(
          3'b010: o_result = i_srcA & i_srcB; // AND
          3'b011: o_result = i_srcA | i_srcB; // OR
          3'b101: o_result = (($signed(i_srcA)) < ($signed(i_srcB))) ? 32'b1 : 32'b0; // SLT
+         3'b110: o_result = (i_srcA < i_srcB) ? 32'b1 : 32'b0; // SLTU
          default: o_result = '0;
       endcase
    end

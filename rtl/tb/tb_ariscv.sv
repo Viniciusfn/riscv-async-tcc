@@ -79,7 +79,7 @@ module tb_ariscv;
       $display("~ test_basic test start.");
       @(negedge reg_clk);
 
-      /* Operators tests */
+      /* Initial tests */
       // ADDI
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 'hA5A) else err_count+=1;
@@ -129,6 +129,38 @@ module tb_ariscv;
       //LHU
       @(negedge reg_clk);
       assert(tb_reg_dt[9] == {{16{1'b0}}, tb_reg_dt[3][15:0]});
+
+      // Registers state:
+      //x1=0xFFFFFA64 ; x2=x3=0xFFFFF4BE ; x4=0xFFFFFA5A
+
+      /* Operators tests */
+      //SLTI
+      @(negedge reg_clk);
+      assert(tb_reg_dt[3] == 'h1);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[3] == 'h0);
+      
+      //SLTIU
+      @(negedge reg_clk);
+      assert(tb_reg_dt[3] == 'h0);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[3] == 'h1);
+
+
+      //XORI TODO
+      @(negedge reg_clk);
+      //ORI TODO
+      @(negedge reg_clk);
+      //ANDI TODO
+      @(negedge reg_clk);
+      //SLLI TODO
+      @(negedge reg_clk);
+      //SRLI TODO
+      @(negedge reg_clk);
+      //SRAI TODO
+      @(negedge reg_clk);
+
+
 
 
       /* Branch tests */
