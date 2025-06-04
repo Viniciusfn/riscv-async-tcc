@@ -19,7 +19,7 @@ module ariscv_exec #(
    input  logic                     i_memWrite,
    input  logic                     i_jump,
    input  logic                     i_branch,
-   input  logic [2:0]               i_aluControl,
+   input  logic [3:0]               i_aluControl,
    input  logic                     i_aluSrc,
    input  logic [2:0]               i_funct3,
    // TO MEMORY

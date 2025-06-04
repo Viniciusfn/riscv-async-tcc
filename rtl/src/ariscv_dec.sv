@@ -29,7 +29,7 @@ module ariscv_dec #(
    output logic                     o_memWrite,
    output logic                     o_jump,
    output logic                     o_branch,
-   output logic [2:0]               o_aluControl,
+   output logic [3:0]               o_aluControl,
    output logic                     o_aluSrc,
    output logic [2:0]               o_funct3
 );
@@ -44,7 +44,7 @@ module ariscv_dec #(
    logic         memWrite_w;
    logic         jump_w;
    logic         branch_w;
-   logic [2:0]   aluControl_w;
+   logic [3:0]   aluControl_w;
    logic         aluSrc_w;
    logic [1:0]   immSrc_w;
 
@@ -115,7 +115,6 @@ module ariscv_dec #(
 
    /* Control Unit */
    ctrl_unit #(
-
    ) uu_ctrl_unit (
       .i_op          (i_inst[6:0]),
       .i_funct3      (i_inst[14:12]),

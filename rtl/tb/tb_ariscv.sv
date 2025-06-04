@@ -158,19 +158,19 @@ module tb_ariscv;
       @(negedge reg_clk);
       assert(tb_reg_dt[3] == (tb_reg_dt[1] & 'hFFFFFAAA));
 
-
-      //SLLI TODO
+      //SLLI
       @(negedge reg_clk);
+      assert(tb_reg_dt[3] == (tb_reg_dt[4] << 3));
 
-
-      //SRLI TODO
+      //SRLI
       @(negedge reg_clk);
+      assert(tb_reg_dt[3] == (tb_reg_dt[4] >> 3));
 
-
-      //SRAI TODO
+      //SRAI
       @(negedge reg_clk);
+      aux = ($signed(tb_reg_dt[4]) >>> 3);
+      assert(tb_reg_dt[3] == aux);
 
-      
 
       /* Branch tests */
       // TODO

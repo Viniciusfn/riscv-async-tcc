@@ -10,7 +10,7 @@ module ctrl_unit #(
    output logic         o_memWrite,
    output logic         o_jump,
    output logic         o_branch,
-   output logic [2:0]   o_aluControl,
+   output logic [3:0]   o_aluControl,
    output logic         o_aluSrc,
    output logic [1:0]   o_immSrc
 );
@@ -96,27 +96,34 @@ module ctrl_unit #(
 
    always_comb begin : ALU_Decoder
       case(ALUOp_w)
-         2'b00: o_aluControl = 3'b000; // lw,sw
-         2'b01: o_aluControl = 3'b001; // beq
+         2'b00: o_aluControl = 4'b0000; // lw,sw
+         2'b01: o_aluControl = 4'b0001; // beq
          2'b10: begin
             case(i_funct3)
                3'b000: begin
                   if ({i_op[5],i_funct7} == 2'b11) begin 
-                     o_aluControl = 3'b001; // sub
+                     o_aluControl = 4'b0001; // sub
                   end
                   else begin
-                     o_aluControl = 3'b000; // add
+                     o_aluControl = 4'b0000; // add
                   end
                end
-               3'b010: o_aluControl = 3'b101; // slt
-               3'b011: o_aluControl = 3'b100; // sltu
-               3'b100: o_aluControl = 3'b111; // xor
-               3'b110: o_aluControl = 3'b011; // or
-               3'b111: o_aluControl = 3'b010; // and
-               default:o_aluControl = 3'bxxx;
+               3'b001: o_aluControl = 4'b1000; // sll
+               3'b101: begin
+                  case(i_funct7)
+                     1'b0: o_aluControl = 4'b1001; //srl
+                     1'b1: o_aluControl = 4'b1011; //sra
+                  endcase
+               end
+               3'b010: o_aluControl = 4'b0101; // slt
+               3'b011: o_aluControl = 4'b0100; // sltu
+               3'b100: o_aluControl = 4'b0111; // xor
+               3'b110: o_aluControl = 4'b0011; // or
+               3'b111: o_aluControl = 4'b0010; // and
+               default:o_aluControl = 4'bxxxx;
             endcase
          end
-         default: o_aluControl = 3'bxxx;
+         default: o_aluControl = 4'bxxxx;
       endcase
    end
 

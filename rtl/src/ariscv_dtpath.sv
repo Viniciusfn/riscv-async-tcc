@@ -42,7 +42,7 @@ module ariscv_dtpath #(
    logic                      memWrite_de;
    logic                      jump;
    logic                      branch;
-   logic [2:0]                aluControl;
+   logic [3:0]                aluControl;
    logic                      aluSrc;
    logic [2:0]                funct3_de;
    // WRITEBACK-DECODE
