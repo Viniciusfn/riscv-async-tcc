@@ -29,8 +29,40 @@
 001001011010_00100_011_00011_0010011 // SLTIU imm:0x35A, rs1: 4, rd: 3
 101001011011_00100_011_00011_0010011 // SLTIU imm:0xA5B, rs1: 4, rd: 3
 
+// XORI test
+101010101010_00001_100_00011_0010011 // XORI imm:0xAAA, rs1: 1, rd: 3
+
+// ORI test
+101010101010_00001_110_00011_0010011 // ORI imm:0xAAA, rs1: 1, rd: 3
+
+// ANDI test
+101010101010_00001_111_00011_0010011 // ANDI imm:0xAAA, rs1: 1, rd: 3
 
 
-// Logal
+// SLLI test
+
+// SRLI test
+
+// SRAI test
+
+
+// SUB test
+
+// SLL test
+
+// SLT test
+
+// SLTU test
+
+// XOR test
+
+// SRL test
+
+// SRA test
+
+// OR test
+
+// AND test
+
 
 00000000000000000000000000010011 // NOP

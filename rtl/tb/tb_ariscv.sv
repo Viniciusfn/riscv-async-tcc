@@ -146,22 +146,31 @@ module tb_ariscv;
       @(negedge reg_clk);
       assert(tb_reg_dt[3] == 'h1);
 
+      //XORI
+      @(negedge reg_clk);
+      assert(tb_reg_dt[3] == (tb_reg_dt[1] ^ 'hFFFFFAAA));
 
-      //XORI TODO
+      //ORI
       @(negedge reg_clk);
-      //ORI TODO
+      assert(tb_reg_dt[3] == (tb_reg_dt[1] | 'hFFFFFAAA));
+
+      //ANDI
       @(negedge reg_clk);
-      //ANDI TODO
-      @(negedge reg_clk);
+      assert(tb_reg_dt[3] == (tb_reg_dt[1] & 'hFFFFFAAA));
+
+
       //SLLI TODO
       @(negedge reg_clk);
+
+
       //SRLI TODO
       @(negedge reg_clk);
+
+
       //SRAI TODO
       @(negedge reg_clk);
 
-
-
+      
 
       /* Branch tests */
       // TODO
