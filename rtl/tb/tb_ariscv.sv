@@ -171,6 +171,45 @@ module tb_ariscv;
       aux = ($signed(tb_reg_dt[4]) >>> 3);
       assert(tb_reg_dt[3] == aux);
 
+      @(negedge reg_clk); // for setup
+
+      //SUB
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == tb_reg_dt[1] - tb_reg_dt[2]);
+
+      //SLL
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == tb_reg_dt[2] << tb_reg_dt[3][4:0]);
+
+      //SLT
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 'h1);
+
+      //SLTU
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 'h0);
+
+      //XOR
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == tb_reg_dt[1] ^ tb_reg_dt[2]);
+
+      //SRL
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == tb_reg_dt[2] >> tb_reg_dt[3][4:0]);
+
+      //SRA
+      @(negedge reg_clk);
+      aux = ($signed(tb_reg_dt[2]) >>> tb_reg_dt[3][4:0]);
+      assert(tb_reg_dt[4] == aux);
+
+      //OR
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == (tb_reg_dt[1] | tb_reg_dt[2]));
+
+      //AND
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == (tb_reg_dt[1] & tb_reg_dt[2]));
+
 
       /* Branch tests */
       // TODO
