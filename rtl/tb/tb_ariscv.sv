@@ -230,11 +230,11 @@ module tb_ariscv;
 
 
       /* Branch tests */
-      /*
       //BEQ
       @(negedge reg_clk);
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 3);
+      @(negedge reg_clk);
 
       //BNE
       @(negedge reg_clk);
@@ -245,6 +245,7 @@ module tb_ariscv;
       @(negedge reg_clk);
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 5);
+      @(negedge reg_clk);
 
       //BGE
       @(negedge reg_clk);
@@ -260,7 +261,7 @@ module tb_ariscv;
       @(negedge reg_clk);
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 8);
-      */
+      @(negedge reg_clk);
 
       #10
       $display("~ test_basic test complete!");

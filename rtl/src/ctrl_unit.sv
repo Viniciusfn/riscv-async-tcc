@@ -107,7 +107,17 @@ module ctrl_unit #(
    always_comb begin : ALU_Decoder
       case(ALUOp_w)
          2'b00: o_aluControl = 4'b0000; // lw,sw
-         2'b01: o_aluControl = 4'b0001; // beq
+         2'b01: begin // branch
+            case(i_funct3)
+               3'b000:  o_aluControl = 4'b0001; // beq
+               3'b001:  o_aluControl = 4'b0001; // bne
+               3'b100:  o_aluControl = 4'b0101; // blt
+               3'b101:  o_aluControl = 4'b0101; // bge
+               3'b110:  o_aluControl = 4'b0100; // bltu
+               3'b111:  o_aluControl = 4'b0100; // bgeu
+               default: o_aluControl = 4'bxxxx;
+            endcase
+         end
          2'b10: begin
             case(i_funct3)
                3'b000: begin
