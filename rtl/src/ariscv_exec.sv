@@ -51,7 +51,7 @@ module ariscv_exec #(
 
    /* Assignments */
    assign alu_srcB_w = (i_aluSrc) ? i_immExt : i_rd2;
-   assign o_pcTarget = i_immExt + i_pc;
+   assign o_pcTarget = (i_aluSrc) ? (i_immExt + i_rd1) : (i_immExt + i_pc);
    assign o_PCSrc = i_jump || (i_branch && zero_w);
    assign writeData_w = i_rd2;
    assign wr_addr_reg_w = i_wr_addr_reg;

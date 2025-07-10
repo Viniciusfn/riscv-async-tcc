@@ -51,7 +51,7 @@ module ctrl_unit #(
             ALUOp_w = 2'b10;
             o_jump = 1'b0;
          end
-         7'b1100011: begin // beq
+         7'b1100011: begin // B-type
             o_regWrite = 1'b0;
             o_immSrc = 2'b10;
             o_aluSrc = 1'b0;
@@ -74,7 +74,17 @@ module ctrl_unit #(
          7'b1101111: begin // jal
             o_regWrite = 1'b1;
             o_immSrc = 2'b11;
-            o_aluSrc = 1'b0; //x
+            o_aluSrc = 1'b0;
+            o_memWrite = 1'b0;
+            o_resultSrc = 2'b10;
+            o_branch = 1'b0;
+            ALUOp_w = 2'b00; //xx
+            o_jump = 1'b1;
+         end
+         7'b1100111: begin // jalr
+            o_regWrite = 1'b1;
+            o_immSrc = 2'b11;
+            o_aluSrc = 1'b1;
             o_memWrite = 1'b0;
             o_resultSrc = 2'b10;
             o_branch = 1'b0;

@@ -211,12 +211,56 @@ module tb_ariscv;
       assert(tb_reg_dt[4] == (tb_reg_dt[1] & tb_reg_dt[2]));
 
 
-      /* Branch tests */
-      // TODO
-
-
       /* Jump tests */
-      // TODO
+      // SETUP
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+
+      // JAL
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 1);
+
+      //JALR
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 2);
+
+
+      /* Branch tests */
+      /*
+      //BEQ
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 3);
+
+      //BNE
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 4);
+
+      //BLT
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 5);
+
+      //BGE
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 6);
+
+      //BLTU
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 7);
+
+      //BGEU
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 8);
+      */
 
       #10
       $display("~ test_basic test complete!");
