@@ -1,6 +1,7 @@
 module inst_mem_model #(
    /* PARAMETERS */
    parameter FILE_NAME = "../mem/inst_mem",
+   parameter FILE_TYPE = "txt",
    parameter NBW_INST = 32,
    parameter NBW_PC = 32,
    parameter MEM_SIZE = 256,
@@ -29,7 +30,12 @@ module inst_mem_model #(
       if (VERBOSE) begin
          $display("=> Loading Instruction memory file: %s", FILE_NAME);
       end
-      $readmemb(FILE_NAME, memory);
+      if (FILE_TYPE == "bin") begin
+         
+      end
+      else begin //txt
+         $readmemb(FILE_NAME, memory);
+      end
    end
    
 

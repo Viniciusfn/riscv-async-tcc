@@ -1,11 +1,13 @@
 `timescale 1ns / 1ns
+//`define COREMARK_TEST
 
 import ariscv_params_pkg::*;
 
 module tb_ariscv;
 
    /* PARAMETERS */
-   localparam FILE_NAME = "../mem/inst_mem";
+   localparam BASIC_TEST_FILE_NAME = "../mem/inst_mem";
+   localparam COREMARK_FILE_NAME = "../mem/coremark_bmrk_iram.bin";
    localparam INST_MEM_SIZE = 256;
    localparam DT_MEM_SIZE = 256;
    localparam VERBOSE = 0; 
@@ -42,7 +44,13 @@ module tb_ariscv;
 
    /* MEMORIES */
    inst_mem_model #(
-      .FILE_NAME  (FILE_NAME),
+      `ifdef COREMARK_TEST
+      .FILE_NAME  (COREMARK_FILE_NAME),
+      .FILE_TYPE  ("bin"),
+      `else
+      .FILE_NAME  (BASIC_TEST_FILE_NAME),
+      .FILE_TYPE  ("txt"),
+      `endif
       .MEM_SIZE   (INST_MEM_SIZE),
       .NBW_INST   (ARISCV_PARAMS.NBW_INST),
       .NBW_PC     (ARISCV_PARAMS.NBW_PC),
@@ -67,7 +75,7 @@ module tb_ariscv;
 
    /* Testbench local parameters and signals */
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] aux;
-   logic [ARISCV_PARAMS.NBW_REGISTER-1:0]    tb_reg_dt [(2**ARISCV_PARAMS.NBW_ADDR)-1:0];
+   logic [ARISCV_PARAMS.NBW_REGISTER-1:0] tb_reg_dt [(2**ARISCV_PARAMS.NBW_ADDR)-1:0];
    logic reg_clk;
 
    assign tb_reg_dt = dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt;
@@ -265,7 +273,12 @@ module tb_ariscv;
 
       #10
       $display("~ test_basic test complete!");
+   endtask
 
+   task test_coremark(inout integer err_count);
+      $display("~ test_coremark test start.");
+      #1000ns;
+      $display("~ test_coremark test complete!");
    endtask
 
    /* TEST SEQUENCE */
@@ -283,7 +296,11 @@ module tb_ariscv;
 
       $display("==> Testbench start...\n");
 
+      `ifdef COREMARK_TEST
+      test_coremark(err_count);
+      `else
       test_basic(err_count);
+      `endif
       $display("\n");
 
       //if(err_count > 0) begin
