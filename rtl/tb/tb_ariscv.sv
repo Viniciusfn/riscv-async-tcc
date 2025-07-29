@@ -7,10 +7,11 @@ module tb_ariscv;
 
    /* PARAMETERS */
    localparam BASIC_TEST_FILE_NAME = "../mem/inst_mem";
-   localparam COREMARK_FILE_NAME = "../mem/coremark_bmrk_iram.bin";
+   localparam COREMARK_INST_FILE_NAME = "../mem/coremark_bmrk_iram.bin";
+   localparam COREMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin";
    localparam INST_MEM_SIZE = 256;
    localparam DT_MEM_SIZE = 256;
-   localparam VERBOSE = 0; 
+   localparam VERBOSE = 1; 
 
    /* INTERFACE */
    logic                                 rst_async_n;
@@ -45,7 +46,7 @@ module tb_ariscv;
    /* MEMORIES */
    inst_mem_model #(
       `ifdef COREMARK_TEST
-      .FILE_NAME  (COREMARK_FILE_NAME),
+      .FILE_NAME  (COREMARK_INST_FILE_NAME),
       .FILE_TYPE  ("bin"),
       `else
       .FILE_NAME  (BASIC_TEST_FILE_NAME),
@@ -61,9 +62,13 @@ module tb_ariscv;
    );
 
    dt_mem_model #(
+      `ifdef COREMARK_TEST
+      .FILE_NAME     (COREMARK_DATA_FILE_NAME),
+      `endif
       .MEM_SIZE      (DT_MEM_SIZE),
       .NBW_DATA      (ARISCV_PARAMS.NBW_REGISTER),
-      .NBW_ADDR      (ARISCV_PARAMS.NBW_REGISTER)
+      .NBW_ADDR      (ARISCV_PARAMS.NBW_REGISTER),
+      .VERBOSE       (VERBOSE)
    ) uu_dt_mem (
       .aclk          (mem_clk),
       .i_writeData   (writeData),
@@ -104,17 +109,17 @@ module tb_ariscv;
       // SW
       @(negedge uu_dt_mem.aclk);
       aux = tb_reg_dt[1] + 'h23;
-      assert(uu_dt_mem.mem[aux[$clog2(DT_MEM_SIZE)+1:2]] == tb_reg_dt[3]);
+      assert(uu_dt_mem.memory[aux[$clog2(DT_MEM_SIZE)+1:2]] == tb_reg_dt[3]);
 
       // SH
       @(negedge uu_dt_mem.aclk);
       aux = tb_reg_dt[2] + 'h2;
-      assert(uu_dt_mem.mem[aux[$clog2(DT_MEM_SIZE)+1:2]][16*(aux[1]+1)-1 -: 16] == tb_reg_dt[3][15:0]);
+      assert(uu_dt_mem.memory[aux[$clog2(DT_MEM_SIZE)+1:2]][16*(aux[1]+1)-1 -: 16] == tb_reg_dt[3][15:0]);
 
       // SB
       @(negedge uu_dt_mem.aclk);
       aux = tb_reg_dt[4] + 'h3;
-      assert(uu_dt_mem.mem[aux[$clog2(DT_MEM_SIZE)+1:2]][8*(aux[1:0]+1)-1 -: 8] == tb_reg_dt[3][7:0]);
+      assert(uu_dt_mem.memory[aux[$clog2(DT_MEM_SIZE)+1:2]][8*(aux[1:0]+1)-1 -: 8] == tb_reg_dt[3][7:0]);
 
       /* Load tests */      
       //LB

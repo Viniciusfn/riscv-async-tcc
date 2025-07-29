@@ -27,11 +27,34 @@ module inst_mem_model #(
    end
 
    initial begin
+      integer fd;                 // File descriptor
+      integer bytes_read;         // Number of bytes read
+      logic [NBW_INST-1:0] temp_word;
+
       if (VERBOSE) begin
          $display("=> Loading Instruction memory file: %s", FILE_NAME);
       end
+      
       if (FILE_TYPE == "bin") begin
-         
+         // Open the binary file in read mode
+         fd = $fopen(FILE_NAME, "rb");
+         if (fd == 0) begin
+            $display("Error: Unable to open file.");
+            $finish;
+         end
+
+         // Read data from the file into the memory array
+         for (int i = 0; i < MEM_SIZE; i++) begin
+            bytes_read = $fread(temp_word, fd);
+            if (bytes_read == 0) begin
+               $display("End of file reached or error occurred.");
+               break;
+            end
+            memory[i] = temp_word;
+         end
+
+         // Close the file
+         $fclose(fd);
       end
       else begin //txt
          $readmemb(FILE_NAME, memory);
