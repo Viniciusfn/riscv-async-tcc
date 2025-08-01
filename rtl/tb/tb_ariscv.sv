@@ -11,7 +11,7 @@ module tb_ariscv;
    localparam COREMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin";
    localparam INST_MEM_SIZE = 256;
    localparam DT_MEM_SIZE = 256;
-   localparam VERBOSE = 1; 
+   localparam VERBOSE = 0; 
 
    /* INTERFACE */
    logic                                 rst_async_n;
@@ -114,12 +114,12 @@ module tb_ariscv;
       // SH
       @(negedge uu_dt_mem.aclk);
       aux = tb_reg_dt[2] + 'h2;
-      assert(uu_dt_mem.memory[aux[$clog2(DT_MEM_SIZE)+1:2]][16*(aux[1]+1)-1 -: 16] == tb_reg_dt[3][15:0]);
+      assert(uu_dt_mem.memory[aux[$clog2(DT_MEM_SIZE)+1:2]][16*aux[1]+15 -: 16] == tb_reg_dt[3][15:0]);
 
       // SB
       @(negedge uu_dt_mem.aclk);
       aux = tb_reg_dt[4] + 'h3;
-      assert(uu_dt_mem.memory[aux[$clog2(DT_MEM_SIZE)+1:2]][8*(aux[1:0]+1)-1 -: 8] == tb_reg_dt[3][7:0]);
+      assert(uu_dt_mem.memory[aux[$clog2(DT_MEM_SIZE)+1:2]][8*aux[1:0]+7 -: 8] == tb_reg_dt[3][7:0]);
 
       /* Load tests */      
       //LB
@@ -188,7 +188,7 @@ module tb_ariscv;
 
       //SUB
       @(negedge reg_clk);
-      assert(tb_reg_dt[4] == tb_reg_dt[1] - tb_reg_dt[2]);
+      assert(tb_reg_dt[4] == (tb_reg_dt[1] - tb_reg_dt[2]));
 
       //SLL
       @(negedge reg_clk);
@@ -204,7 +204,7 @@ module tb_ariscv;
 
       //XOR
       @(negedge reg_clk);
-      assert(tb_reg_dt[4] == tb_reg_dt[1] ^ tb_reg_dt[2]);
+      assert(tb_reg_dt[4] == (tb_reg_dt[1] ^ tb_reg_dt[2]));
 
       //SRL
       @(negedge reg_clk);

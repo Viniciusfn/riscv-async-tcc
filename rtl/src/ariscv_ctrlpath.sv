@@ -54,6 +54,8 @@ module ariscv_ctrlpath #(
    logic req_F2_J1_delayed;
    logic req_F2_EM_delayed;
 
+   logic dummy_aclk[1:0];
+
    /* WCHB cells */
    wchb_cell #(
       .INIT    (INIT_PC)
@@ -129,7 +131,7 @@ module ariscv_ctrlpath #(
       .i_ack   (ack_L1_L2),
       .o_req   (req_L1_L2),
       .o_ack   (ack_F1_L1),
-      .o_aclk  ()
+      .o_aclk  (dummy_aclk[0])
    );
 
    wchb_cell #(
@@ -140,7 +142,7 @@ module ariscv_ctrlpath #(
       .i_ack   (ack_L2_J1),
       .o_req   (req_L2_J1),
       .o_ack   (ack_L1_L2),
-      .o_aclk  ()
+      .o_aclk  (dummy_aclk[1])
    );
 
    /* Forks and Joins */

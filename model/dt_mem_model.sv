@@ -54,38 +54,35 @@ module dt_mem_model #(
       case(i_writeWidth)
          3'b000: begin //LB
             case({half_word_addr_w, byte_addr_w})
-               2'b00: o_readData <= {{24{memory[word_addr_w][7]}}, memory[word_addr_w][7:0]};
-               2'b01: o_readData <= {{24{memory[word_addr_w][15]}}, memory[word_addr_w][15:8]};
-               2'b10: o_readData <= {{24{memory[word_addr_w][23]}}, memory[word_addr_w][23:16]};
-               default: o_readData <= {{24{memory[word_addr_w][31]}}, memory[word_addr_w][31:24]};
+               2'b00: o_readData = {{24{memory[word_addr_w][7]}}, memory[word_addr_w][7:0]};
+               2'b01: o_readData = {{24{memory[word_addr_w][15]}}, memory[word_addr_w][15:8]};
+               2'b10: o_readData = {{24{memory[word_addr_w][23]}}, memory[word_addr_w][23:16]};
+               default: o_readData = {{24{memory[word_addr_w][31]}}, memory[word_addr_w][31:24]};
             endcase
          end
          3'b001: begin //LH
             case(half_word_addr_w)
-               1'b0:    o_readData <= {{16{memory[word_addr_w][15]}},memory[word_addr_w][15:0]};
-               default: o_readData <= {{16{memory[word_addr_w][31]}},memory[word_addr_w][31:16]};
+               1'b0:    o_readData = {{16{memory[word_addr_w][15]}},memory[word_addr_w][15:0]};
+               default: o_readData = {{16{memory[word_addr_w][31]}},memory[word_addr_w][31:16]};
             endcase
          end
          3'b100: begin //LBU
             case({half_word_addr_w, byte_addr_w})
-               2'b00: o_readData <= {{24{1'b0}}, memory[word_addr_w][7:0]};
-               2'b01: o_readData <= {{24{1'b0}}, memory[word_addr_w][15:8]};
-               2'b10: o_readData <= {{24{1'b0}}, memory[word_addr_w][23:16]};
-               default: o_readData <= {{24{1'b0}}, memory[word_addr_w][31:24]};
+               2'b00: o_readData = {{24{1'b0}}, memory[word_addr_w][7:0]};
+               2'b01: o_readData = {{24{1'b0}}, memory[word_addr_w][15:8]};
+               2'b10: o_readData = {{24{1'b0}}, memory[word_addr_w][23:16]};
+               default: o_readData = {{24{1'b0}}, memory[word_addr_w][31:24]};
             endcase
          end
          3'b101: begin //LHU
             case(half_word_addr_w)
-               1'b0:    o_readData <= {{16{1'b0}},memory[word_addr_w][15:0]};
-               default: o_readData <= {{16{1'b0}},memory[word_addr_w][31:16]};
+               1'b0:    o_readData = {{16{1'b0}},memory[word_addr_w][15:0]};
+               default: o_readData = {{16{1'b0}},memory[word_addr_w][31:16]};
             endcase
          end
          default: o_readData = memory[word_addr_w]; //LW
       endcase
    end
-      
-   assign o_readData = memory[word_addr_w];
-
 
    // Load memory
    initial begin
