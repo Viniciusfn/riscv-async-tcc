@@ -83,7 +83,7 @@ module ctrl_unit #(
          end
          7'b1100111: begin // jalr
             o_regWrite = 1'b1;
-            o_immSrc = 2'b11;
+            o_immSrc = 2'b00;
             o_aluSrc = 1'b1;
             o_memWrite = 1'b0;
             o_resultSrc = 2'b10;
