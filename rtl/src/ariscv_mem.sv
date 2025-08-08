@@ -16,11 +16,13 @@ module ariscv_mem #(
    input  logic [1:0]               i_resultSrc,
    input  logic                     i_memWrite,
    input  logic [2:0]               i_funct3,
+   input  logic [NBW_PC-1:0]        i_pcTarget,
    // TO WB
    output logic [NBW_REGISTER-1:0]  o_aluResult,
    output logic [NBW_REGISTER-1:0]  o_readData,
    output logic [NBW_ADDR-1:0]      o_wr_addr_reg,
    output logic [NBW_PC-1:0]        o_pc_plus4,
+   output logic [NBW_PC-1:0]        o_pcTarget,
    output logic                     o_regWrite,
    output logic [1:0]               o_resultSrc,
    // DATA MEMORY
@@ -45,6 +47,7 @@ module ariscv_mem #(
          o_pc_plus4     <= '0;
          o_regWrite     <= '0;
          o_resultSrc    <= '0;
+         o_pcTarget     <= '0;
       end
       else begin
          o_aluResult    <= i_aluResult;
@@ -53,6 +56,7 @@ module ariscv_mem #(
          o_pc_plus4     <= i_pc_plus4;
          o_regWrite     <= i_regWrite;
          o_resultSrc    <= i_resultSrc;
+         o_pcTarget     <= i_pcTarget;
       end
    end
 

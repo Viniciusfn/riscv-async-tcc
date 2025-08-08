@@ -46,7 +46,7 @@ module ariscv_dec #(
    logic         branch_w;
    logic [3:0]   aluControl_w;
    logic         aluSrc_w;
-   logic [1:0]   immSrc_w;
+   logic [2:0]   immSrc_w;
 
    /* Output Assignments */
    assign o_rd1 = rd1_ff;

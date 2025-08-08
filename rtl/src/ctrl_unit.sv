@@ -12,7 +12,7 @@ module ctrl_unit #(
    output logic         o_branch,
    output logic [3:0]   o_aluControl,
    output logic         o_aluSrc,
-   output logic [1:0]   o_immSrc
+   output logic [2:0]   o_immSrc
 );
 
    /* Local signals and parameters */
@@ -23,7 +23,7 @@ module ctrl_unit #(
       case(i_op)
          7'b0000011: begin // lw
             o_regWrite = 1'b1;
-            o_immSrc = 2'b00;
+            o_immSrc = 3'b000;
             o_aluSrc = 1'b1;
             o_memWrite = 1'b0;
             o_resultSrc = 2'b01;
@@ -33,7 +33,7 @@ module ctrl_unit #(
          end
          7'b0100011: begin // sw
             o_regWrite = 1'b0;
-            o_immSrc = 2'b01;
+            o_immSrc = 3'b001;
             o_aluSrc = 1'b1;
             o_memWrite = 1'b1;
             o_resultSrc = 2'b00; //xx
@@ -43,7 +43,7 @@ module ctrl_unit #(
          end
          7'b0110011: begin // R-type
             o_regWrite = 1'b1;
-            o_immSrc = 2'b00; //xx
+            o_immSrc = 3'b000; //xx
             o_aluSrc = 1'b0;
             o_memWrite = 1'b0;
             o_resultSrc = 2'b00;
@@ -53,7 +53,7 @@ module ctrl_unit #(
          end
          7'b1100011: begin // B-type
             o_regWrite = 1'b0;
-            o_immSrc = 2'b10;
+            o_immSrc = 3'b010;
             o_aluSrc = 1'b0;
             o_memWrite = 1'b0;
             o_resultSrc = 2'b00; //xx
@@ -63,7 +63,7 @@ module ctrl_unit #(
          end
          7'b0010011: begin // I-type ALU
             o_regWrite = 1'b1;
-            o_immSrc = 2'b00;
+            o_immSrc = 3'b000;
             o_aluSrc = 1'b1;
             o_memWrite = 1'b0;
             o_resultSrc = 2'b00;
@@ -73,27 +73,47 @@ module ctrl_unit #(
          end
          7'b1101111: begin // jal
             o_regWrite = 1'b1;
-            o_immSrc = 2'b11;
+            o_immSrc = 3'b011;
             o_aluSrc = 1'b0;
             o_memWrite = 1'b0;
             o_resultSrc = 2'b10;
             o_branch = 1'b0;
-            ALUOp_w = 2'b00; //xx
+            ALUOp_w = 2'b11; //xx
             o_jump = 1'b1;
          end
          7'b1100111: begin // jalr
             o_regWrite = 1'b1;
-            o_immSrc = 2'b00;
+            o_immSrc = 3'b000;
             o_aluSrc = 1'b1;
             o_memWrite = 1'b0;
             o_resultSrc = 2'b10;
             o_branch = 1'b0;
-            ALUOp_w = 2'b00; //xx
+            ALUOp_w = 2'b11; //xx
             o_jump = 1'b1;
+         end
+         7'b0110111: begin // lui
+            o_regWrite = 1'b1;
+            o_immSrc = 3'b100;
+            o_aluSrc = 1'b1;
+            o_memWrite = 1'b0;
+            o_resultSrc = 2'b00;
+            o_branch = 1'b0;
+            ALUOp_w = 2'b11;
+            o_jump = 1'b0;
+         end
+         7'b0010111: begin // auipc
+            o_regWrite = 1'b1;
+            o_immSrc = 3'b100;
+            o_aluSrc = 1'b0;
+            o_memWrite = 1'b0;
+            o_resultSrc = 2'b11;
+            o_branch = 1'b0;
+            ALUOp_w = 2'b11;
+            o_jump = 1'b0;
          end
          default: begin
             o_regWrite = 1'bx;
-            o_immSrc = 2'bxx;
+            o_immSrc = 3'bxxx;
             o_aluSrc = 1'bx;
             o_memWrite = 1'bx;
             o_resultSrc = 2'bxx;
@@ -115,7 +135,7 @@ module ctrl_unit #(
                3'b101:  o_aluControl = 4'b0101; // bge
                3'b110:  o_aluControl = 4'b0100; // bltu
                3'b111:  o_aluControl = 4'b0100; // bgeu
-               default: o_aluControl = 4'bxxxx;
+               default: o_aluControl = 4'b0001;
             endcase
          end
          2'b10: begin
@@ -140,10 +160,10 @@ module ctrl_unit #(
                3'b100: o_aluControl = 4'b0111; // xor
                3'b110: o_aluControl = 4'b0011; // or
                3'b111: o_aluControl = 4'b0010; // and
-               default:o_aluControl = 4'bxxxx;
+               default:o_aluControl = 4'b0000;
             endcase
          end
-         default: o_aluControl = 4'bxxxx;
+         default: o_aluControl = 4'b1111;
       endcase
    end
 

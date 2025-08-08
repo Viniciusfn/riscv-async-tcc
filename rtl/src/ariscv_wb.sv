@@ -9,6 +9,7 @@ module ariscv_wb #(
    input  logic [NBW_REGISTER-1:0]        i_readData,
    input  logic [NBW_REGISTER-1:0]        i_aluResult,
    input  logic [NBW_PC-1:0]              i_pc_plus4,
+   input  logic [NBW_PC-1:0]              i_pcTarget,
    input  logic [NBW_ADDR-1:0]            i_wr_addr_reg,
    input  logic                           i_regWrite,
    input  logic [1:0]                     i_resultSrc,
@@ -28,7 +29,7 @@ module ariscv_wb #(
          2'b00: o_result = i_aluResult;
          2'b01: o_result = i_readData;
          2'b10: o_result = i_pc_plus4;
-         default: o_result = '0;
+         2'b11: o_result = i_pcTarget;
       endcase
    end
 

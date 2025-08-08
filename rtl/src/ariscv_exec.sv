@@ -31,6 +31,7 @@ module ariscv_exec #(
    output logic [1:0]               o_resultSrc,
    output logic                     o_memWrite,
    output logic [2:0]               o_funct3,
+   output logic [NBW_PC-1:0]        o_pcTarget_ff,
    // TO PC
    output logic [NBW_PC-1:0]        o_pcTarget,
    output logic                     o_PCSrc
@@ -68,6 +69,7 @@ module ariscv_exec #(
          o_resultSrc <= '0;
          o_memWrite  <= '0;
          o_funct3 <= '0;
+         o_pcTarget_ff <= '0;
       end
       else begin
          aluResult_ff <= aluResult_w;
@@ -78,6 +80,7 @@ module ariscv_exec #(
          o_resultSrc <= i_resultSrc;
          o_memWrite  <= i_memWrite;
          o_funct3 <= i_funct3;
+         o_pcTarget_ff <= o_pcTarget;
       end
    end
 

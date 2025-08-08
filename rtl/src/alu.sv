@@ -22,7 +22,7 @@ module alu #(
          4'b1000: o_result = (i_srcA << i_srcB[4:0]); //SLL
          4'b1001: o_result = (i_srcA >> i_srcB[4:0]); //SRL
          4'b1011: o_result = ($signed(i_srcA) >>> i_srcB[4:0]); //SRA
-         default: o_result = '0;
+         default: o_result = i_srcB; // lui
       endcase
    end
 

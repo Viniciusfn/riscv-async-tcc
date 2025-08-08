@@ -1,4 +1,4 @@
-ROOT_DIR    := /home/vini/riscv-async-tcc
+ROOT_DIR    := $(shell pwd)/..
 TB_NAME     := tb_ariscv
 SRC_DIR     := $(ROOT_DIR)/rtl/src
 MODEL_DIR   := $(ROOT_DIR)/model

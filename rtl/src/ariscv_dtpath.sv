@@ -58,11 +58,13 @@ module ariscv_dtpath #(
    logic [1:0]                resultSrc_em;
    logic                      memWrite_em;
    logic [2:0]                funct3_em;
+   logic [NBW_PC-1:0]         pcTarget_em;
    // MEMORY-WRITEBACK
    logic [NBW_REGISTER-1:0]   aluResult_mw;
    logic [NBW_REGISTER-1:0]   readData_mw;
    logic [NBW_ADDR-1:0]       wr_addr_reg_mw;
    logic [NBW_PC-1:0]         pc_plus4_mw;
+   logic [NBW_PC-1:0]         pcTarget_mw;
    logic                      regWrite_mw;
    logic [1:0]                resultSrc_mw;
    /**/
@@ -155,6 +157,7 @@ module ariscv_dtpath #(
       .o_resultSrc   (resultSrc_em),
       .o_memWrite    (memWrite_em),
       .o_funct3      (funct3_em),
+      .o_pcTarget_ff (pcTarget_em),
       // TO PC
       .o_pcTarget    (pc_target),
       .o_PCSrc       (pc_src)
@@ -176,11 +179,13 @@ module ariscv_dtpath #(
       .i_resultSrc   (resultSrc_em),
       .i_memWrite    (memWrite_em),
       .i_funct3      (funct3_em),
+      .i_pcTarget    (pcTarget_em),
       // TO WB
       .o_aluResult   (aluResult_mw),
       .o_readData    (readData_mw),
       .o_wr_addr_reg (wr_addr_reg_mw),
       .o_pc_plus4    (pc_plus4_mw),
+      .o_pcTarget    (pcTarget_mw),
       .o_regWrite    (regWrite_mw),
       .o_resultSrc   (resultSrc_mw),
       // DATA MEMORY
@@ -200,6 +205,7 @@ module ariscv_dtpath #(
       .i_readData       (readData_mw),
       .i_aluResult      (aluResult_mw),
       .i_pc_plus4       (pc_plus4_mw),
+      .i_pcTarget       (pcTarget_mw),
       .i_wr_addr_reg    (wr_addr_reg_mw),
       .i_regWrite       (regWrite_mw),
       .i_resultSrc      (resultSrc_mw),

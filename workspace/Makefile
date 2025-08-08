@@ -1,1 +1,1 @@
-../scripts/verilator/Makefile
+../scripts/Makefile

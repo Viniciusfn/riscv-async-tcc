@@ -276,6 +276,16 @@ module tb_ariscv;
       assert(tb_reg_dt[4] == 8);
       @(negedge reg_clk);
 
+
+      /* Others */
+      //LUI
+      @(negedge reg_clk);
+      assert(tb_reg_dt[2] == 32'hA5A5A000);
+
+      //AUIPC
+      @(negedge reg_clk);
+      assert(tb_reg_dt[2] == 32'hF4 + 32'hA5A5A000); // pc + (imm<<12)
+
       #10
       $display("~ test_basic test complete!");
    endtask
