@@ -88,7 +88,7 @@ module dt_mem_model #(
    initial begin
       integer fd;                 // File descriptor
       integer bytes_read;         // Number of bytes read
-      logic [NBW_DATA-1:0] temp_word;
+      byte byte0, byte1, byte2, byte3;
 
       if (FILE_NAME != "none") begin
          if (VERBOSE) begin
@@ -104,12 +104,17 @@ module dt_mem_model #(
 
          // Read data from the file into the memory array
          for (int i = 0; i < MEM_SIZE; i++) begin
-            bytes_read = $fread(temp_word, fd);
+            bytes_read =  $fread(byte0, fd);
+            bytes_read += $fread(byte1, fd);
+            bytes_read += $fread(byte2, fd);
+            bytes_read += $fread(byte3, fd);
+
             if (bytes_read == 0) begin
-               $display("End of file reached or error occurred.");
+               if (VERBOSE) $display("End of file reached or error occurred.");
                break;
             end
-            memory[i] = temp_word;
+
+            memory[i] = {byte3, byte2, byte1, byte0};
          end
 
          // Close the file

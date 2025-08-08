@@ -112,14 +112,14 @@ module ctrl_unit #(
             o_jump = 1'b0;
          end
          default: begin
-            o_regWrite = 1'bx;
-            o_immSrc = 3'bxxx;
-            o_aluSrc = 1'bx;
-            o_memWrite = 1'bx;
-            o_resultSrc = 2'bxx;
-            o_branch = 1'bx;
-            ALUOp_w = 2'bxx;
-            o_jump = 1'bx;
+            o_regWrite = 1'b0;
+            o_immSrc = 3'b000;
+            o_aluSrc = 1'b0;
+            o_memWrite = 1'b0;
+            o_resultSrc = 2'b00;
+            o_branch = 1'b0;
+            ALUOp_w = 2'b11;
+            o_jump = 1'b0;
          end
       endcase
    end

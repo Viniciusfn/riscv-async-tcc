@@ -29,7 +29,7 @@ module inst_mem_model #(
    initial begin
       integer fd;                 // File descriptor
       integer bytes_read;         // Number of bytes read
-      logic [NBW_INST-1:0] temp_word;
+      byte byte0, byte1, byte2, byte3;
 
       if (VERBOSE) begin
          $display("=> Loading Instruction memory file: %s", FILE_NAME);
@@ -45,12 +45,17 @@ module inst_mem_model #(
 
          // Read data from the file into the memory array
          for (int i = 0; i < MEM_SIZE; i++) begin
-            bytes_read = $fread(temp_word, fd);
-            if (bytes_read == 0) begin
-               $display("End of file reached or error occurred.");
+            bytes_read =  $fread(byte0, fd);
+            bytes_read += $fread(byte1, fd);
+            bytes_read += $fread(byte2, fd);
+            bytes_read += $fread(byte3, fd);
+
+            if (bytes_read < 4) begin
+               if (VERBOSE) $display("End of file reached or error occurred.");
                break;
             end
-            memory[i] = temp_word;
+
+            memory[i] = {byte3, byte2, byte1, byte0};
          end
 
          // Close the file

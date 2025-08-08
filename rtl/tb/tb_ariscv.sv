@@ -9,8 +9,8 @@ module tb_ariscv;
    localparam BASIC_TEST_FILE_NAME = "../mem/inst_mem";
    localparam COREMARK_INST_FILE_NAME = "../mem/coremark_bmrk_iram.bin";
    localparam COREMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin";
-   localparam INST_MEM_SIZE = 32768; //Bytes
-   localparam DT_MEM_SIZE = 8192; //Bytes
+   localparam INST_MEM_SIZE = 32768*8/ARISCV_PARAMS.NBW_INST; // 32kBytes
+   localparam DT_MEM_SIZE = 8192*8/ARISCV_PARAMS.NBW_REGISTER; // 8kBytes
    localparam VERBOSE = 0; 
 
    /* INTERFACE */
