@@ -42,27 +42,21 @@ volatile ee_s32 seed5_volatile = 0;
    time.h and windows.h definitions included.
 */
 
-////////////////// PQR5 SPECIFIC FUNCTION PROTOTYPES - Starts here //////////////////
-void uart_init(); 
-////////////////// PQR5 SPECIFIC FUNCTION PROTOTYPES - Ends here ////////////////////
+////////////////// SPECIFIC LOCAL DEFINES & FUNCTIONS - Starts here //////////////////
 
-//pqr5: To be implemented by using the free-running clock tick counter in the core...
 CORETIMETYPE barebones_clock() {
     //#error "You must implement a method to measure time in barebones_clock()! This function should return current time.\n"
-    volatile unsigned int* hardwareCounterAddr = (unsigned int*)0x0001000C;  // Address of the counter
+    volatile unsigned int* hardwareCounterAddr = (unsigned int*)0x00010004;  // Address of the counter
 
-    //Read Wait
-    int i;
     unsigned int hardwareCounter;
-    //volatile int sum = 0;
-    //int uart_wait = 10;
-    //for(i=0; i<uart_wait; i++) sum += i;
 
-    //Read hardwareCounter(ExecCycle)
     hardwareCounter = *hardwareCounterAddr;
     // ee_printf("hardwareCounter %d\n", hardwareCounter);
     return (CORETIMETYPE)hardwareCounter;
 }
+
+////////////////// SPECIFIC LOCAL DEFINES & FUNCTIONS - Ends here //////////////////
+
 /* Define : TIMER_RES_DIVIDER
         Divider to trade off timer resolution and total time that can be
    measured.
@@ -150,11 +144,8 @@ portable_init(core_portable *p, int *argc, char *argv[])
     (void)argc; // prevent unused warning
     (void)argv; // prevent unused warning
 
-    //pqr5: Initializing UART
-    uart_init();
-
-    //pqr5: Welcome message
-    ee_printf("Starting benchmark on Pequeno with COREMARK 1.0...\n"); 
+    // Welcome message
+    ee_printf("Starting benchmark on Async RISC-V...\n"); 
 
     if (sizeof(ee_ptr_int) != sizeof(ee_u8 *))
     {

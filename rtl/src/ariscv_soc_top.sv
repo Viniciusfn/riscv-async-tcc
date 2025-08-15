@@ -26,7 +26,7 @@ module ariscv_soc_top #(
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] w_readData;
 
    /* PERFORMANCE MEASURING */
-   logic [31:0]         perf_counter_ff;
+   logic [31:0]         perf_counter_ff; // free-running clock counter
 
    // ARISCV CORE
    ariscv #(
@@ -58,12 +58,14 @@ module ariscv_soc_top #(
       .NBW_ADDR      (ARISCV_PARAMS.NBW_REGISTER),
       .VERBOSE       (VERBOSE)
    ) uu_dt_mem (
-      .aclk          (mem_clk),
-      .i_writeData   (writeData),
-      .i_writeAddr   (writeAddr),
-      .i_memWrite    (memWrite),
-      .i_writeWidth  (writeWidth),
-      .o_readData    (readData)
+      .aclk          (w_mem_clk),
+      .i_writeData   (w_writeData),
+      .i_writeAddr   (w_writeAddr),
+      .i_memWrite    (w_memWrite),
+      .i_writeWidth  (w_writeWidth),
+      .o_readData    (w_readData),
+
+      .i_perf_counter(perf_counter_ff)
    );
 
 
@@ -81,8 +83,8 @@ module ariscv_soc_top #(
       .NBW_PC     (ARISCV_PARAMS.NBW_PC),
       .VERBOSE    (VERBOSE)
    ) uu_inst_mem (
-      .i_pc       (pc),
-      .o_inst     (inst)
+      .i_pc       (w_pc),
+      .o_inst     (w_inst)
    );
 
 

@@ -35,13 +35,13 @@ package ariscv_params_pkg;
       NBW_ACLK       : 6,
       // CTRLPATH
          // Delays: DELAY_Source_Receiver
-      DELAY_PC_FD    : 1,
-      DELAY_FD_DE    : 1,
-      DELAY_DE_EM    : 1,
-      DELAY_DE_PC    : 1,
-      DELAY_EM_MW    : 1,
-      DELAY_MW_REG   : 1,
-      DELAY_REG_DE   : 1,
+      DELAY_PC_FD    : 16,
+      DELAY_FD_DE    : 28,
+      DELAY_DE_EM    : 38,
+      DELAY_DE_PC    : 38,
+      DELAY_EM_MW    : 28,
+      DELAY_MW_REG   : 38,
+      DELAY_REG_DE   : 28,
       DELAY_LOOP     : 1,
          // Initialization
       INIT_PC        : 0,

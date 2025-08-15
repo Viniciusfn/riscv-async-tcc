@@ -659,57 +659,10 @@ ee_vsprintf(char *buf, const char *fmt, va_list args)
     return str - buf;
 }
 
-////////////////// PQR5 SPECIFIC LOCAL DEFINES & FUNCTIONS - Starts here //////////////////
-#define UART_BASE       0x00010000
-#define UART_CTRL_REG   (*(volatile ee_u32 *)(UART_BASE + 0x00))
-#define UART_TXDATA_REG (*(volatile char *)(UART_BASE + 0x04))
-#define UART_STATUS_REG (*(volatile ee_u32 *)(UART_BASE + 0x08))
+////////////////// SPECIFIC LOCAL DEFINES & FUNCTIONS - Starts here //////////////////
+#define TB_BASE       0x00010000
+#define TXDATA_REG    (*(volatile char *)(TB_BASE))
 
-// Bit positions in UART_CTRL_REG
-#define UART_CTRL_TX_EN   (1 << 0)
-#define UART_CTRL_TX_RST  (1 << 1)
-
-// Bit positions in UART_CTRL_REG
-#define UART_STATUS_TXREADY (1 << 0)
-
-// Delay
-void 
-delay_me(ee_u32 cycles) 
-{
-    ee_u32 i;
-    volatile ee_u32 dummy = 0; // Volatile variable
-    for (i=0; i<cycles; i++) {
-        dummy++;  // Do something with the variable... to avoid compiler optimizations..
-    }
-}
-
-// Crude delay
-void 
-delay_cycles(ee_u32 cycles) 
-{
-    // Crude CPU delay loop, assumes one loop = ~1 cycle
-    volatile ee_u32 i;
-    for (i=0; i<cycles; i++) {
-        __asm__ volatile ("nop");
-    }
-}
-
-// UART init - initializes and enable dbgUART in TX mode...
-void 
-uart_init() 
-{
-    // Assert TX reset
-    UART_CTRL_REG = UART_CTRL_TX_RST;
-
-    // Hold reset for ~10 cycles
-    //delay_cycles(10);
-    delay_me(10);
-
-    // De-assert TX reset and enable TX
-    UART_CTRL_REG = UART_CTRL_TX_EN;
-}
-
-// UART send byte
 void
 uart_send_char(char c)
 {
@@ -728,21 +681,16 @@ uart_send_char(char c)
        documentation.
     */
 
-    // Wait unit UART is ready
-    while ((UART_STATUS_REG & UART_STATUS_TXREADY) == 0);
+    // Write chat to memory
+    TXDATA_REG = c ;
 
-    // Write byte to UART
-    UART_TXDATA_REG = c ;
-
-    // Some delay 
-    delay_me(10);
 }
-////////////////// PQR5 SPECIFIC LOCAL DEFINES & FUNCTIONS - Ends here //////////////////
+////////////////// SPECIFIC LOCAL DEFINES & FUNCTIONS - Ends here //////////////////
 
 int
 ee_printf(const char *fmt, ...)
 {
-    char    buf[256], *p;  //pqr5: reduced to 256 from 1024 to save stack size...
+    char    buf[1024], *p;
     va_list args;
     int     n = 0;
 

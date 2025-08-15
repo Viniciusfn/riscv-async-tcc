@@ -1,5 +1,5 @@
 ROOT_DIR    := $(shell pwd)/..
-TB_NAME     := tb_ariscv
+TB_NAME     := tb_ariscv_soc_top
 SRC_DIR     := $(ROOT_DIR)/rtl/src
 MODEL_DIR   := $(ROOT_DIR)/model
 TB_DIR      := $(ROOT_DIR)/rtl/tb
