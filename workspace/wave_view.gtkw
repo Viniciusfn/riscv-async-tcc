@@ -1,56 +1,79 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon May 26 23:38:00 2025
+[*] Fri Aug 15 02:24:02 2025
 [*]
-[dumpfile] "/home/vini/riscv-async-tcc/workspace/wave_trace.vcd"
-[dumpfile_mtime] "Mon May 26 23:37:43 2025"
-[dumpfile_size] 30220
-[savefile] "/home/vini/riscv-async-tcc/workspace/wave_view.gtkw"
-[timestart] 0
+[dumpfile] "/home/almondega/riscv-async-tcc/workspace/wave_trace.vcd"
+[dumpfile_mtime] "Fri Aug 15 02:22:43 2025"
+[dumpfile_size] 1819001398
+[savefile] "/home/almondega/riscv-async-tcc/workspace/wave_view.gtkw"
+[timestart] 19676458
 [size] 1908 1047
 [pos] -1 -1
-*-3.000000 15 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-10.000000 45616 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] ariscv_params_pkg.
-[treeopen] tb_ariscv.
-[treeopen] tb_ariscv.dut.
-[treeopen] tb_ariscv.dut.uu_dtpath.
-[treeopen] tb_ariscv.dut.uu_dtpath.uu_dec.
-[sst_width] 232
-[signals_width] 242
+[treeopen] tb_ariscv_soc_top.
+[treeopen] tb_ariscv_soc_top.dut.
+[treeopen] tb_ariscv_soc_top.dut.uu_core.
+[treeopen] tb_ariscv_soc_top.dut.uu_core.uu_dtpath.
+[treeopen] tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.
+[sst_width] 336
+[signals_width] 294
 [sst_expanded] 1
 [sst_vpaned_height] 309
 @28
-tb_ariscv.dut.rst_async_n
+[color] 6
+tb_ariscv_soc_top.dut.uu_core.rst_async_n
 @800022
-tb_ariscv.dut.aclk[5:0]
+tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
 @28
-(0)tb_ariscv.dut.aclk[5:0]
-(1)tb_ariscv.dut.aclk[5:0]
-(2)tb_ariscv.dut.aclk[5:0]
-(3)tb_ariscv.dut.aclk[5:0]
-(4)tb_ariscv.dut.aclk[5:0]
-(5)tb_ariscv.dut.aclk[5:0]
+(0)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
+(1)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
+(2)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
+(3)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
+(4)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
+(5)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
 @1001200
 -group_end
 @22
-tb_ariscv.dut.o_pc[31:0]
-tb_ariscv.dut.i_inst[31:0]
+[color] 2
+tb_ariscv_soc_top.dut.uu_core.o_pc[31:0]
+[color] 2
+tb_ariscv_soc_top.dut.uu_core.i_inst[31:0]
 @28
-tb_ariscv.dut.o_mem_clk
-tb_ariscv.dut.o_memWrite
-@23
-tb_ariscv.dut.o_writeData[31:0]
+[color] 7
+tb_ariscv_soc_top.dut.uu_core.o_mem_clk
+[color] 7
+tb_ariscv_soc_top.dut.uu_core.o_memWrite
 @22
-tb_ariscv.dut.o_writeAddr[31:0]
-tb_ariscv.dut.i_readData[31:0]
-tb_ariscv.dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[1][31:0]
-tb_ariscv.dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[2][31:0]
-tb_ariscv.dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[3][31:0]
-tb_ariscv.dut.uu_dtpath.uu_dec.uu_reg_file.reg_dt[4][31:0]
+[color] 7
+tb_ariscv_soc_top.dut.uu_core.o_writeData[31:0]
+[color] 7
+tb_ariscv_soc_top.dut.uu_core.o_writeAddr[31:0]
+[color] 7
+tb_ariscv_soc_top.dut.uu_core.i_readData[31:0]
+[color] 3
+tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.reg_dt[1][31:0]
+[color] 3
+tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.reg_dt[2][31:0]
+[color] 3
+tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.reg_dt[3][31:0]
+[color] 3
+tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.reg_dt[4][31:0]
+[color] 3
+tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.reg_dt[31][31:0]
 @28
-tb_ariscv.dut.uu_dtpath.uu_dec.uu_reg_file.i_wr_en
+[color] 3
+tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.i_wr_en
 @22
-tb_ariscv.dut.uu_dtpath.uu_dec.uu_reg_file.i_wr_addr_3[4:0]
-tb_ariscv.dut.uu_dtpath.uu_dec.uu_reg_file.i_wr_dt[31:0]
+[color] 3
+tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.i_wr_dt[31:0]
+@200
+-
+@22
+[color] 1
+tb_ariscv_soc_top.dut.uu_dt_mem.i_perf_counter[31:0]
+@821
+[color] 1
+tb_ariscv_soc_top.tx_data_reg[7:0]
 [pattern_trace] 1
 [pattern_trace] 0

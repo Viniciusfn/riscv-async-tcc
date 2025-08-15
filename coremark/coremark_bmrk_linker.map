@@ -106,11 +106,14 @@ LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a
                 0x8000045c      0x52b core_main.o
                                 0x3fe (size before relaxing)
  .rodata.str1.4
-                0x80000987       0xad core_state.o
+                0x80000987        0x0 core_state.o
+                                 0xad (size before relaxing)
  .rodata.str1.4
-                0x80000987       0x27 barebones/core_portme.o
+                0x80000987        0x0 barebones/core_portme.o
+                                 0x27 (size before relaxing)
  .rodata.str1.4
-                0x80000987       0x57 barebones/ee_printf.o
+                0x80000987        0x0 barebones/ee_printf.o
+                                 0x57 (size before relaxing)
  *(.srodata)
  *(.srodata.*)
 
@@ -164,7 +167,7 @@ LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a
 OUTPUT(coremark_bmrk.elf elf32-littleriscv)
 
 .riscv.attributes
-                0x00000000       0x2a
+                0x00000000       0x1c
  .riscv.attributes
                 0x00000000       0x1a startup.o
  .riscv.attributes
@@ -182,19 +185,25 @@ OUTPUT(coremark_bmrk.elf elf32-littleriscv)
  .riscv.attributes
                 0x000000c2       0x1c barebones/ee_printf.o
  .riscv.attributes
-                0x000000de       0x28 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+                0x000000de       0x1a /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
  .riscv.attributes
-                0x00000106       0x28 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+                0x000000f8       0x1a /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
 
 .comment        0x00000000       0x19
  .comment       0x00000000       0x19 core_list_join.o
                                  0x1a (size before relaxing)
- .comment       0x00000019       0x1a core_main.o
- .comment       0x00000019       0x1a core_matrix.o
- .comment       0x00000019       0x1a core_state.o
- .comment       0x00000019       0x1a core_util.o
- .comment       0x00000019       0x1a barebones/core_portme.o
- .comment       0x00000019       0x1a barebones/ee_printf.o
+ .comment       0x00000019        0x0 core_main.o
+                                 0x1a (size before relaxing)
+ .comment       0x00000019        0x0 core_matrix.o
+                                 0x1a (size before relaxing)
+ .comment       0x00000019        0x0 core_state.o
+                                 0x1a (size before relaxing)
+ .comment       0x00000019        0x0 core_util.o
+                                 0x1a (size before relaxing)
+ .comment       0x00000019        0x0 barebones/core_portme.o
+                                 0x1a (size before relaxing)
+ .comment       0x00000019        0x0 barebones/ee_printf.o
+                                 0x1a (size before relaxing)
 
 .note.GNU-stack
                 0x00000000        0x0
@@ -298,39 +307,55 @@ OUTPUT(coremark_bmrk.elf elf32-littleriscv)
  .debug_line    0x00009982       0x7a /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
  .debug_line    0x000099fc      0x153 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
 
-.debug_str      0x00000000      0x96d
- .debug_str     0x00000000      0x96d core_list_join.o
-                                0x43c (size before relaxing)
- .debug_str     0x0000096d      0x3e7 core_main.o
- .debug_str     0x0000096d      0x23f core_matrix.o
- .debug_str     0x0000096d      0x2a0 core_state.o
- .debug_str     0x0000096d      0x1ed core_util.o
- .debug_str     0x0000096d      0x2a3 barebones/core_portme.o
- .debug_str     0x0000096d      0x250 barebones/ee_printf.o
- .debug_str     0x0000096d       0x99 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
- .debug_str     0x0000096d       0xc6 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+.debug_str      0x00000000      0x964
+ .debug_str     0x00000000      0x964 core_list_join.o
+                                0x42e (size before relaxing)
+ .debug_str     0x00000964        0x0 core_main.o
+                                0x3d9 (size before relaxing)
+ .debug_str     0x00000964        0x0 core_matrix.o
+                                0x231 (size before relaxing)
+ .debug_str     0x00000964        0x0 core_state.o
+                                0x292 (size before relaxing)
+ .debug_str     0x00000964        0x0 core_util.o
+                                0x1df (size before relaxing)
+ .debug_str     0x00000964        0x0 barebones/core_portme.o
+                                0x295 (size before relaxing)
+ .debug_str     0x00000964        0x0 barebones/ee_printf.o
+                                0x242 (size before relaxing)
+ .debug_str     0x00000964        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+                                 0x9e (size before relaxing)
+ .debug_str     0x00000964        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+                                 0xcb (size before relaxing)
 
 .debug_line_str
-                0x00000000      0x1a5
+                0x00000000      0x195
  .debug_line_str
-                0x00000000      0x1a5 core_list_join.o
-                                 0x4e (size before relaxing)
+                0x00000000      0x195 core_list_join.o
+                                 0x5d (size before relaxing)
  .debug_line_str
-                0x000001a5       0x49 core_main.o
+                0x00000195        0x0 core_main.o
+                                 0x58 (size before relaxing)
  .debug_line_str
-                0x000001a5       0x4b core_matrix.o
+                0x00000195        0x0 core_matrix.o
+                                 0x5a (size before relaxing)
  .debug_line_str
-                0x000001a5       0x4a core_state.o
+                0x00000195        0x0 core_state.o
+                                 0x59 (size before relaxing)
  .debug_line_str
-                0x000001a5       0x3e core_util.o
+                0x00000195        0x0 core_util.o
+                                 0x4d (size before relaxing)
  .debug_line_str
-                0x000001a5       0x6d barebones/core_portme.o
+                0x00000195        0x0 barebones/core_portme.o
+                                 0x72 (size before relaxing)
  .debug_line_str
-                0x000001a5       0xa6 barebones/ee_printf.o
+                0x00000195        0x0 barebones/ee_printf.o
+                                 0xab (size before relaxing)
  .debug_line_str
-                0x000001a5       0x84 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+                0x00000195        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+                                 0x89 (size before relaxing)
  .debug_line_str
-                0x000001a5       0x81 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+                0x00000195        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+                                 0x86 (size before relaxing)
 
 .debug_frame    0x00000000      0x7c8
  .debug_frame   0x00000000      0x1b8 core_list_join.o

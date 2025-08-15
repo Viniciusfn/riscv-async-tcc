@@ -54,7 +54,7 @@ module dt_mem_model #(
    end
 
    always_comb begin
-      if (i_writeAddr == 32'h0001000C) begin
+      if (i_writeAddr == PERF_COUNTER_ADDR) begin
          o_readData = i_perf_counter;
       end
       else begin

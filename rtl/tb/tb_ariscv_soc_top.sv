@@ -12,7 +12,10 @@ module tb_ariscv_soc_top;
    localparam COREMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin";
    localparam INST_MEM_SIZE = 32768*8/ARISCV_PARAMS.NBW_INST; // 32kBytes
    localparam DT_MEM_SIZE = 8192*8/ARISCV_PARAMS.NBW_REGISTER; // 8kBytes
-   localparam VERBOSE = 0; 
+   localparam VERBOSE = 0;
+   localparam TXDATA_REG_ADDR = 32'h00010000;
+   localparam PERF_COUNTER_ADDR = 32'h00010004;
+   time TIMEOUT_COREMARK = 1000ms;
 
    /* INTERFACE */
    logic                                 perf_clk;
@@ -33,11 +36,13 @@ module tb_ariscv_soc_top;
    );
 
    /* Testbench local parameters and signals */
+   logic [7:0] tx_data_reg; //char
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] aux;
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] tb_reg_dt [(2**ARISCV_PARAMS.NBW_ADDR)-1:0];
    logic reg_clk;
 
    always #(`PERF_CLK_PERIOD/2) perf_clk = ~perf_clk;
+   assign tx_data_reg = dut.uu_dt_mem.memory[TXDATA_REG_ADDR][7:0];
    assign tb_reg_dt = dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.reg_dt;
    assign reg_clk = dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.clk;
 
@@ -246,8 +251,53 @@ module tb_ariscv_soc_top;
    endtask
 
    task test_coremark(inout integer err_count);
+      bit  timeout_flag;
+      bit  signal_triggered;
+      string coremark_text; // Acts like a dynamic char buffer
+
       $display("~ test_coremark test start.");
-      #1000ns;
+
+      timeout_flag = 0;
+      coremark_text = "";
+
+      fork
+         // Thread 1: Wait for signal transition
+         begin
+            while (tb_reg_dt[31] != 32'hFFFF_FFFF) begin
+               @(tb_reg_dt[31]);
+            end
+            $display("[%0t] Reached end of benckmark!", $time);
+         end
+
+         // Thread 2: Message Acquisition from ee_printf
+         begin
+            while(1) begin
+               @(tx_data_reg);
+               if (tx_data_reg != 8'h00) begin // ignore null bytes
+                  coremark_text = {coremark_text, byte'(tx_data_reg)};
+               end
+               //$display("[%0t] %c", $time, tx_data_reg); // for debug
+            end
+         end
+
+         // Thread 3: Timeout counter
+         begin
+            #TIMEOUT_COREMARK;
+            timeout_flag = 1;
+            $display("[%0t] Timeout reached!", $time);
+         end
+      join_any
+
+      $display("\n------------------------ Coremark Output ------------------------\n%s\n", coremark_text);
+
+      if (timeout_flag)
+        $display("Test Coremark FAILED: timeout before end of benchmark.");
+      else
+        $display("Test Coremark FINISHED: end of benchmark.");
+
+      // Kill whichever thread is still running
+      disable fork;
+
       $display("~ test_coremark test complete!");
    endtask
 
