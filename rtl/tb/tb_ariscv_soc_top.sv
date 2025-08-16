@@ -15,7 +15,8 @@ module tb_ariscv_soc_top;
    localparam VERBOSE = 0;
    localparam TXDATA_REG_ADDR = 32'h00010000;
    localparam PERF_COUNTER_ADDR = 32'h00010004;
-   time TIMEOUT_COREMARK = 1000ms;
+   time TIMEOUT_COREMARK = 15s;
+   time UPDATE_PROG = 1ms;
 
    /* INTERFACE */
    logic                                 perf_clk;
@@ -40,13 +41,79 @@ module tb_ariscv_soc_top;
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] aux;
    logic [ARISCV_PARAMS.NBW_REGISTER-1:0] tb_reg_dt [(2**ARISCV_PARAMS.NBW_ADDR)-1:0];
    logic reg_clk;
+   logic inst_error_flag;
 
    always #(`PERF_CLK_PERIOD/2) perf_clk = ~perf_clk;
    assign tx_data_reg = dut.uu_dt_mem.memory[TXDATA_REG_ADDR][7:0];
    assign tb_reg_dt = dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.reg_dt;
    assign reg_clk = dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.clk;
+   assign inst_error_flag = dut.uu_core.uu_dtpath.uu_dec.err_flag_ff;
 
    /* TASKS */
+   task automatic print_progress(time current, time total);
+      longint percent;    // 64-bit signed for safe math
+      int bar_width = 50;
+      int pos;
+      string bar;
+
+      // avoid div by zero
+      if (total == 0) begin
+         $write("\r[ERROR: total=0]");
+         return;
+      end
+
+      // percentage calc (safe)
+      percent = (current * 100) / total;
+      if (percent > 100) percent = 100; // clamp
+
+      pos = (current * bar_width) / total;
+
+      // build progress bar
+      bar = "";
+      for (int i = 0; i < bar_width; i++) begin
+         if (i < pos) 
+            bar = {bar, "="};
+         else if (i == pos) 
+            bar = {bar, ">"};
+         else 
+            bar = {bar, " "};
+      end
+
+      $write("\r[%s] %0d%% (time=%s / %s)", 
+               bar, percent, fmt_time(current), fmt_time(total));
+
+      if (percent >= 100) $write("\n");
+   endtask
+
+   // helper function: format time into human-readable string
+   function string fmt_time(time t);
+      real val;
+      string unit;
+
+      if (t >= 1s) begin
+         val  = t / 1s;
+         unit = "s";
+      end
+      else if (t >= 1ms) begin
+         val  = t / 1ms;
+         unit = "ms";
+      end
+      else if (t >= 1us) begin
+         val  = t / 1us;
+         unit = "us";
+      end
+      else if (t >= 1ns) begin
+         val  = t / 1ns;
+         unit = "ns";
+      end
+      else begin
+         val  = t / 1ps;
+         unit = "ps";
+      end
+
+      return $sformatf("%0.2f%s", val, unit);
+   endfunction
+
    task test_basic(inout integer err_count);
 
       $display("~ test_basic test start.");
@@ -253,11 +320,14 @@ module tb_ariscv_soc_top;
    task test_coremark(inout integer err_count);
       bit  timeout_flag;
       bit  signal_triggered;
+      string text_line;
       string coremark_text; // Acts like a dynamic char buffer
+      int i;
 
       $display("~ test_coremark test start.");
 
       timeout_flag = 0;
+      text_line = "";
       coremark_text = "";
 
       fork
@@ -272,11 +342,17 @@ module tb_ariscv_soc_top;
          // Thread 2: Message Acquisition from ee_printf
          begin
             while(1) begin
-               @(tx_data_reg);
-               if (tx_data_reg != 8'h00) begin // ignore null bytes
-                  coremark_text = {coremark_text, byte'(tx_data_reg)};
+               @(posedge (dut.uu_dt_mem.aclk && dut.uu_dt_mem.i_memWrite));
+               if(dut.uu_dt_mem.i_writeAddr == TXDATA_REG_ADDR) begin
+                  if (dut.uu_dt_mem.i_writeData[7:0] != 8'h00) begin // ignore null bytes
+                     coremark_text = {coremark_text, byte'(dut.uu_dt_mem.i_writeData[7:0])};
+                     text_line = {text_line, byte'(dut.uu_dt_mem.i_writeData[7:0])};
+                     if (dut.uu_dt_mem.i_writeData[7:0] == 8'h0A) begin // if end of line, print line (for debug)
+                        //$display("%s", text_line); for debug
+                        text_line = "";
+                     end
+                  end
                end
-               //$display("[%0t] %c", $time, tx_data_reg); // for debug
             end
          end
 
@@ -286,9 +362,18 @@ module tb_ariscv_soc_top;
             timeout_flag = 1;
             $display("[%0t] Timeout reached!", $time);
          end
+
+         // Thread 4: Progression bar
+         begin
+            for (time t = 0; t <= TIMEOUT_COREMARK; t += UPDATE_PROG) begin
+               print_progress($time, TIMEOUT_COREMARK);
+               #(UPDATE_PROG);
+            end
+         end
       join_any
 
-      $display("\n------------------------ Coremark Output ------------------------\n%s\n", coremark_text);
+      $display("\n------------------------ Coremark Output ------------------------\n%s", coremark_text);
+      $display(  "-----------------------------------------------------------------\n");
 
       if (timeout_flag)
         $display("Test Coremark FAILED: timeout before end of benchmark.");
@@ -297,8 +382,6 @@ module tb_ariscv_soc_top;
 
       // Kill whichever thread is still running
       disable fork;
-
-      $display("~ test_coremark test complete!");
    endtask
 
    /* TEST SEQUENCE */
@@ -322,7 +405,7 @@ module tb_ariscv_soc_top;
       `else
       test_basic(err_count);
       `endif
-      $display("\n");
+      $display();
 
       //if(err_count > 0) begin
       //   $display("\n=== FAIL! %d assertions were violated. ===\n", err_count);

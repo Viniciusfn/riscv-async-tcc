@@ -48,6 +48,8 @@ module ariscv_dec #(
    logic         aluSrc_w;
    logic [2:0]   immSrc_w;
 
+   logic         err_flag_w, err_flag_ff;
+
    /* Output Assignments */
    assign o_rd1 = rd1_ff;
    assign o_rd2 = rd2_ff;
@@ -67,6 +69,7 @@ module ariscv_dec #(
          o_aluControl   <= '0;
          o_aluSrc       <= '0;
          o_funct3       <= '0;
+         err_flag_ff    <= '0;
       end
       else begin
          rd1_ff         <= rd1_w;
@@ -83,6 +86,7 @@ module ariscv_dec #(
          o_regWrite     <= regWrite_w;
          o_resultSrc    <= resultSrc_w;
          o_funct3       <= i_inst[14:12];
+         err_flag_ff    <= err_flag_w || err_flag_ff;
       end
    end
    
@@ -126,7 +130,8 @@ module ariscv_dec #(
       .o_branch      (branch_w),
       .o_aluControl  (aluControl_w),
       .o_aluSrc      (aluSrc_w),
-      .o_immSrc      (immSrc_w)
+      .o_immSrc      (immSrc_w),
+      .o_err_flag    (err_flag_w)
    );
 
 endmodule

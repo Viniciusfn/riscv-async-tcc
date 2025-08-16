@@ -1,10 +1,12 @@
+.DEFAULT_GOAL := all
+
 # [CONFIGURE] Toolchain
 GCC_DIR    = /opt/riscv
 GCC_PREFIX = riscv32-unknown-elf
 GCC_VER    = 15.1.0
 
 # [CONFIGURE] CoreMark specific definitions
-ITERATIONS     = 400        # Iterations of CoreMark
+ITERATIONS     = 120        # Iterations of CoreMark
 CLOCKS_PER_SEC = 100000000  # Core clock speed
 FLAGS_STR      = ""
 
@@ -24,6 +26,7 @@ LINKER_SCRIPT = linker.ld
 
 # Directories
 PORT_DIR = barebones
+MEM_DIR  = ../mem
 
 # Output files
 PRJNAME  = coremark_bmrk
@@ -98,10 +101,10 @@ OBJS   = $(ASRCS:.s=.o) $(CSRCS:.c=.o)
 .PHONY: msgc
 msgc:
 	@echo ""
-	@echo "| COREMARK_PQR5_MAKE: Compiling..."
+	@echo "| COREMARK_MAKE: Compiling..."
 
 # Default rule: build everything
-all: $(TARGET) dump binary sections symbols
+all: clean $(TARGET) dump binary sections symbols
 
 # Minimal build
 build: $(TARGET) binary sections
@@ -116,7 +119,7 @@ build: $(TARGET) binary sections
 # Link everything and generate ELF
 $(TARGET): msgc $(OBJS) $(LINKER_SCRIPT)
 	@echo ""
-	@echo "| COREMARK_PQR5_MAKE: Linking..."
+	@echo "| COREMARK_MAKE: Linking..."
 	$(CC) $(LIBGCC) $(LIBC) $(LDFLAGS) $(OBJS) -o $(TARGET)
 	$(EF)-readelf -S $(TARGET)
 	@echo ""
@@ -126,7 +129,7 @@ $(TARGET): msgc $(OBJS) $(LINKER_SCRIPT)
 # Dump entire disassembly of ELF
 dump: $(TARGET)
 	@echo ""
-	@echo "| COREMARK_PQR5_MAKE: Dumping the disassembly of the ELF..."
+	@echo "| COREMARK_MAKE: Dumping the disassembly of the ELF..."
 	$(OBJDUMP) -D $(TARGET) > $(PRJNAME).dump
 
 # Dump only .text section
@@ -153,7 +156,7 @@ symbols: $(TARGET)
 # Extract text and data sections separately and dump binary files
 binary: $(TARGET)
 	@echo ""
-	@echo "| COREMARK_PQR5_MAKE: Dumping the binaries..."
+	@echo "| COREMARK_MAKE: Dumping the binaries..."
 	$(OBJCOPY) -O binary --only-section=.text $(TARGET) $(TEXT_BIN)
 	$(OBJCOPY) -O binary --only-section=.data --only-section=.rodata $(TARGET) $(DATA_BIN)
 
@@ -161,7 +164,7 @@ binary: $(TARGET)
 .PHONY: clean
 clean:
 	@echo ""
-	@echo "| COREMARK_PQR5_MAKE: Cleaning all generated files!"
+	@echo "| COREMARK_MAKE: Cleaning all generated files!"
 	rm -f $(OBJS) $(TARGET) $(TEXT_BIN) $(DATA_BIN)
 	rm -f $(PRJNAME)_linker.map
 	rm -f $(PRJNAME).dump

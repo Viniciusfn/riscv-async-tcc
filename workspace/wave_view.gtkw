@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri Aug 15 02:24:02 2025
+[*] Sat Aug 16 01:13:29 2025
 [*]
 [dumpfile] "/home/almondega/riscv-async-tcc/workspace/wave_trace.vcd"
-[dumpfile_mtime] "Fri Aug 15 02:22:43 2025"
-[dumpfile_size] 1819001398
+[dumpfile_mtime] "Sat Aug 16 01:13:10 2025"
+[dumpfile_size] 17605136
 [savefile] "/home/almondega/riscv-async-tcc/workspace/wave_view.gtkw"
-[timestart] 19676458
+[timestart] 0
 [size] 1908 1047
 [pos] -1 -1
-*-10.000000 45616 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-10.000000 1147 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] ariscv_params_pkg.
 [treeopen] tb_ariscv_soc_top.
 [treeopen] tb_ariscv_soc_top.dut.
@@ -72,8 +72,11 @@ tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.uu_reg_file.i_wr_dt[31:0]
 @22
 [color] 1
 tb_ariscv_soc_top.dut.uu_dt_mem.i_perf_counter[31:0]
-@821
+@820
 [color] 1
 tb_ariscv_soc_top.tx_data_reg[7:0]
+@28
+[color] 1
+tb_ariscv_soc_top.dut.uu_core.uu_dtpath.uu_dec.err_flag_ff
 [pattern_trace] 1
 [pattern_trace] 0

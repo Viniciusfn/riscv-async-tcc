@@ -12,14 +12,20 @@ module ctrl_unit #(
    output logic         o_branch,
    output logic [3:0]   o_aluControl,
    output logic         o_aluSrc,
-   output logic [2:0]   o_immSrc
+   output logic [2:0]   o_immSrc,
+
+   output logic         o_err_flag
 );
 
    /* Local signals and parameters */
    logic [1:0] ALUOp_w;
+   logic [1:0] err_flag_w;
 
    /* Assignments */
+   assign o_err_flag = |err_flag_w;
+
    always_comb begin : Main_Decoder
+      err_flag_w[0] = 1'b0;
       case(i_op)
          7'b0000011: begin // lw
             o_regWrite = 1'b1;
@@ -120,11 +126,13 @@ module ctrl_unit #(
             o_branch = 1'b0;
             ALUOp_w = 2'b11;
             o_jump = 1'b0;
+            err_flag_w[0] = 1'b1;
          end
       endcase
    end
 
    always_comb begin : ALU_Decoder
+      err_flag_w[1] = 1'b0;
       case(ALUOp_w)
          2'b00: o_aluControl = 4'b0000; // lw,sw
          2'b01: begin // branch
@@ -135,7 +143,10 @@ module ctrl_unit #(
                3'b101:  o_aluControl = 4'b0101; // bge
                3'b110:  o_aluControl = 4'b0100; // bltu
                3'b111:  o_aluControl = 4'b0100; // bgeu
-               default: o_aluControl = 4'b0001;
+               default: begin
+                  o_aluControl = 4'b0001;
+                  err_flag_w[1] = 1'b1;
+               end
             endcase
          end
          2'b10: begin
@@ -160,10 +171,13 @@ module ctrl_unit #(
                3'b100: o_aluControl = 4'b0111; // xor
                3'b110: o_aluControl = 4'b0011; // or
                3'b111: o_aluControl = 4'b0010; // and
-               default:o_aluControl = 4'b0000;
+               default: begin
+                  o_aluControl = 4'b0000;
+                  err_flag_w[1] = 1'b1;
+               end
             endcase
          end
-         default: o_aluControl = 4'b1111;
+         default: o_aluControl = 4'b1111; // lui
       endcase
    end
 

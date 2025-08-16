@@ -11,25 +11,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   3 .bss          00000008  800009ac  800009ac  000079ac  2**2
                   ALLOC
-  4 .riscv.attributes 0000002a  00000000  00000000  000079ac  2**0
+  4 .riscv.attributes 0000001c  00000000  00000000  000079ac  2**0
                   CONTENTS, READONLY
-  5 .comment      00000019  00000000  00000000  000079d6  2**0
+  5 .comment      00000019  00000000  00000000  000079c8  2**0
                   CONTENTS, READONLY
-  6 .debug_info   0000415c  00000000  00000000  000079ef  2**0
+  6 .debug_info   0000415c  00000000  00000000  000079e1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  7 .debug_abbrev 000011f1  00000000  00000000  0000bb4b  2**0
+  7 .debug_abbrev 000011f1  00000000  00000000  0000bb3d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  8 .debug_loclists 00007169  00000000  00000000  0000cd3c  2**0
+  8 .debug_loclists 00007169  00000000  00000000  0000cd2e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  9 .debug_aranges 00000128  00000000  00000000  00013ea8  2**3
+  9 .debug_aranges 00000128  00000000  00000000  00013e98  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 10 .debug_rnglists 000003cf  00000000  00000000  00013fd0  2**0
+ 10 .debug_rnglists 000003cf  00000000  00000000  00013fc0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_line   00009b4f  00000000  00000000  0001439f  2**0
+ 11 .debug_line   00009b4f  00000000  00000000  0001438f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 12 .debug_str    0000096d  00000000  00000000  0001deee  2**0
+ 12 .debug_str    00000964  00000000  00000000  0001dede  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_line_str 000001a5  00000000  00000000  0001e85b  2**0
+ 13 .debug_line_str 00000195  00000000  00000000  0001e842  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_frame  000007c8  00000000  00000000  0001ea00  2**2
+ 14 .debug_frame  000007c8  00000000  00000000  0001e9d8  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
