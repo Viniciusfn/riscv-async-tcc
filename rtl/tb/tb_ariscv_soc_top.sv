@@ -10,6 +10,7 @@ module tb_ariscv_soc_top;
    localparam BASIC_TEST_FILE_NAME = "../mem/inst_mem";
    localparam COREMARK_INST_FILE_NAME = "../mem/coremark_bmrk_iram.bin";
    localparam COREMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin";
+   localparam ISA_TEST_FILE_NAME = "../mem/isa_test/rv32i_tests.bin";
    localparam INST_MEM_SIZE = 32768*8/ARISCV_PARAMS.NBW_INST; // 32kBytes
    localparam DT_MEM_SIZE = 8192*8/ARISCV_PARAMS.NBW_REGISTER; // 8kBytes
    localparam VERBOSE = 0;
@@ -28,6 +29,7 @@ module tb_ariscv_soc_top;
       .BASIC_TEST_FILE_NAME      (BASIC_TEST_FILE_NAME),
       .COREMARK_INST_FILE_NAME   (COREMARK_INST_FILE_NAME),
       .COREMARK_DATA_FILE_NAME   (COREMARK_DATA_FILE_NAME),
+      .ISA_TEST_FILE_NAME        (ISA_TEST_FILE_NAME),
       .INST_MEM_SIZE             (INST_MEM_SIZE),
       .DT_MEM_SIZE               (DT_MEM_SIZE),
       .VERBOSE                   (VERBOSE)
@@ -52,8 +54,8 @@ module tb_ariscv_soc_top;
    /* TASKS */
    task automatic print_progress(time current, time total);
       longint percent;    // 64-bit signed for safe math
-      int bar_width = 50;
-      int pos;
+      static longint bar_width = 50;
+      longint pos;
       string bar;
 
       // avoid div by zero
@@ -66,11 +68,11 @@ module tb_ariscv_soc_top;
       percent = (current * 100) / total;
       if (percent > 100) percent = 100; // clamp
 
-      pos = (current * bar_width) / total;
+      pos = bar_width * current / total;
 
       // build progress bar
       bar = "";
-      for (int i = 0; i < bar_width; i++) begin
+      for (longint i = 0; i < bar_width; i++) begin
          if (i < pos) 
             bar = {bar, "="};
          else if (i == pos) 
@@ -79,7 +81,7 @@ module tb_ariscv_soc_top;
             bar = {bar, " "};
       end
 
-      $write("\r[%s] %0d%% (time=%s / %s)", 
+      $write("\r[%s] %0d%% (elapsed time / timeout = %s / %s)", 
                bar, percent, fmt_time(current), fmt_time(total));
 
       if (percent >= 100) $write("\n");
@@ -114,7 +116,7 @@ module tb_ariscv_soc_top;
       return $sformatf("%0.2f%s", val, unit);
    endfunction
 
-   task test_basic(inout integer err_count);
+   task test_basic();
 
       $display("~ test_basic test start.");
       @(negedge reg_clk);
@@ -122,9 +124,9 @@ module tb_ariscv_soc_top;
       /* Initial tests */
       // ADDI
       @(negedge reg_clk);
-      assert(tb_reg_dt[4] == 'hA5A) else err_count+=1;
+      assert(tb_reg_dt[4] == 32'hFFFFFA5A);
       @(negedge reg_clk);
-      assert(tb_reg_dt[1] == 'hA + tb_reg_dt[4]);
+      assert(tb_reg_dt[1] == 32'hA + tb_reg_dt[4]);
 
       // ADD
       @(negedge reg_clk);
@@ -317,7 +319,7 @@ module tb_ariscv_soc_top;
       $display("~ test_basic test complete!");
    endtask
 
-   task test_coremark(inout integer err_count);
+   task test_coremark();
       bit  timeout_flag;
       bit  signal_triggered;
       string text_line;
@@ -384,14 +386,41 @@ module tb_ariscv_soc_top;
       disable fork;
    endtask
 
+   task test_isa();
+      int cycles;
+      static int TIMEOUT_CYC = 10000; //cycles
+      // Wait until reset deasserts
+      @(posedge dut.w_mem_clk);
+
+      cycles = 0;
+      // Monitor until done or timeout
+      while (cycles < TIMEOUT_CYC) begin
+         @(posedge dut.w_mem_clk);
+         cycles++;
+
+         if (dut.uu_dt_mem.i_memWrite && (dut.uu_dt_mem.i_writeAddr == TXDATA_REG_ADDR)) begin
+            if (dut.uu_dt_mem.i_writeData == 32'h0000_0001) begin
+               $display("[TB][PASS] RV32I selftest passed in %0d cycles.", cycles);
+            end else begin
+               $error("[TB][FAIL] RV32I selftest FAILED. tohost=0x%08x (cycles=%0d)", 
+                        dut.uu_dt_mem.i_writeData, cycles);
+            end
+            break;
+         end
+      end
+
+      // If timeout
+      if (cycles == TIMEOUT_CYC) begin
+         $error("[TB][TIMEOUT] No result after %0d cycles.", cycles);
+      end
+   endtask
+
    /* TEST SEQUENCE */
    initial begin
-      static integer err_count = 0;
       $dumpfile("wave_trace.vcd");
       $dumpvars(0, tb_ariscv);
 
       /* INITIALIZING */
-      perf_clk = 1'b0;
       rst_async_n = 1'b1;
 
       /* RESET */
@@ -401,18 +430,15 @@ module tb_ariscv_soc_top;
       $display("==> Testbench start...\n");
 
       `ifdef COREMARK_TEST
-      test_coremark(err_count);
+      test_coremark();
+      `elsif ISA_TEST
+      test_isa();
       `else
-      test_basic(err_count);
+      test_basic();
       `endif
-      $display();
+      $display("\n");
 
-      //if(err_count > 0) begin
-      //   $display("\n=== FAIL! %d assertions were violated. ===\n", err_count);
-      //end
-      //else begin
-      //   $display("\n=== PASS! All assertions passed. ===\n");
-      //end
+      #20
 
       $finish;
    end

@@ -6,9 +6,10 @@ GCC_PREFIX = riscv32-unknown-elf
 GCC_VER    = 15.1.0
 
 # [CONFIGURE] CoreMark specific definitions
-ITERATIONS     = 120        # Iterations of CoreMark
+ITERATIONS     = 1        # Iterations of CoreMark
 CLOCKS_PER_SEC = 100000000  # Core clock speed
 FLAGS_STR      = ""
+CORE_DEBUG     = 1 # 1 to activate debug prompts
 
 # Target architecture and tools
 ARCH    = rv32i
@@ -67,6 +68,7 @@ XCFLAGS = \
 	-I ./ \
 	-I $(PORT_DIR) \
 	-DFLAGS_STR=\"$(FLAGS_STR)\" \
+	-DCORE_DEBUG=$(CORE_DEBUG) \
 
 # C Libraries for compilation/linking
 # These are reqd. to link mul/div/mod SW routines of GCC used by ilp32 ABI

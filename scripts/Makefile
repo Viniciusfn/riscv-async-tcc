@@ -9,6 +9,7 @@ WAVE_FILE   := wave_trace.vcd
 NO_WARNINGS := -Wno-fatal -Wno-TIMESCALEMOD -Wno-UNOPTFLAT -Wno-IMPORTSTAR -Wno-VARHIDDEN -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM
 COMP_FLAGS  := --cc -Wall $(NO_WARNINGS) --assert --no-stop-fail --exe --trace --trace-structs --build --timing
 DEFINES_COREMARK := -DCOREMARK_TEST
+DEFINES_ISA_TEST := -DISA_TEST
 GTKWFILE    := wave_view.gtkw
 
 .PHONY: all compile run clean coremark
@@ -17,11 +18,16 @@ all: compile run
 
 coremark: compile_coremark run
 
+isa_test: compile_isa run
+
 compile:
 	verilator $(COMP_FLAGS) $(CPP_WRAPPER) $(SRC_FILE) -I$(SRC_DIR) --top $(TB_NAME) -j `nproc`
 
 compile_coremark:
 	verilator $(COMP_FLAGS) $(CPP_WRAPPER) $(DEFINES_COREMARK) $(SRC_FILE) -I$(SRC_DIR) --top $(TB_NAME) -j `nproc`
+
+compile_isa:
+	verilator $(COMP_FLAGS) $(CPP_WRAPPER) $(DEFINES_ISA_TEST) $(SRC_FILE) -I$(SRC_DIR) --top $(TB_NAME) -j `nproc`
 
 run:
 	./obj_dir/V$(TB_NAME)

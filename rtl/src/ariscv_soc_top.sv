@@ -5,6 +5,7 @@ module ariscv_soc_top #(
    parameter BASIC_TEST_FILE_NAME = "../mem/inst_mem",
    parameter COREMARK_INST_FILE_NAME = "../mem/coremark_bmrk_iram.bin",
    parameter COREMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin",
+   parameter ISA_TEST_FILE_NAME = "../mem/isa_test/rv32i_tests.bin",
    parameter INST_MEM_SIZE = 32768*8/ARISCV_PARAMS.NBW_INST, // 32kBytes
    parameter DT_MEM_SIZE = 8192*8/ARISCV_PARAMS.NBW_REGISTER, // 8kBytes
    parameter VERBOSE = 0
@@ -73,6 +74,9 @@ module ariscv_soc_top #(
    inst_mem_model #(
       `ifdef COREMARK_TEST
       .FILE_NAME  (COREMARK_INST_FILE_NAME),
+      .FILE_TYPE  ("bin"),
+      `elsif ISA_TEST
+      .FILE_NAME  (ISA_TEST_FILE_NAME),
       .FILE_TYPE  ("bin"),
       `else
       .FILE_NAME  (BASIC_TEST_FILE_NAME),
