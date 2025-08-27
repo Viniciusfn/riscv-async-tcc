@@ -145,25 +145,30 @@ _start:
     bge  x2, x1, 4f          # 1 >= -1 signed: taken
     j    fail
 4:
-    bltu x2, x1, fail        # unsigned: 1 < 0xFFFF_FFFF ? taken -> but this would be true; invert to not-taken
+    bltu x1, x2, fail        # unsigned: 0xFFFF_FFFF < 1 not_taken
     bgeu x1, x2, 5f          # 0xFFFF_FFFF >= 1 unsigned: taken
     j    fail
 5:
 
     # -------- Jumps (JAL / JALR) --------
     la   ra, after_call
-    jal  ra, subroutine      # call
+    jal  x2, subroutine      # call
     j    fail                # should not reach here, subroutine returns to after_call
 
 after_call:
     # ra should have return addr already; now test JALR for return
     # If we are here, JAL worked.
     # AUIPC/LUI
-    auipc x5, 0              # x5 ~= current PC
-    lui   x6, 0x12345        # x6 = 0x12345000
-    andi  x7, x6, -1
-    beq   x7, x0, 6f         # lower 12 bits must be zero
-    j     fail
+    auipc t0, 0              # t0 = PC_
+    auipc t1, 0              # t1 = X + 4
+    addi  t0, t0, 4
+    bne   t0, t1, fail       # if AUIPC didn’t use its own PC, mismatch
+    addi  t0, x0, 0x123      # t0 = 0x00000123
+    slli  t0, t0, 8          # t0 = 0x00012300
+    addi  t0, t0, 0x45       # t0 = 0x00012345
+    slli  t0, t0, 12         # t0 = 0x12345000   (expected)
+    lui   t1, 0x12345        # t1 under test
+    bne   t1, t0, fail       # if LUI failed, mismatch
 6:
 
     # -------- SUCCESS --------
