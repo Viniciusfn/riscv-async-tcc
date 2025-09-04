@@ -10,6 +10,8 @@ ITERATIONS     = 1        # Iterations of CoreMark
 CLOCKS_PER_SEC = 100000000  # Core clock speed
 FLAGS_STR      = ""
 CORE_DEBUG     = 1 # 1 to activate debug prompts
+VALIDATION_RUN = 0
+PERFORMANCE_RUN = 1
 
 # Target architecture and tools
 ARCH    = rv32i
@@ -69,6 +71,8 @@ XCFLAGS = \
 	-I $(PORT_DIR) \
 	-DFLAGS_STR=\"$(FLAGS_STR)\" \
 	-DCORE_DEBUG=$(CORE_DEBUG) \
+	-DPERFORMANCE_RUN=$(PERFORMANCE_RUN) \
+	-DVALIDATION_RUN=$(VALIDATION_RUN) \
 
 # C Libraries for compilation/linking
 # These are reqd. to link mul/div/mod SW routines of GCC used by ilp32 ABI
