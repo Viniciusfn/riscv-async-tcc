@@ -151,8 +151,10 @@ core_init_state(ee_u32 size, ee_s16 seed, ee_u8 *p)
     {
         if (next > 0)
         {
-            for (i = 0; i < next; i++)
+            for (i = 0; i < next; i++) {
                 *(p + total + i) = buf[i];
+                ee_printf("State Addition [%d]: data=%c\n", total, buf[i]);
+            }
             *(p + total + i) = ',';
             total += next + 1;
         }

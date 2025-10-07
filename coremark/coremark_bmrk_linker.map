@@ -32,7 +32,7 @@ LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/../../../../riscv32-unknown-e
 END GROUP
 LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a
 
-.text           0x00000000     0x5f94
+.text           0x00000000     0x5fb4
  *startup.o(.text)
  .text          0x00000000       0xb0 startup.o
                 0x00000000                _start
@@ -64,113 +64,113 @@ LOAD /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a
                 0x000021d8                matrix_mul_vect
                 0x000022a4                matrix_mul_matrix
                 0x000023b0                matrix_mul_matrix_bitextract
- .text          0x000024d0      0x860 core_state.o
+ .text          0x000024d0      0x880 core_state.o
                 0x000024d0                core_init_state
-                0x000027ac                core_state_transition
-                0x00002aa0                core_bench_state
- .text          0x00002d30      0xa10 core_util.o
-                0x00002d30                get_seed_32
-                0x00002d94                crcu8
-                0x00002ec4                crcu16
-                0x000030ec                crcu32
-                0x0000350c                crc16
-                0x00003738                check_data_types
- .text          0x00003740       0xa8 barebones/core_portme.o
-                0x00003740                barebones_clock
-                0x0000374c                start_time
-                0x00003760                stop_time
-                0x00003774                get_time
-                0x0000378c                time_in_secs
-                0x000037ac                portable_init
-                0x000037e0                portable_fini
- .text          0x000037e8     0x1d9c barebones/ee_printf.o
-                0x00003e9c                uart_send_char
-                0x00003ea8                ee_printf
- .text          0x00005584       0x24 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
-                0x00005584                __mulsi3
- .text          0x000055a8       0xb4 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
-                0x000055a8                __divsi3
-                0x000055b0                __hidden___udivsi3
-                0x000055b0                __udivsi3
-                0x000055f8                __umodsi3
-                0x0000562c                __modsi3
+                0x000027cc                core_state_transition
+                0x00002ac0                core_bench_state
+ .text          0x00002d50      0xa10 core_util.o
+                0x00002d50                get_seed_32
+                0x00002db4                crcu8
+                0x00002ee4                crcu16
+                0x0000310c                crcu32
+                0x0000352c                crc16
+                0x00003758                check_data_types
+ .text          0x00003760       0xa8 barebones/core_portme.o
+                0x00003760                barebones_clock
+                0x0000376c                start_time
+                0x00003780                stop_time
+                0x00003794                get_time
+                0x000037ac                time_in_secs
+                0x000037cc                portable_init
+                0x00003800                portable_fini
+ .text          0x00003808     0x1d9c barebones/ee_printf.o
+                0x00003ebc                uart_send_char
+                0x00003ec8                ee_printf
+ .text          0x000055a4       0x24 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+                0x000055a4                __mulsi3
+ .text          0x000055c8       0xb4 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+                0x000055c8                __divsi3
+                0x000055d0                __hidden___udivsi3
+                0x000055d0                __udivsi3
+                0x00005618                __umodsi3
+                0x0000564c                __modsi3
  *(.text.*)
- .text.startup  0x0000565c      0x938 core_main.o
-                0x0000565c                main
+ .text.startup  0x0000567c      0x938 core_main.o
+                0x0000567c                main
 
-.rodata         0x80000000      0xabf
+.rodata         0x80000000      0xadf
  *(.rodata)
  .rodata        0x80000000       0x40 core_state.o
  .rodata        0x80000040      0x218 core_util.o
  .rodata        0x80000258      0x204 barebones/ee_printf.o
  *(.rodata.*)
  .rodata.str1.4
-                0x8000045c      0x663 core_list_join.o
+                0x8000045c      0x683 core_list_join.o
                                  0x68 (size before relaxing)
  .rodata.str1.4
-                0x80000abf        0x0 core_main.o
+                0x80000adf        0x0 core_main.o
                                 0x3fe (size before relaxing)
  .rodata.str1.4
-                0x80000abf        0x0 core_matrix.o
+                0x80000adf        0x0 core_matrix.o
                                  0x92 (size before relaxing)
  .rodata.str1.4
-                0x80000abf        0x0 core_state.o
-                                 0xf5 (size before relaxing)
+                0x80000adf        0x0 core_state.o
+                                0x115 (size before relaxing)
  .rodata.str1.4
-                0x80000abf        0x0 barebones/core_portme.o
+                0x80000adf        0x0 barebones/core_portme.o
                                  0x27 (size before relaxing)
  .rodata.str1.4
-                0x80000abf        0x0 barebones/ee_printf.o
+                0x80000adf        0x0 barebones/ee_printf.o
                                  0x57 (size before relaxing)
  *(.srodata)
  *(.srodata.*)
 
-.rela.dyn       0x80000ac0        0x0
- .rela.text     0x80000ac0        0x0 startup.o
+.rela.dyn       0x80000ae0        0x0
+ .rela.text     0x80000ae0        0x0 startup.o
 
-.data           0x80000ac0       0x24
+.data           0x80000ae0       0x24
  *(.data)
- .data          0x80000ac0        0x0 startup.o
- .data          0x80000ac0        0x0 core_list_join.o
- .data          0x80000ac0        0xc core_main.o
-                0x80000ac0                mem_name
- .data          0x80000acc        0x0 core_matrix.o
- .data          0x80000acc        0x0 core_state.o
- .data          0x80000acc        0x0 core_util.o
- .data          0x80000acc        0x0 barebones/core_portme.o
- .data          0x80000acc        0x0 barebones/ee_printf.o
- .data          0x80000acc        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
- .data          0x80000acc        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+ .data          0x80000ae0        0x0 startup.o
+ .data          0x80000ae0        0x0 core_list_join.o
+ .data          0x80000ae0        0xc core_main.o
+                0x80000ae0                mem_name
+ .data          0x80000aec        0x0 core_matrix.o
+ .data          0x80000aec        0x0 core_state.o
+ .data          0x80000aec        0x0 core_util.o
+ .data          0x80000aec        0x0 barebones/core_portme.o
+ .data          0x80000aec        0x0 barebones/ee_printf.o
+ .data          0x80000aec        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+ .data          0x80000aec        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
  *(.data.*)
  *(.sdata)
- .sdata         0x80000acc       0x18 barebones/core_portme.o
-                0x80000acc                default_num_contexts
-                0x80000ad0                seed5_volatile
-                0x80000ad4                seed4_volatile
-                0x80000ad8                seed3_volatile
-                0x80000adc                seed2_volatile
-                0x80000ae0                seed1_volatile
+ .sdata         0x80000aec       0x18 barebones/core_portme.o
+                0x80000aec                default_num_contexts
+                0x80000af0                seed5_volatile
+                0x80000af4                seed4_volatile
+                0x80000af8                seed3_volatile
+                0x80000afc                seed2_volatile
+                0x80000b00                seed1_volatile
  *(.sdata.*)
 
-.bss            0x80000ae4        0x8
-                0x80000ae4                        _sbss = .
+.bss            0x80000b04        0x8
+                0x80000b04                        _sbss = .
  *(.bss)
- .bss           0x80000ae4        0x0 startup.o
- .bss           0x80000ae4        0x0 core_list_join.o
- .bss           0x80000ae4        0x0 core_main.o
- .bss           0x80000ae4        0x0 core_matrix.o
- .bss           0x80000ae4        0x0 core_state.o
- .bss           0x80000ae4        0x0 core_util.o
- .bss           0x80000ae4        0x0 barebones/core_portme.o
- .bss           0x80000ae4        0x0 barebones/ee_printf.o
- .bss           0x80000ae4        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
- .bss           0x80000ae4        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+ .bss           0x80000b04        0x0 startup.o
+ .bss           0x80000b04        0x0 core_list_join.o
+ .bss           0x80000b04        0x0 core_main.o
+ .bss           0x80000b04        0x0 core_matrix.o
+ .bss           0x80000b04        0x0 core_state.o
+ .bss           0x80000b04        0x0 core_util.o
+ .bss           0x80000b04        0x0 barebones/core_portme.o
+ .bss           0x80000b04        0x0 barebones/ee_printf.o
+ .bss           0x80000b04        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+ .bss           0x80000b04        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
  *(.bss.*)
  *(.sbss)
- .sbss          0x80000ae4        0x8 barebones/core_portme.o
+ .sbss          0x80000b04        0x8 barebones/core_portme.o
  *(.sbss.*)
  *(COMMON)
-                0x80000aec                        _ebss = .
+                0x80000b0c                        _ebss = .
                 0x80002000                        _stack_top = ((ORIGIN (DRAM) + LENGTH (DRAM)) & 0xfffffffffffffff0)
 OUTPUT(coremark_bmrk.elf elf32-littleriscv)
 
@@ -230,30 +230,30 @@ OUTPUT(coremark_bmrk.elf elf32-littleriscv)
  .note.GNU-stack
                 0x00000000        0x0 barebones/ee_printf.o
 
-.debug_info     0x00000000     0x4cba
+.debug_info     0x00000000     0x4ccd
  .debug_info    0x00000000     0x134c core_list_join.o
  .debug_info    0x0000134c      0xc66 core_main.o
  .debug_info    0x00001fb2     0x163e core_matrix.o
- .debug_info    0x000035f0      0x600 core_state.o
- .debug_info    0x00003bf0      0x4f6 core_util.o
- .debug_info    0x000040e6      0x359 barebones/core_portme.o
- .debug_info    0x0000443f      0x7eb barebones/ee_printf.o
- .debug_info    0x00004c2a       0x31 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
- .debug_info    0x00004c5b       0x5f /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+ .debug_info    0x000035f0      0x613 core_state.o
+ .debug_info    0x00003c03      0x4f6 core_util.o
+ .debug_info    0x000040f9      0x359 barebones/core_portme.o
+ .debug_info    0x00004452      0x7eb barebones/ee_printf.o
+ .debug_info    0x00004c3d       0x31 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+ .debug_info    0x00004c6e       0x5f /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
 
-.debug_abbrev   0x00000000     0x11fe
+.debug_abbrev   0x00000000     0x120d
  .debug_abbrev  0x00000000      0x374 core_list_join.o
  .debug_abbrev  0x00000374      0x258 core_main.o
  .debug_abbrev  0x000005cc      0x27f core_matrix.o
- .debug_abbrev  0x0000084b      0x24c core_state.o
- .debug_abbrev  0x00000a97      0x203 core_util.o
- .debug_abbrev  0x00000c9a      0x20a barebones/core_portme.o
- .debug_abbrev  0x00000ea4      0x30a barebones/ee_printf.o
- .debug_abbrev  0x000011ae       0x28 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
- .debug_abbrev  0x000011d6       0x28 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+ .debug_abbrev  0x0000084b      0x25b core_state.o
+ .debug_abbrev  0x00000aa6      0x203 core_util.o
+ .debug_abbrev  0x00000ca9      0x20a barebones/core_portme.o
+ .debug_abbrev  0x00000eb3      0x30a barebones/ee_printf.o
+ .debug_abbrev  0x000011bd       0x28 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+ .debug_abbrev  0x000011e5       0x28 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
 
 .debug_loclists
-                0x00000000     0x76f0
+                0x00000000     0x763f
  .debug_loclists
                 0x00000000     0x1c2e core_list_join.o
  .debug_loclists
@@ -261,13 +261,13 @@ OUTPUT(coremark_bmrk.elf elf32-littleriscv)
  .debug_loclists
                 0x000022f8     0x18f5 core_matrix.o
  .debug_loclists
-                0x00003bed      0x993 core_state.o
+                0x00003bed      0x8e2 core_state.o
  .debug_loclists
-                0x00004580      0x382 core_util.o
+                0x000044cf      0x382 core_util.o
  .debug_loclists
-                0x00004902       0xd4 barebones/core_portme.o
+                0x00004851       0xd4 barebones/core_portme.o
  .debug_loclists
-                0x000049d6     0x2d1a barebones/ee_printf.o
+                0x00004925     0x2d1a barebones/ee_printf.o
 
 .debug_aranges  0x00000000      0x128
  .debug_aranges
@@ -304,16 +304,16 @@ OUTPUT(coremark_bmrk.elf elf32-littleriscv)
  .debug_rnglists
                 0x000003a3       0xac barebones/ee_printf.o
 
-.debug_line     0x00000000     0xa77f
+.debug_line     0x00000000     0xa5ff
  .debug_line    0x00000000     0x225f core_list_join.o
  .debug_line    0x0000225f     0x1184 core_main.o
  .debug_line    0x000033e3     0x227c core_matrix.o
- .debug_line    0x0000565f     0x1361 core_state.o
- .debug_line    0x000069c0      0x50c core_util.o
- .debug_line    0x00006ecc      0x20d barebones/core_portme.o
- .debug_line    0x000070d9     0x34d9 barebones/ee_printf.o
- .debug_line    0x0000a5b2       0x7a /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
- .debug_line    0x0000a62c      0x153 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
+ .debug_line    0x0000565f     0x11e1 core_state.o
+ .debug_line    0x00006840      0x50c core_util.o
+ .debug_line    0x00006d4c      0x20d barebones/core_portme.o
+ .debug_line    0x00006f59     0x34d9 barebones/ee_printf.o
+ .debug_line    0x0000a432       0x7a /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(muldi3.o)
+ .debug_line    0x0000a4ac      0x153 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
 
 .debug_str      0x00000000      0x97d
  .debug_str     0x00000000      0x97d core_list_join.o
@@ -365,11 +365,11 @@ OUTPUT(coremark_bmrk.elf elf32-littleriscv)
                 0x00000195        0x0 /opt/riscv/lib/gcc/riscv32-unknown-elf/15.1.0/libgcc.a(div.o)
                                  0x86 (size before relaxing)
 
-.debug_frame    0x00000000      0x870
+.debug_frame    0x00000000      0x8c8
  .debug_frame   0x00000000      0x1bc core_list_join.o
  .debug_frame   0x000001bc       0x94 core_main.o
  .debug_frame   0x00000250      0x2dc core_matrix.o
- .debug_frame   0x0000052c       0xa4 core_state.o
- .debug_frame   0x000005d0       0x70 core_util.o
- .debug_frame   0x00000640       0x9c barebones/core_portme.o
- .debug_frame   0x000006dc      0x194 barebones/ee_printf.o
+ .debug_frame   0x0000052c       0xfc core_state.o
+ .debug_frame   0x00000628       0x70 core_util.o
+ .debug_frame   0x00000698       0x9c barebones/core_portme.o
+ .debug_frame   0x00000734      0x194 barebones/ee_printf.o

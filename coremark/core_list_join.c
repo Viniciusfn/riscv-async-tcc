@@ -436,12 +436,14 @@ core_list_find(list_head *list, list_data *info)
 {
     if (info->idx >= 0)
     {
+        //ee_printf("List search: idx=%x\n", info->idx);
         while (list && (list->info->idx != info->idx))
             list = list->next;
         return list;
     }
     else
     {
+        //ee_printf("List search: data16=%x\n", info->data16);
         while (list && ((list->info->data16 & 0xff) != info->data16))
             list = list->next;
         return list;
