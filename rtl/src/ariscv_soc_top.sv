@@ -3,8 +3,8 @@ import ariscv_params_pkg::*;
 module ariscv_soc_top #(
    parameter ariscv_params_t ARISCV_PARAMS = ARISCV_PARAMS,
    parameter BASIC_TEST_FILE_NAME = "../mem/inst_mem",
-   parameter COREMARK_INST_FILE_NAME = "../mem/coremark_bmrk_iram.bin",
-   parameter COREMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin",
+   parameter BENCHMARK_INST_FILE_NAME = "../mem/coremark_bmrk_iram.bin",
+   parameter BENCHMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin",
    parameter ISA_TEST_FILE_NAME = "../mem/isa_test/rv32i_tests.bin",
    parameter INST_MEM_SIZE = 32768*8/ARISCV_PARAMS.NBW_INST, // 32kBytes
    parameter DT_MEM_SIZE = 8192*8/ARISCV_PARAMS.NBW_REGISTER, // 8kBytes
@@ -51,8 +51,8 @@ module ariscv_soc_top #(
 
    // DATA MEMORY MODEL
    dt_mem_model #(
-      `ifdef COREMARK_TEST
-      .FILE_NAME     (COREMARK_DATA_FILE_NAME),
+      `ifdef BENCHMARK_TEST
+      .FILE_NAME     (BENCHMARK_DATA_FILE_NAME),
       `endif
       .MEM_SIZE      (DT_MEM_SIZE),
       .NBW_DATA      (ARISCV_PARAMS.NBW_REGISTER),
@@ -72,8 +72,8 @@ module ariscv_soc_top #(
 
    // INSTRUCTION MEMORY
    inst_mem_model #(
-      `ifdef COREMARK_TEST
-      .FILE_NAME  (COREMARK_INST_FILE_NAME),
+      `ifdef BENCHMARK_TEST
+      .FILE_NAME  (BENCHMARK_INST_FILE_NAME),
       .FILE_TYPE  ("bin"),
       `elsif ISA_TEST
       .FILE_NAME  (ISA_TEST_FILE_NAME),

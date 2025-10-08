@@ -8,7 +8,8 @@ CPP_WRAPPER := --main #$(ROOT_DIR)/scripts/verilator/sim_main.cpp
 WAVE_FILE   := wave_trace.vcd
 NO_WARNINGS := -Wno-fatal -Wno-TIMESCALEMOD -Wno-UNOPTFLAT -Wno-IMPORTSTAR -Wno-VARHIDDEN -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM
 COMP_FLAGS  := --cc -Wall $(NO_WARNINGS) --assert --no-stop-fail --exe --trace --trace-structs --build --timing
-DEFINES_COREMARK := -DCOREMARK_TEST
+DEFINES_COREMARK := -DBENCHMARK_TEST -DCOREMARK
+DEFINES_DHRYSTONE := -DBENCHMARK_TEST -DDHRYSTONE
 DEFINES_ISA_TEST := -DISA_TEST
 GTKWFILE    := wave_view.gtkw
 
@@ -18,6 +19,8 @@ all: compile run
 
 coremark: compile_coremark run
 
+dhrystone: compile_dhrystone run
+
 isa_test: compile_isa run
 
 compile:
@@ -25,6 +28,9 @@ compile:
 
 compile_coremark:
 	verilator $(COMP_FLAGS) $(CPP_WRAPPER) $(DEFINES_COREMARK) $(SRC_FILE) -I$(SRC_DIR) --top $(TB_NAME) -j `nproc`
+
+compile_dhrystone:
+	verilator $(COMP_FLAGS) $(CPP_WRAPPER) $(DEFINES_DHRYSTONE) $(SRC_FILE) -I$(SRC_DIR) --top $(TB_NAME) -j `nproc`
 
 compile_isa:
 	verilator $(COMP_FLAGS) $(CPP_WRAPPER) $(DEFINES_ISA_TEST) $(SRC_FILE) -I$(SRC_DIR) --top $(TB_NAME) -j `nproc`

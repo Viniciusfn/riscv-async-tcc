@@ -1,6 +1,6 @@
 `timescale 1ns / 1ns
 `define PERF_CLK_PERIOD 10
-//`define COREMARK_TEST
+//`define BENCHMARK_TEST
 
 import ariscv_params_pkg::*;
 
@@ -8,15 +8,20 @@ module tb_ariscv_soc_top;
 
    /* PARAMETERS */
    localparam BASIC_TEST_FILE_NAME = "../mem/inst_mem";
-   localparam COREMARK_INST_FILE_NAME = "../mem/coremark_bmrk_iram.bin";
-   localparam COREMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin";
+   `ifdef COREMARK
+   localparam BENCHMARK_INST_FILE_NAME = "../mem/coremark_bmrk_iram.bin";
+   localparam BENCHMARK_DATA_FILE_NAME = "../mem/coremark_bmrk_dram.bin";
+   `else // DHRYSTONE
+   localparam BENCHMARK_INST_FILE_NAME = "../mem/dhrystone_bmrk_iram.bin";
+   localparam BENCHMARK_DATA_FILE_NAME = "../mem/dhrystone_bmrk_dram.bin";
+   `endif
    localparam ISA_TEST_FILE_NAME = "../mem/isa_test/rv32i_tests.bin";
    localparam INST_MEM_SIZE = 32768*8/ARISCV_PARAMS.NBW_INST; // 32kBytes
    localparam DT_MEM_SIZE = 8192*8/ARISCV_PARAMS.NBW_REGISTER; // 8kBytes
    localparam VERBOSE = 0;
    localparam TXDATA_REG_ADDR = 32'h00010000;
    localparam PERF_COUNTER_ADDR = 32'h00010004;
-   time TIMEOUT_COREMARK = 15s;
+   time TIMEOUT_BENCHMARK = 15s;
    time UPDATE_PROG = 1ms;
 
    /* INTERFACE */
@@ -27,8 +32,8 @@ module tb_ariscv_soc_top;
    ariscv_soc_top #(
       .ARISCV_PARAMS             (ARISCV_PARAMS),
       .BASIC_TEST_FILE_NAME      (BASIC_TEST_FILE_NAME),
-      .COREMARK_INST_FILE_NAME   (COREMARK_INST_FILE_NAME),
-      .COREMARK_DATA_FILE_NAME   (COREMARK_DATA_FILE_NAME),
+      .BENCHMARK_INST_FILE_NAME  (BENCHMARK_INST_FILE_NAME),
+      .BENCHMARK_DATA_FILE_NAME  (BENCHMARK_DATA_FILE_NAME),
       .ISA_TEST_FILE_NAME        (ISA_TEST_FILE_NAME),
       .INST_MEM_SIZE             (INST_MEM_SIZE),
       .DT_MEM_SIZE               (DT_MEM_SIZE),
@@ -319,18 +324,18 @@ module tb_ariscv_soc_top;
       $display("~ test_basic test complete!");
    endtask
 
-   task test_coremark();
+   task test_benchmark();
       bit  timeout_flag;
       bit  signal_triggered;
       string text_line;
-      string coremark_text; // Acts like a dynamic char buffer
+      string benchmark_text; // Acts like a dynamic char buffer
       int i;
 
-      $display("~ test_coremark test start.");
+      $display("~ test_benchmark test start.");
 
       timeout_flag = 0;
       text_line = "";
-      coremark_text = "";
+      benchmark_text = "";
 
       fork
          // Thread 1: Wait for signal transition
@@ -347,10 +352,10 @@ module tb_ariscv_soc_top;
                @(posedge (dut.uu_dt_mem.aclk && dut.uu_dt_mem.i_memWrite));
                if(dut.uu_dt_mem.i_writeAddr == TXDATA_REG_ADDR) begin
                   if (dut.uu_dt_mem.i_writeData[7:0] != 8'h00) begin // ignore null bytes
-                     coremark_text = {coremark_text, byte'(dut.uu_dt_mem.i_writeData[7:0])};
+                     benchmark_text = {benchmark_text, byte'(dut.uu_dt_mem.i_writeData[7:0])};
                      text_line = {text_line, byte'(dut.uu_dt_mem.i_writeData[7:0])};
                      if (dut.uu_dt_mem.i_writeData[7:0] == 8'h0A) begin // if end of line, print line (for debug)
-                        //$display("%s", text_line); for debug
+                        $display("%s", text_line); //for debug
                         text_line = "";
                      end
                   end
@@ -360,27 +365,27 @@ module tb_ariscv_soc_top;
 
          // Thread 3: Timeout counter
          begin
-            #TIMEOUT_COREMARK;
+            #TIMEOUT_BENCHMARK;
             timeout_flag = 1;
             $display("[%0t] Timeout reached!", $time);
          end
 
          // Thread 4: Progression bar
          begin
-            for (time t = 0; t <= TIMEOUT_COREMARK; t += UPDATE_PROG) begin
-               print_progress($time, TIMEOUT_COREMARK);
+            for (time t = 0; t <= TIMEOUT_BENCHMARK; t += UPDATE_PROG) begin
+               print_progress($time, TIMEOUT_BENCHMARK);
                #(UPDATE_PROG);
             end
          end
       join_any
 
-      $display("\n------------------------ Coremark Output ------------------------\n%s", coremark_text);
-      $display(  "-----------------------------------------------------------------\n");
+      $display("\n------------------------ Benchmark Output ------------------------\n%s", benchmark_text);
+      $display(  "------------------------------------------------------------------\n");
 
       if (timeout_flag)
-        $display("Test Coremark FAILED: timeout before end of benchmark.");
+        $display("Test Benchmark FAILED: timeout before end of benchmark.");
       else
-        $display("Test Coremark FINISHED: end of benchmark.");
+        $display("Test Benchmark FINISHED: end of benchmark.");
 
       // Kill whichever thread is still running
       disable fork;
@@ -429,8 +434,8 @@ module tb_ariscv_soc_top;
 
       $display("==> Testbench start...\n");
 
-      `ifdef COREMARK_TEST
-      test_coremark();
+      `ifdef BENCHMARK_TEST
+      test_benchmark();
       `elsif ISA_TEST
       test_isa();
       `else
