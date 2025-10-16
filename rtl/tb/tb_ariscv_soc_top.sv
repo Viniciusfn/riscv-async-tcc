@@ -22,6 +22,7 @@ module tb_ariscv_soc_top;
    localparam TXDATA_REG_ADDR = 32'h00010000;
    localparam PERF_COUNTER_ADDR = 32'h00010004;
    time TIMEOUT_BENCHMARK = 15s;
+   // time TIMEOUT_BENCHMARK = 50ms;
    time UPDATE_PROG = 1ms;
 
    /* INTERFACE */
@@ -355,7 +356,7 @@ module tb_ariscv_soc_top;
                      benchmark_text = {benchmark_text, byte'(dut.uu_dt_mem.i_writeData[7:0])};
                      text_line = {text_line, byte'(dut.uu_dt_mem.i_writeData[7:0])};
                      if (dut.uu_dt_mem.i_writeData[7:0] == 8'h0A) begin // if end of line, print line (for debug)
-                        $display("%s", text_line); //for debug
+                        //$display("%s", text_line); //for debug
                         text_line = "";
                      end
                   end

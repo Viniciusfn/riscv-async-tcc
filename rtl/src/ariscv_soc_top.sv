@@ -61,7 +61,7 @@ module ariscv_soc_top #(
    ) uu_dt_mem (
       .aclk          (w_mem_clk),
       .i_writeData   (w_writeData),
-      .i_writeAddr   (w_writeAddr),
+      .i_writeAddr   ({1'b0,w_writeAddr[30:0]}),
       .i_memWrite    (w_memWrite),
       .i_writeWidth  (w_writeWidth),
       .o_readData    (w_readData),

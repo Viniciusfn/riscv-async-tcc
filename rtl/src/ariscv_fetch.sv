@@ -36,7 +36,7 @@ module ariscv_fetch #(
 
    /* PC logic */
    assign pc_plus4_w = pc_ff + {{(NBW_PC-3){1'b0}}, 3'd4};
-   assign next_pc_w = (i_pc_src) ?i_pc_target :o_pc_plus4;
+   assign next_pc_w = (i_pc_src) ?i_pc_target :pc_plus4_ff;
 
    /* FF */
    always_ff @(posedge pc_aclk or negedge rst_async_n) begin : pc_reg

@@ -144,6 +144,10 @@ core_init_state(ee_u32 size, ee_s16 seed, ee_u8 *p)
 #if CORE_DEBUG
     ee_u8 *start = p;
     ee_printf("State: %d,%d\n", size, seed);
+    ee_printf("intpat: & %x\n", intpat);
+    ee_printf("floatpat: & %x\n", floatpat);
+    ee_printf("scipat: & %x\n", scipat);
+    ee_printf("errpat: & %x\n", errpat);
 #endif
     size--;
     next = 0;
@@ -151,9 +155,11 @@ core_init_state(ee_u32 size, ee_s16 seed, ee_u8 *p)
     {
         if (next > 0)
         {
+            #if CORE_DEBUG
+            ee_printf("State Addition [%d]: data=%s (& %x)\n", total, buf, buf);
+            #endif
             for (i = 0; i < next; i++) {
                 *(p + total + i) = buf[i];
-                ee_printf("State Addition [%d]: data=%c\n", total, buf[i]);
             }
             *(p + total + i) = ',';
             total += next + 1;
