@@ -1,0 +1,28 @@
+
+------------------------ Benchmark Output ------------------------
+Starting benchmark on Async RISC-V...
+2K performance run parameters for coremark.
+CoreMark Size    : 666
+Total ticks      : 1141156064
+Total time (secs): 11
+Iterations/Sec   : 10
+Iterations       : 120
+Compiler version : GCC15.1.0
+Compiler flags   : 
+Memory location  : STACK
+seedcrc          : 0xe9f5
+[0]crclist       : 0xe714
+[0]crcmatrix     : 0x1fd7
+[0]crcstate      : 0x8e3a
+[0]crcfinal      : 0xd340
+Correct operation validated. See README.md for run and reporting rules.
+
+------------------------------------------------------------------
+
+Test Benchmark FINISHED: end of benchmark.
+
+
+- /home/almondega/riscv-async-tcc/workspace/../rtl/tb/tb_ariscv_soc_top.sv:449: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.039 devel
+- Verilator: $finish at 11s; walltime 2374.297 s; speed 4.819 ms/s
+- Verilator: cpu 2368.788 s on 1 threads; alloced 95 MB
