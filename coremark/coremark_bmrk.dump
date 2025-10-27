@@ -4998,11 +4998,11 @@ Disassembly of section .data:
 	...
 
 800009c8 <seed2_volatile>:
-800009c8:	0000                	.insn	2, 0x0000
+800009c8:	3415                	.insn	2, 0x3415
 	...
 
 800009cc <seed1_volatile>:
-800009cc:	0000                	.insn	2, 0x0000
+800009cc:	3415                	.insn	2, 0x3415
 	...
 
 Disassembly of section .riscv.attributes:
@@ -10488,20 +10488,20 @@ Disassembly of section .debug_info:
     309c:	0400                	.insn	2, 0x0400
     309e:	0719                	.insn	2, 0x0719
     30a0:	0000                	.insn	2, 0x0000
-    30a2:	00006d1b          	.insn	4, 0x6d1b
+    30a2:	6d16                	.insn	2, 0x6d16
+    30a4:	0000                	.insn	2, 0x0000
     30a6:	0500                	.insn	2, 0x0500
     30a8:	0009cc03          	lbu	s8,0(s3)
     30ac:	0480                	.insn	2, 0x0480
     30ae:	070a                	.insn	2, 0x070a
     30b0:	0000                	.insn	2, 0x0000
-    30b2:	6d1c                	.insn	2, 0x6d1c
-    30b4:	0000                	.insn	2, 0x0000
+    30b2:	00006d17          	auipc	s10,0x6
     30b6:	0500                	.insn	2, 0x0500
     30b8:	0009c803          	lbu	a6,0(s3)
     30bc:	0480                	.insn	2, 0x0480
     30be:	0759                	.insn	2, 0x0759
     30c0:	0000                	.insn	2, 0x0000
-    30c2:	6d1d                	.insn	2, 0x6d1d
+    30c2:	6d18                	.insn	2, 0x6d18
     30c4:	0000                	.insn	2, 0x0000
     30c6:	0500                	.insn	2, 0x0500
     30c8:	0009c403          	lbu	s0,0(s3)
@@ -14149,7 +14149,7 @@ Disassembly of section .debug_loclists:
      7b6:	5b02                	.insn	2, 0x5b02
      7b8:	88040293          	addi	t0,s0,-1920
      7bc:	050b940b          	.insn	4, 0x050b940b
-     7c0:	935d0293          	addi	t0,s10,-1739
+     7c0:	935d0293          	addi	t0,s10,-1739 # 89e7 <main+0x566f>
      7c4:	0402                	.insn	2, 0x0402
      7c6:	0b94                	.insn	2, 0x0b94
      7c8:	0b9c                	.insn	2, 0x0b9c
