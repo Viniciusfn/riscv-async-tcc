@@ -131,13 +131,13 @@ module tb_ariscv_soc_top;
       // ADDI
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 32'hFFFFFA5A);
-      @(negedge reg_clk);
+      repeat (3) @(negedge reg_clk);
       assert(tb_reg_dt[1] == 32'hA + tb_reg_dt[4]);
 
       // ADD
       @(negedge reg_clk);
       assert(tb_reg_dt[2] == tb_reg_dt[1] + tb_reg_dt[4]);
-      @(negedge reg_clk);
+      repeat (3) @(negedge reg_clk);
       assert(tb_reg_dt[3] == tb_reg_dt[2]);
 
       /* Save tests*/
@@ -319,7 +319,36 @@ module tb_ariscv_soc_top;
 
       //AUIPC
       @(negedge reg_clk);
-      assert(tb_reg_dt[2] == 32'hF4 + 32'hA5A5A000); // pc + (imm<<12)
+      assert(tb_reg_dt[2] == 32'h104 + 32'hA5A5A000); // pc + (imm<<12)
+
+      /* Hazards */
+      // Data Hazards
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == 32'hFFFFFB0B);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[1] == 32'hFFFFFB0D);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[2] == 32'hFFFFF618);
+
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == tb_reg_dt[2]);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[1] == tb_reg_dt[2] + 2);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[2] == tb_reg_dt[1] + tb_reg_dt[4]);
+
+      // Control Hazards
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == '0);
+      repeat(4) @(negedge reg_clk);
+      assert(tb_reg_dt[1] == 1);
+
+      @(negedge reg_clk);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] == tb_reg_dt[3]);
+      repeat (4) @(negedge reg_clk);
+      assert(tb_reg_dt[1] == 2);
 
       #10
       $display("~ test_basic test complete!");

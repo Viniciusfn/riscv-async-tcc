@@ -13,9 +13,9 @@ DEFINES_DHRYSTONE := -DBENCHMARK_TEST -DDHRYSTONE
 DEFINES_ISA_TEST := -DISA_TEST
 GTKWFILE    := wave_view.gtkw
 
-.PHONY: all compile run clean coremark
+.PHONY: basic compile_basic run clean coremark
 
-all: compile run
+basic: compile_basic run
 
 coremark: compile_coremark run
 
@@ -23,7 +23,7 @@ dhrystone: compile_dhrystone run
 
 isa_test: compile_isa run
 
-compile:
+compile_basic:
 	verilator $(COMP_FLAGS) $(CPP_WRAPPER) $(SRC_FILE) -I$(SRC_DIR) --top $(TB_NAME) -j `nproc`
 
 compile_coremark:
