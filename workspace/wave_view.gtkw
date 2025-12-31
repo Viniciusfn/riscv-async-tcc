@@ -24,14 +24,14 @@
 [color] 6
 tb_ariscv_soc_top.dut.uu_core.rst_async_n
 @800022
-tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
+tb_ariscv_soc_top.dut.uu_core.uu_dtpath.i_aclk[5:0]
 @28
-(0)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
-(1)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
-(2)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
-(3)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
-(4)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
-(5)tb_ariscv_soc_top.dut.uu_core.aclk[5:0]
+(0)tb_ariscv_soc_top.dut.uu_core.uu_dtpath.i_aclk[5:0]
+(1)tb_ariscv_soc_top.dut.uu_core.uu_dtpath.i_aclk[5:0]
+(2)tb_ariscv_soc_top.dut.uu_core.uu_dtpath.i_aclk[5:0]
+(3)tb_ariscv_soc_top.dut.uu_core.uu_dtpath.i_aclk[5:0]
+(4)tb_ariscv_soc_top.dut.uu_core.uu_dtpath.i_aclk[5:0]
+(5)tb_ariscv_soc_top.dut.uu_core.uu_dtpath.i_aclk[5:0]
 @1001200
 -group_end
 @22

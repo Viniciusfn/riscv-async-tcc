@@ -33,6 +33,9 @@ module ariscv_soc_top #(
    ariscv #(
       .ARISCV_PARAMS    (ARISCV_PARAMS)
    ) uu_core (
+      `ifdef SYNC_RISCV
+      .clk              (clk),
+      `endif
       .rst_async_n      (rst_async_n),
 
       // INSTR MEM

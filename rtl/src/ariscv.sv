@@ -4,6 +4,9 @@ module ariscv #(
    parameter ariscv_params_t ARISCV_PARAMS = ARISCV_PARAMS
 )(
    /* INTERFACE */
+   `ifdef SYNC_RISCV
+   input logic                                  clk,
+   `endif
    input logic                                  rst_async_n,
 
    // INSTR MEM
@@ -19,7 +22,9 @@ module ariscv #(
    input  logic [ARISCV_PARAMS.NBW_REGISTER-1:0]   i_readData
 );
    /* Local signals and parameters */
+   `ifndef SYNC_RISCV
    logic [ARISCV_PARAMS.NBW_ACLK-1:0]   aclk;
+   `endif
 
    /* Instances */
    ariscv_dtpath #(
@@ -29,7 +34,11 @@ module ariscv #(
       .NBW_ADDR      (ARISCV_PARAMS.NBW_ADDR),
       .NBW_PC        (ARISCV_PARAMS.NBW_PC)
    ) uu_dtpath (
+      `ifdef SYNC_RISCV
+      .i_aclk        ({~clk, {(ARISCV_PARAMS.NBW_ACLK-1){clk}}}),
+      `else
       .i_aclk        (aclk),
+      `endif
       .rst_async_n   (rst_async_n),
       .i_inst        (i_inst),
       .o_pc          (o_pc),
@@ -41,6 +50,7 @@ module ariscv #(
       .i_readData    (i_readData)
    );
 
+   `ifndef SYNC_RISCV
    ariscv_ctrlpath #(
       .NBW_ACLK      (ARISCV_PARAMS.NBW_ACLK),
       .DELAY_PC_FD   (ARISCV_PARAMS.DELAY_PC_FD),
@@ -63,5 +73,6 @@ module ariscv #(
       .rst_async_n   (rst_async_n),
       .o_aclk        (aclk)
    );
+   `endif
 
 endmodule

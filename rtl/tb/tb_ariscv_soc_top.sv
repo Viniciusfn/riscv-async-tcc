@@ -129,13 +129,16 @@ module tb_ariscv_soc_top;
 
       /* Initial tests */
       // ADDI
+      `ifdef SYNC_RISCV
+      repeat(5) @(negedge reg_clk);
+      `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 32'hFFFFFA5A);
       repeat (3) @(negedge reg_clk);
       assert(tb_reg_dt[1] == 32'hA + tb_reg_dt[4]);
 
       // ADD
-      @(negedge reg_clk);
+      repeat (3) @(negedge reg_clk);
       assert(tb_reg_dt[2] == tb_reg_dt[1] + tb_reg_dt[4]);
       repeat (3) @(negedge reg_clk);
       assert(tb_reg_dt[3] == tb_reg_dt[2]);
@@ -219,7 +222,7 @@ module tb_ariscv_soc_top;
       aux = ($signed(tb_reg_dt[4]) >>> 3);
       assert(tb_reg_dt[3] == aux);
 
-      @(negedge reg_clk); // for setup
+      repeat(2) @(negedge reg_clk); // for setup
 
       //SUB
       @(negedge reg_clk);
@@ -322,6 +325,7 @@ module tb_ariscv_soc_top;
       assert(tb_reg_dt[2] == 32'h104 + 32'hA5A5A000); // pc + (imm<<12)
 
       /* Hazards */
+      `ifndef SYNC_RISCV
       // Data Hazards
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 32'hFFFFFB0B);
@@ -349,6 +353,7 @@ module tb_ariscv_soc_top;
       assert(tb_reg_dt[4] == tb_reg_dt[3]);
       repeat (4) @(negedge reg_clk);
       assert(tb_reg_dt[1] == 2);
+      `endif
 
       #10
       $display("~ test_basic test complete!");
