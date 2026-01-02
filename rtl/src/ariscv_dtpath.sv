@@ -69,6 +69,30 @@ module ariscv_dtpath #(
    logic [1:0]                resultSrc_mw;
    /**/
 
+   /* HAZARD HANDLING */
+   logic                      stall_pc;
+   logic                      stall_fd;
+   logic                      flush_fd;
+   logic                      flush_de;
+   logic                      forwardA_E;
+   logic                      forwardB_E;
+
+   `ifdef SYNC_RISCV
+   assign stall_pc   = 1'b0; // TODO
+   assign stall_fd   = 1'b0; // TODO
+   assign flush_fd   = pc_src;
+   assign flush_de   = pc_src;
+   assign forwardA_E = 1'b0; // TODO
+   assign forwardB_E = 1'b0; // TODO
+   `else
+   assign stall_pc   = 1'b0; // TODO
+   assign stall_fd   = 1'b0; // TODO
+   assign flush_fd   = 1'b0; // TODO
+   assign flush_de   = 1'b0; // TODO
+   assign forwardA_E = 1'b0; // TODO
+   assign forwardB_E = 1'b0; // TODO
+   `endif
+
    /* OUTPUT ASSIGNMENTS */
    assign o_mem_clk = i_aclk[4];
 
@@ -89,7 +113,11 @@ module ariscv_dtpath #(
       .o_inst           (inst),
       // INSTR MEM
       .i_inst           (i_inst),
-      .o_pc_mem         (o_pc)
+      .o_pc_mem         (o_pc),
+      // HAZARD HANDLING
+      .i_stall_pc       (stall_pc),
+      .i_stall_fd       (stall_fd),
+      .i_flush_fd       (flush_fd)
    );
 
    ariscv_dec #(
@@ -123,7 +151,9 @@ module ariscv_dtpath #(
       .o_branch         (branch),
       .o_aluControl     (aluControl),
       .o_aluSrc         (aluSrc),
-      .o_funct3         (funct3_de)
+      .o_funct3         (funct3_de),
+      // HAZARD HANDLING
+      .i_flush_de      (flush_de)
    );
 
    ariscv_exec #(

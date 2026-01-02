@@ -16,7 +16,11 @@ module ariscv_fetch #(
    output logic [NBW_INST-1:0]   o_inst,
    // INSTR MEM
    input  logic [NBW_INST-1:0]   i_inst,
-   output logic [NBW_PC-1:0]     o_pc_mem
+   output logic [NBW_PC-1:0]     o_pc_mem,
+   // HAZARD HANDLING
+   input logic                   i_stall_pc,
+   input logic                   i_stall_fd,
+   input logic                   i_flush_fd
 );
 
    /* Local signals and parameters */
@@ -43,18 +47,18 @@ module ariscv_fetch #(
       if (!rst_async_n) begin
          pc_ff <= '0;
       end
-      else begin
+      else if (~i_stall_pc) begin
          pc_ff <= next_pc_w;
       end
    end
 
    always_ff @(posedge fd_aclk or negedge rst_async_n) begin : fd_reg
-      if(!rst_async_n) begin
+      if(!rst_async_n || i_flush_fd) begin
          inst_ff     <= '0;
          pc_fd_ff    <= '0;
          pc_plus4_ff <= '0;
       end
-      else begin
+      else if (~i_stall_fd)  begin
          inst_ff     <= i_inst;
          pc_fd_ff    <= pc_ff;
          pc_plus4_ff <= pc_plus4_w;

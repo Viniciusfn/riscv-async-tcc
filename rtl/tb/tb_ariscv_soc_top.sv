@@ -161,8 +161,10 @@ module tb_ariscv_soc_top;
 
       /* Load tests */      
       //LB
+      `ifndef SYNC_RISCV
       @(negedge dut.uu_dt_mem.aclk);
       @(negedge reg_clk);
+      `endif
       assert(tb_reg_dt[5] == {{24{tb_reg_dt[3][7]}},  tb_reg_dt[3][7:0]});
 
       //LH
@@ -271,11 +273,23 @@ module tb_ariscv_soc_top;
 
       // JAL
       @(negedge reg_clk);
+      `ifdef SYNC_RISCV
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 1);
 
       //JALR
       @(negedge reg_clk);
+      `ifdef SYNC_RISCV
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 2);
 
@@ -289,6 +303,12 @@ module tb_ariscv_soc_top;
 
       //BNE
       @(negedge reg_clk);
+      `ifdef SYNC_RISCV
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 4);
 
@@ -300,11 +320,23 @@ module tb_ariscv_soc_top;
 
       //BGE
       @(negedge reg_clk);
+      `ifdef SYNC_RISCV
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 6);
 
       //BLTU
       @(negedge reg_clk);
+      `ifdef SYNC_RISCV
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 7);
 

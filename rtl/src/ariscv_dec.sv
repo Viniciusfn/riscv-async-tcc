@@ -31,7 +31,9 @@ module ariscv_dec #(
    output logic                     o_branch,
    output logic [3:0]               o_aluControl,
    output logic                     o_aluSrc,
-   output logic [2:0]               o_funct3
+   output logic [2:0]               o_funct3,
+   // HAZARD HANDLING
+   input logic                      i_flush_de
 );
 
    /* Local signals and parameters */
@@ -57,7 +59,7 @@ module ariscv_dec #(
 
    /* FF */
    always_ff @(posedge de_aclk or negedge rst_async_n) begin
-      if (!rst_async_n) begin
+      if (!rst_async_n || i_flush_de) begin
          rd1_ff         <= '0;
          rd2_ff         <= '0;
          immExt_ff      <= '0;
