@@ -44,14 +44,14 @@ package ariscv_params_pkg;
       DELAY_REG_DE   : 28,
       DELAY_LOOP     : 1,
          // Initialization
-      INIT_PC        : 0,
+      INIT_PC        : 1,
       INIT_FD        : 0,
-      INIT_DE        : 1,
+      INIT_DE        : 0,
       INIT_EM        : 0,
       INIT_MW        : 0,
       INIT_REG       : 1,
       INIT_LOOP1     : 0,
-      INIT_LOOP2     : 1,
+      INIT_LOOP2     : 0,
 
       // DTPATH
       NBW_INST       : 32,

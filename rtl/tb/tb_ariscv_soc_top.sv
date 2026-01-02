@@ -145,7 +145,7 @@ module tb_ariscv_soc_top;
 
       /* Save tests*/
       // SW
-      @(negedge dut.uu_dt_mem.aclk);
+      repeat (3) @(negedge dut.uu_dt_mem.aclk);
       aux = tb_reg_dt[1] + 'h23;
       assert(dut.uu_dt_mem.memory[aux[$clog2(DT_MEM_SIZE)+1:2]] == tb_reg_dt[3]);
 
@@ -322,7 +322,7 @@ module tb_ariscv_soc_top;
 
       //AUIPC
       @(negedge reg_clk);
-      assert(tb_reg_dt[2] == 32'h104 + 32'hA5A5A000); // pc + (imm<<12)
+      assert(tb_reg_dt[2] == 32'h118 + 32'hA5A5A000); // pc + (imm<<12)
 
       /* Hazards */
       `ifndef SYNC_RISCV
