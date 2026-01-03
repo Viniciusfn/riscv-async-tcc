@@ -34,15 +34,20 @@ module ariscv_exec #(
    output logic [NBW_PC-1:0]        o_pcTarget_ff,
    // TO PC
    output logic [NBW_PC-1:0]        o_pcTarget,
-   output logic                     o_PCSrc
+   output logic                     o_PCSrc,
+   // HAZARD HANDLING
+   input  logic [1:0]               i_forwardA,
+   input  logic [1:0]               i_forwardB,
+   input  logic [NBW_REGISTER-1:0]  i_result_wb
 );
    /* Local signals and parameters */
-   logic [NBW_REGISTER-1:0]         alu_srcB_w;
+   logic  [NBW_REGISTER-1:0]        alu_srcB_w;
    logic                            zero_w;
    logic  [NBW_REGISTER-1:0]        aluResult_w, aluResult_ff;
    logic  [NBW_REGISTER-1:0]        writeData_w, writeData_ff;
    logic  [NBW_ADDR-1:0]            wr_addr_reg_w, wr_addr_reg_ff;
    logic  [NBW_PC-1:0]              pc_plus4_w, pc_plus4_ff;
+   logic  [NBW_REGISTER-1:0]        srcA_forward_w, srcB_forward_w;
 
    /* Output Assignments */
    assign o_aluResult = aluResult_ff;
@@ -51,12 +56,27 @@ module ariscv_exec #(
    assign o_pc_plus4 = pc_plus4_ff;
 
    /* Assignments */
-   assign alu_srcB_w = (i_aluSrc) ? i_immExt : i_rd2;
-   assign o_pcTarget = (i_aluSrc) ? (i_immExt + i_rd1) : (i_immExt + i_pc);
+   assign alu_srcB_w = (i_aluSrc) ? i_immExt : srcB_forward_w;
+   assign o_pcTarget = (i_aluSrc) ? (i_immExt + srcA_forward_w) : (i_immExt + i_pc);
    assign o_PCSrc = i_jump | (i_branch & (zero_w ^ i_funct3[0] ^ i_funct3[2]));
-   assign writeData_w = i_rd2;
+   assign writeData_w = srcB_forward_w;
    assign wr_addr_reg_w = i_wr_addr_reg;
    assign pc_plus4_w = i_pc_plus4;
+
+   /* Data Hazard - Forwarding */
+   always_comb begin : forwarding
+      case(i_forwardA)
+         2'b01:   srcA_forward_w = i_result_wb;
+         2'b10:   srcA_forward_w = aluResult_ff;
+         default: srcA_forward_w = i_rd1;
+      endcase
+
+      case(i_forwardB)
+         2'b01:   srcB_forward_w = i_result_wb;
+         2'b10:   srcB_forward_w = aluResult_ff;
+         default: srcB_forward_w = i_rd2;
+      endcase
+   end
 
    /* FF */
    always_ff @(posedge em_aclk or negedge rst_async_n) begin : em_reg
@@ -88,7 +108,7 @@ module ariscv_exec #(
    alu #(
       .NBW_DATA      (NBW_REGISTER)
    ) uu_alu (
-      .i_srcA        (i_rd1),
+      .i_srcA        (srcA_forward_w),
       .i_srcB        (alu_srcB_w),
       .i_aluControl  (i_aluControl),
       .o_result      (aluResult_w),

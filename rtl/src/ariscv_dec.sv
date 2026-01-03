@@ -33,13 +33,16 @@ module ariscv_dec #(
    output logic                     o_aluSrc,
    output logic [2:0]               o_funct3,
    // HAZARD HANDLING
-   input logic                      i_flush_de
+   input  logic                     i_flush_de,
+   output logic [NBW_ADDR-1:0]      o_rs1_de,
+   output logic [NBW_ADDR-1:0]      o_rs2_de
 );
 
    /* Local signals and parameters */
    logic [NBW_REGISTER-1:0]   immExt_w, immExt_ff;
    logic [NBW_REGISTER-1:0]   rd1_w, rd1_ff;
    logic [NBW_REGISTER-1:0]   rd2_w, rd2_ff;
+   logic [NBW_ADDR-1:0]       rs1_w, rs1_ff, rs2_w, rs2_ff;
 
    logic         regWrite_w;
    logic [1:0]   resultSrc_w;
@@ -56,12 +59,19 @@ module ariscv_dec #(
    assign o_rd1 = rd1_ff;
    assign o_rd2 = rd2_ff;
    assign o_immExt = immExt_ff;
+   assign o_rs1_de = rs1_ff;
+   assign o_rs2_de = rs2_ff;
+
+   assign rs1_w = i_inst[19:15];
+   assign rs2_w = i_inst[24:20];
 
    /* FF */
    always_ff @(posedge de_aclk or negedge rst_async_n) begin
       if (!rst_async_n || i_flush_de) begin
          rd1_ff         <= '0;
          rd2_ff         <= '0;
+         rs1_ff         <= '0;
+         rs2_ff         <= '0;
          immExt_ff      <= '0;
          o_wr_addr_reg  <= '0;
          o_pc           <= '0;
@@ -76,6 +86,8 @@ module ariscv_dec #(
       else begin
          rd1_ff         <= rd1_w;
          rd2_ff         <= rd2_w;
+         rs1_ff         <= rs1_w;
+         rs2_ff         <= rs2_w;
          immExt_ff      <= immExt_w;
          o_wr_addr_reg  <= i_inst[11:7];
          o_pc           <= i_pc;
@@ -101,8 +113,8 @@ module ariscv_dec #(
       .clk           (reg_aclk),
       .rst_async_n   (rst_async_n),
       .i_wr_en       (i_wr_en_reg),
-      .i_rd_addr_1   (i_inst[19:15]),
-      .i_rd_addr_2   (i_inst[24:20]),
+      .i_rd_addr_1   (rs1_w),
+      .i_rd_addr_2   (rs2_w),
       .i_wr_addr     (i_wr_addr_reg),
       .i_wr_dt       (i_wr_dt_reg),
       .o_rd_dt_1     (rd1_w),

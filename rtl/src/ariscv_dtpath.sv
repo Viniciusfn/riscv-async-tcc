@@ -74,23 +74,46 @@ module ariscv_dtpath #(
    logic                      stall_fd;
    logic                      flush_fd;
    logic                      flush_de;
-   logic                      forwardA_E;
-   logic                      forwardB_E;
+   logic [1:0]                forwardA_E;
+   logic [1:0]                forwardB_E;
+   logic [4:0]                rs1_de;
+   logic [4:0]                rs2_de;
 
    `ifdef SYNC_RISCV
    assign stall_pc   = 1'b0; // TODO
    assign stall_fd   = 1'b0; // TODO
    assign flush_fd   = pc_src;
    assign flush_de   = pc_src;
-   assign forwardA_E = 1'b0; // TODO
-   assign forwardB_E = 1'b0; // TODO
+   
+   always_comb begin : forwarding
+      if (((rs1_de == wr_addr_reg_em) & regWrite_em) & (rs1_de != 0)) begin
+         forwardA_E = 2'b10;
+      end
+      else if (((rs1_de == wr_addr_reg_wd) & wr_en_reg) & (rs1_de != 0)) begin
+         forwardA_E = 2'b01;
+      end
+      else begin
+         forwardA_E = 2'b00;
+      end
+
+      if (((rs2_de == wr_addr_reg_em) & regWrite_em) & (rs2_de != 0)) begin
+         forwardB_E = 2'b10;
+      end
+      else if (((rs2_de == wr_addr_reg_wd) & wr_en_reg) & (rs2_de != 0)) begin
+         forwardB_E = 2'b01;
+      end
+      else begin
+         forwardB_E = 2'b00;
+      end
+   end
+   
    `else
    assign stall_pc   = 1'b0; // TODO
    assign stall_fd   = 1'b0; // TODO
    assign flush_fd   = 1'b0; // TODO
    assign flush_de   = 1'b0; // TODO
-   assign forwardA_E = 1'b0; // TODO
-   assign forwardB_E = 1'b0; // TODO
+   assign forwardA_E = 2'b00; // TODO
+   assign forwardB_E = 2'b00; // TODO
    `endif
 
    /* OUTPUT ASSIGNMENTS */
@@ -153,7 +176,9 @@ module ariscv_dtpath #(
       .o_aluSrc         (aluSrc),
       .o_funct3         (funct3_de),
       // HAZARD HANDLING
-      .i_flush_de      (flush_de)
+      .i_flush_de      (flush_de),
+      .o_rs1_de        (rs1_de),
+      .o_rs2_de        (rs2_de)
    );
 
    ariscv_exec #(
@@ -190,7 +215,11 @@ module ariscv_dtpath #(
       .o_pcTarget_ff (pcTarget_em),
       // TO PC
       .o_pcTarget    (pc_target),
-      .o_PCSrc       (pc_src)
+      .o_PCSrc       (pc_src),
+      // HAZARD HANDLING
+      .i_forwardA    (forwardA_E),
+      .i_forwardB    (forwardB_E),
+      .i_result_wb   (wr_dt_reg)
    );
 
    ariscv_mem #(
