@@ -70,20 +70,27 @@ module ariscv_dtpath #(
    /**/
 
    /* HAZARD HANDLING */
+   logic                      lw_stall;
    logic                      stall_pc;
    logic                      stall_fd;
    logic                      flush_fd;
    logic                      flush_de;
    logic [1:0]                forwardA_E;
    logic [1:0]                forwardB_E;
-   logic [4:0]                rs1_de;
-   logic [4:0]                rs2_de;
+   logic [NBW_ADDR-1:0]       rs1_fd;
+   logic [NBW_ADDR-1:0]       rs2_fd;
+   logic [NBW_ADDR-1:0]       rs1_de;
+   logic [NBW_ADDR-1:0]       rs2_de;
+
+   assign rs1_fd = inst[19:15];
+   assign rs2_fd = inst[24:20];
 
    `ifdef SYNC_RISCV
-   assign stall_pc   = 1'b0; // TODO
-   assign stall_fd   = 1'b0; // TODO
+   assign lw_stall   = ((resultSrc_de[0]) & ((rs1_fd == wr_addr_reg_de) | (rs2_fd == wr_addr_reg_de))) ?1'b1 :1'b0;
+   assign stall_pc   = lw_stall;
+   assign stall_fd   = lw_stall;
    assign flush_fd   = pc_src;
-   assign flush_de   = pc_src;
+   assign flush_de   = lw_stall | pc_src;
    
    always_comb begin : forwarding
       if (((rs1_de == wr_addr_reg_em) & regWrite_em) & (rs1_de != 0)) begin
@@ -108,12 +115,13 @@ module ariscv_dtpath #(
    end
    
    `else
-   assign stall_pc   = 1'b0; // TODO
-   assign stall_fd   = 1'b0; // TODO
-   assign flush_fd   = 1'b0; // TODO
-   assign flush_de   = 1'b0; // TODO
-   assign forwardA_E = 2'b00; // TODO
-   assign forwardB_E = 2'b00; // TODO
+   assign lw_stall   = 1'b0;
+   assign stall_pc   = 1'b0;
+   assign stall_fd   = 1'b0;
+   assign flush_fd   = 1'b0;
+   assign flush_de   = 1'b0;
+   assign forwardA_E = 2'b00;
+   assign forwardB_E = 2'b00;
    `endif
 
    /* OUTPUT ASSIGNMENTS */

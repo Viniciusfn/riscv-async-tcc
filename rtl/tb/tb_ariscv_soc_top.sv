@@ -369,6 +369,9 @@ module tb_ariscv_soc_top;
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == tb_reg_dt[2]);
       @(negedge reg_clk);
+      `ifdef SYNC_RISCV
+      @(negedge reg_clk);
+      `endif
       assert(tb_reg_dt[1] == tb_reg_dt[2] + 2);
       @(negedge reg_clk);
       assert(tb_reg_dt[2] == tb_reg_dt[1] + tb_reg_dt[4]);
@@ -377,12 +380,26 @@ module tb_ariscv_soc_top;
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == '0);
       repeat(4) @(negedge reg_clk);
+      `ifdef SYNC_RISCV
+      repeat (5) begin
+         @(negedge reg_clk);
+         assert(tb_reg_dt[1] != '1);
+      end
+      `endif
+      @(negedge reg_clk);
       assert(tb_reg_dt[1] == 1);
 
       @(negedge reg_clk);
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == tb_reg_dt[3]);
       repeat (4) @(negedge reg_clk);
+      `ifdef SYNC_RISCV
+      repeat (6) begin
+         @(negedge reg_clk);
+         assert(tb_reg_dt[1] != '1);
+      end
+      `endif
+      @(negedge reg_clk);
       assert(tb_reg_dt[1] == 2);
 
       #10

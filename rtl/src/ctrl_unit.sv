@@ -126,7 +126,7 @@ module ctrl_unit #(
             o_branch = 1'b0;
             ALUOp_w = 2'b11;
             o_jump = 1'b0;
-            err_flag_w[0] = 1'b1;
+            err_flag_w[0] = |i_op;
          end
       endcase
    end
