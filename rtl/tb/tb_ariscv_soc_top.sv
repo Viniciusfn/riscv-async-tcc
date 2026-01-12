@@ -432,6 +432,7 @@ module tb_ariscv_soc_top;
          begin
             while(1) begin
                @(posedge (dut.uu_dt_mem.aclk && dut.uu_dt_mem.i_memWrite));
+               #1; // to avoid double writting due to no delay simulation
                if(dut.uu_dt_mem.i_writeAddr == TXDATA_REG_ADDR) begin
                   if (dut.uu_dt_mem.i_writeData[7:0] != 8'h00) begin // ignore null bytes
                      benchmark_text = {benchmark_text, byte'(dut.uu_dt_mem.i_writeData[7:0])};

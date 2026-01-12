@@ -80,6 +80,9 @@ module ariscv_dec #(
          o_branch       <= '0;
          o_aluControl   <= '0;
          o_aluSrc       <= '0;
+         o_memWrite     <= '0;
+         o_regWrite     <= '0;
+         o_resultSrc    <= '0;
          o_funct3       <= '0;
          err_flag_ff    <= '0;
       end
