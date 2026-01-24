@@ -16,7 +16,7 @@ set_db [get_db lib_cells */*LVT] .dont_use true
 # ----------------------------------------
 
 # Read LEFs (Techfile and libs)
-read_physical -lef "$LEF_TECH $LEF_LIST"
+read_physical -lef "$LEF_LIST"
 
 # Set interconnect mode to PLE to use physical information from LEFs
 set_db interconnect_mode ple
@@ -33,7 +33,11 @@ set_db phys_assume_met_fill 1
 # RTL
 # ----------------------------------------
 set_db init_hdl_search_path $RTL_PATH
-read_hdl -language sv $RTL_LIST_FILE -define SYNTHESIS -define PW_AWARE
+if { ${SYNC_VERSION} == 1 } {
+    read_hdl -language sv $RTL_LIST_FILE -define SYNTHESIS -define PW_AWARE -define SYNC_RISCV
+} else {
+    read_hdl -language sv $RTL_LIST_FILE -define SYNTHESIS -define PW_AWARE
+}
 
 set_db hdl_enable_real_support true
 set_db dp_area_mode true

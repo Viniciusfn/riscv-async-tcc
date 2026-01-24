@@ -1,23 +1,33 @@
 ## Set the DESIGN 
-set DESIGN ariscv 
+set DESIGN ariscv
+
+set SYNC_VERION 1
 
 # ----------------------------------------
 #    Lefs
 # ----------------------------------------
-set LEF_TECH ""
-set LEF_TECH {/pdk/TSMC/CLN28HPC+/arp_tech_file/tn28clpr002e1_1_9_1a/PRTF_EDI_28nm_Cad_V19_1a/PRTF_EDI_28nm_Cad_V19_1a/PR_tech/Cadence/LefHeader/HVH/tsmcn28_7lm4X1YZ1ZRDL.tlef}
-
-set LEF_LIST {/pdk/TSMC/CLN28HPC+/TSMCHOME/digital/Back_End/lef/tcbn28hpcplusbwp7t30p140mbuhvt_150a/lef/tcbn28hpcplusbwp7t30p140mbuhvt.lef \
-              /pdk/TSMC/CLN28HPC+/TSMCHOME/digital/Back_End/lef/tcbn28hpcplusbwp7t30p140uhvt_140b/lef/tcbn28hpcplusbwp7t30p140uhvt.lef     \
-              /pdk/TSMC/CLN28HPC+/TSMCHOME/digital/Back_End/lef/tcbn28hpcplusbwp7t40p140ehvt_110a/lef/tcbn28hpcplusbwp7t40p140ehvt.lef }
+set LEF_LIST {/Tools/pdks/gpdk045_v_6_0/gsclib045_all_v4_4/gsclib045_hvt/lef/gsclib045_hvt_macro.lef \
+              /Tools/pdks/gpdk045_v_6_0/gsclib045_all_v4_4/gsclib045_lvt/lef/gsclib045_lvt_macro.lef \
+              /Tools/pdks/gpdk045_v_6_0/gsclib045_all_v4_4/gsclib045/lef/gsclib045_macro.lef \
+              /Tools/pdks/gpdk045_v_6_0/gsclib045_all_v4_4/gsclib045/lef/gsclib045_multibitsDFF.lef \
+              /Tools/pdks/gpdk045_v_6_0/gsclib045_all_v4_4/gsclib045/lef/gsclib045_tech.lef }
 # ----------------------------------------
 #    Libraries
 # ----------------------------------------
-set LIB_PATH {/pdk/TSMC/CLN28HPC+/TSMCHOME/digital/Front_End/timing_power_noise/CCS/ }
+set LIB_PATH {/Tools/pdks/gpdk045_v_6_0/gsclib045_all_v4_4/ }
 
-set LIB_LIST { tcbn28hpcplusbwp7t30p140mbuhvt_170a/tcbn28hpcplusbwp7t30p140mbuhvtssg0p81v0c_ccs.lib \
-               tcbn28hpcplusbwp7t30p140uhvt_180b/tcbn28hpcplusbwp7t30p140uhvtssg0p81v0c_ccs.lib     \
-               tcbn28hpcplusbwp7t40p140ehvt_170a/tcbn28hpcplusbwp7t40p140ehvtssg0p81v0c_ccs.lib }
+set LIB_LIST { gsclib045_hvt/timing/slow_vdd1v0_basicCells_hvt.lib \
+               gsclib045_lvt/timing/slow_vdd1v0_basicCells_lvt.lib \
+               gsclib045/timing/slow_vdd1v0_basicCells.lib }
+               #gsclib045/timing/slow_vdd1v0_extvdd1v2.lib \
+               #gsclib045/timing/slow_vdd1v0_extvdd1v0.lib }
+
+#fast_vdd1v0_basicCells_hvt.lib  fast_vdd1v2_basicCells_hvt.lib  slow_vdd1v0_basicCells_hvt.lib  slow_vdd1v2_basicCells_hvt.lib
+#fast_vdd1v0_basicCells_lvt.lib  fast_vdd1v2_basicCells_lvt.lib  slow_vdd1v0_basicCells_lvt.lib  slow_vdd1v2_basicCells_lvt.lib
+#fast_vdd1v0_basicCells.lib      fast_vdd1v2_basicCells.lib      slow_vdd1v0_basicCells.lib      slow_vdd1v2_basicCells.lib
+#fast_vdd1v0_multibitsDFF.lib    fast_vdd1v2_multibitsDFF.lib    slow_vdd1v0_multibitsDFF.lib    slow_vdd1v2_multibitsDFF.lib
+#fast_vdd1v0_extvdd1v2.lib       fast_vdd1v2_extvdd1v2.lib       slow_vdd1v0_extvdd1v2.lib       slow_vdd1v2_extvdd1v2.lib
+#fast_vdd1v0_extvdd1v0.lib       fast_vdd1v2_extvdd1v0.lib       slow_vdd1v0_extvdd1v0.lib       slow_vdd1v2_extvdd1v0.lib
 
 # ----------------------------------------
 #     RTL
