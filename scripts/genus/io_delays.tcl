@@ -21,13 +21,13 @@ if { ${SYNC_VERSION} == 0 } {
     set_output_delay -min 0.001           -clock [get_clocks {ACLK_MW_4}] [get_ports {o_mem_clk o_writeData o_writeAddr o_memWrite o_writeWidth}]
 
 } else {
-    set_input_delay  -max ${PC_IO_DELAY} -clock [get_clocks {SYNC_IO_DELAY}] [get_ports {i_inst}]
-    set_input_delay  -min 0.001          -clock [get_clocks {SYNC_IO_DELAY}] [get_ports {i_inst}]
-    set_output_delay -max ${PC_IO_DELAY} -clock [get_clocks {SYNC_IO_DELAY}] [get_ports {o_pc}]
-    set_output_delay -min 0.001          -clock [get_clocks {SYNC_IO_DELAY}] [get_ports {o_pc}]
+    set_input_delay  -max ${SYNC_IO_DELAY}  -clock [get_clocks {clk}] [get_ports {i_inst}]
+    set_input_delay  -min 0.001             -clock [get_clocks {clk}] [get_ports {i_inst}]
+    set_output_delay -max ${SYNC_IO_DELAY}  -clock [get_clocks {clk}] [get_ports {o_pc}]
+    set_output_delay -min 0.001             -clock [get_clocks {clk}] [get_ports {o_pc}]
 
-    set_input_delay  -max ${MEM_IO_DELAY} -clock [get_clocks {SYNC_IO_DELAY}] [get_ports {i_readData}]
-    set_input_delay  -min 0.001           -clock [get_clocks {SYNC_IO_DELAY}] [get_ports {i_readData}]
-    set_output_delay -max ${MEM_IO_DELAY} -clock [get_clocks {SYNC_IO_DELAY}] [get_ports {o_mem_clk o_writeData o_writeAddr o_memWrite o_writeWidth}]
-    set_output_delay -min 0.001           -clock [get_clocks {SYNC_IO_DELAY}] [get_ports {o_mem_clk o_writeData o_writeAddr o_memWrite o_writeWidth}]
+    set_input_delay  -max ${SYNC_IO_DELAY}  -clock [get_clocks {clk}] [get_ports {i_readData}]
+    set_input_delay  -min 0.001             -clock [get_clocks {clk}] [get_ports {i_readData}]
+    set_output_delay -max ${SYNC_IO_DELAY}  -clock [get_clocks {clk}] [get_ports {o_mem_clk o_writeData o_writeAddr o_memWrite o_writeWidth}]
+    set_output_delay -min 0.001             -clock [get_clocks {clk}] [get_ports {o_mem_clk o_writeData o_writeAddr o_memWrite o_writeWidth}]
 }

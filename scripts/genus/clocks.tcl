@@ -28,7 +28,7 @@ if { ${SYNC_VERSION} == 0 } {
     set_clock_groups -asynchronous -group {ACLK_PC_0 ACLK_FD_1 ACLK_DE_2 ACLK_EM_3 ACLK_MW_4 ACLK_REG_5}
 }
 
-if { ${SYNC_VERSION} == 1 } {
+if { ${SYNC_VERSION} == 0 } {
     # Set clock uncertainty
     # Setup set at 10% of clock cycle and hold to 2% of clock cycle, up to a maximum of 230ps (200ps for setup and 30ps for hold)
     set_clock_uncertainty -setup 0.20 [get_clocks {ACLK_PC_0}]

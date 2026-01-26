@@ -40,3 +40,5 @@ obj_*
 *qmake_gcov
 *.pro.user
 
+workspace/*
+*_phys_eval_file_*

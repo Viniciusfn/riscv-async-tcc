@@ -1,3 +1,4 @@
+../rtl/src/ariscv_params_pkg.sv
 ../rtl/src/alu.sv
 ../rtl/src/ariscv.sv
 ../rtl/src/ariscv_ctrlpath.sv
@@ -6,7 +7,6 @@
 ../rtl/src/ariscv_exec.sv
 ../rtl/src/ariscv_fetch.sv
 ../rtl/src/ariscv_mem.sv
-../rtl/src/ariscv_params_pkg.sv
 ../rtl/src/ariscv_wb.sv
 ../rtl/src/c_element.sv
 ../rtl/src/ctrl_unit.sv

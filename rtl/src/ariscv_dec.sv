@@ -67,7 +67,26 @@ module ariscv_dec #(
 
    /* FF */
    always_ff @(posedge de_aclk or negedge rst_async_n) begin
-      if (!rst_async_n || i_flush_de) begin
+      if (!rst_async_n) begin
+         rd1_ff         <= '0;
+         rd2_ff         <= '0;
+         rs1_ff         <= '0;
+         rs2_ff         <= '0;
+         immExt_ff      <= '0;
+         o_wr_addr_reg  <= '0;
+         o_pc           <= '0;
+         o_pc_plus4     <= '0;
+         o_jump         <= '0;
+         o_branch       <= '0;
+         o_aluControl   <= '0;
+         o_aluSrc       <= '0;
+         o_memWrite     <= '0;
+         o_regWrite     <= '0;
+         o_resultSrc    <= '0;
+         o_funct3       <= '0;
+         err_flag_ff    <= '0;
+      end
+      else if (i_flush_de) begin
          rd1_ff         <= '0;
          rd2_ff         <= '0;
          rs1_ff         <= '0;

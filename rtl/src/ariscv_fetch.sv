@@ -53,7 +53,12 @@ module ariscv_fetch #(
    end
 
    always_ff @(posedge fd_aclk or negedge rst_async_n) begin : fd_reg
-      if(!rst_async_n || i_flush_fd) begin
+      if(!rst_async_n) begin
+         inst_ff     <= '0;
+         pc_fd_ff    <= '0;
+         pc_plus4_ff <= '0;
+      end
+      else if (i_flush_fd) begin
          inst_ff     <= '0;
          pc_fd_ff    <= '0;
          pc_plus4_ff <= '0;

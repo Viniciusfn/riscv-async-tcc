@@ -1,7 +1,7 @@
 ## Set the DESIGN 
 set DESIGN ariscv
 
-set SYNC_VERION 1
+set SYNC_VERSION 1
 
 # ----------------------------------------
 #    Lefs

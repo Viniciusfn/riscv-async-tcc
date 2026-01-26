@@ -1,0 +1,51 @@
+
+
+Working Directory = /home/vinicius.franca/workarea/riscv-async-tcc/workspace
+QoS Summary for ariscv
+================================================================================
+Metric                          generic         mapped          placed         
+================================================================================
+Slack (ps):                     2,800             548              14
+  R2R (ps):                     3,613             548              14
+  I2R (ps):                     7,452           7,294           7,294
+  R2O (ps):                     7,440           7,438           7,438
+  I2O (ps):                     2,800           2,800           2,800
+  CG  (ps):                  no_value        no_value        no_value
+TNS (ps):                           0               0               0
+  R2R (ps):                         0               0               0
+  I2R (ps):                         0               0               0
+  R2O (ps):                         0               0               0
+  I2O (ps):                         0               0               0
+  CG  (ps):                  no_value        no_value        no_value
+Failing Paths:                      0               0               0
+Cell Area:                     10,376           5,741           5,682
+Total Cell Area:               10,376           5,741           5,682
+Leaf Instances:                10,921           6,123           6,039
+Total Instances:               10,921           6,123           6,039
+Utilization (%):                 0.00            0.00            0.00
+Tot. Net Length (um):        no_value        no_value        no_value
+Avg. Net Length (um):        no_value        no_value        no_value
+Route Overflow H (%):        no_value        no_value        no_value
+Route Overflow V (%):        no_value        no_value        no_value
+MBCI(%) (bits/gate) :            0.00            0.00            0.00
+Norm Cong Hotspot Area:
+  Max Cong:                  no_value        no_value        no_value
+  Tot Cong:                  no_value        no_value        no_value
+================================================================================
+CPU  Runtime (h:m:s):        00:00:57        00:01:26        00:00:26
+Real Runtime (h:m:s):        00:00:45        00:00:52        00:00:25
+CPU  Elapsed (h:m:s):        00:01:05        00:02:30        00:02:56
+Real Elapsed (h:m:s):        00:00:49        00:01:40        00:02:05
+Memory (MB):                  1679.62         1683.13         1682.95
+================================================================================
+================================================================================
+Flow Settings:
+================================================================================
+Total Runtime (h:m:s): 00:02:02
+Total Memory (MB):     1690.95
+Executable Version:    22.14-s059_1
+================================================================================
+Total Cell Area =  Cell Area + Physical Cell Area
+Total Instances =  Leaf Instances + Physical Instances
+
+
