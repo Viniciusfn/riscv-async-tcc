@@ -15,18 +15,18 @@ set PERIOD_REG_5 50.000
 if { ${SYNC_VERSION} == 1 } {
     create_clock -name "clk"         -period ${PERIOD_SYNC_CLK} [get_ports {clk}]
 } else {
-    create_clock -name "ACLK_PC_0"   -period ${PERIOD_PC_0}   [get_ports {uu_ariscv_ctrlpath/o_aclk[0]}]
-    create_clock -name "ACLK_FD_1"   -period ${PERIOD_FD_1}   [get_ports {uu_ariscv_ctrlpath/o_aclk[1]}]
-    create_clock -name "ACLK_DE_2"   -period ${PERIOD_DE_2}   [get_ports {uu_ariscv_ctrlpath/o_aclk[2]}]
-    create_clock -name "ACLK_EM_3"   -period ${PERIOD_EM_3}   [get_ports {uu_ariscv_ctrlpath/o_aclk[3]}]
-    create_clock -name "ACLK_MW_4"   -period ${PERIOD_MW_4}   [get_ports {uu_ariscv_ctrlpath/o_aclk[4]}]
-    create_clock -name "ACLK_REG_5"  -period ${PERIOD_REG_5}  [get_ports {uu_ariscv_ctrlpath/o_aclk[5]}]
+    create_clock -name "ACLK_PC_0"   -period ${PERIOD_PC_0}   [get_pins uu_ctrlpath/o_aclk[0]]
+    create_clock -name "ACLK_FD_1"   -period ${PERIOD_FD_1}   [get_pins uu_ctrlpath/o_aclk[1]]
+    create_clock -name "ACLK_DE_2"   -period ${PERIOD_DE_2}   [get_pins uu_ctrlpath/o_aclk[2]]
+    create_clock -name "ACLK_EM_3"   -period ${PERIOD_EM_3}   [get_pins uu_ctrlpath/o_aclk[3]]
+    create_clock -name "ACLK_MW_4"   -period ${PERIOD_MW_4}   [get_pins uu_ctrlpath/o_aclk[4]]
+    create_clock -name "ACLK_REG_5"  -period ${PERIOD_REG_5}  [get_pins uu_ctrlpath/o_aclk[5]]
 }
 
-# Set clock groups
-if { ${SYNC_VERSION} == 0 } {
-    set_clock_groups -asynchronous -group {ACLK_PC_0 ACLK_FD_1 ACLK_DE_2 ACLK_EM_3 ACLK_MW_4 ACLK_REG_5}
-}
+# Set clock groups (synchronous by default)
+#if { ${SYNC_VERSION} == 0 } {
+#    set_clock_groups -asynchronous -group {ACLK_PC_0 ACLK_FD_1 ACLK_DE_2 ACLK_EM_3 ACLK_MW_4 ACLK_REG_5}
+#}
 
 if { ${SYNC_VERSION} == 0 } {
     # Set clock uncertainty

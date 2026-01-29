@@ -23,6 +23,6 @@ if { ${SYNC_VERSION} == 0 } {
     set_max_delay -from [get_clocks ACLK_REG_5] -to [get_clocks ACLK_DE_2] $DELAY_REG_DE
 
     #Disabling timing in muller gates to avoid combinational loop breaking
-    set_disable_timing -from [get_pins -hierarchical -filter {NAME =~ "*uu_c_element/a*"}] -to [get_pins -hierarchical -filter {NAME =~ "*uu_c_element/s*"}]
-    set_disable_timing -from [get_pins -hierarchical -filter {NAME =~ "*uu_c_element/b*"}] -to [get_pins -hierarchical -filter {NAME =~ "*uu_c_element/s*"}]
+    set_disable_timing [get_pins -hierarchical *uu_c_element*/a] [get_pins -hierarchical *uu_c_element*/s]
+    set_disable_timing [get_pins -hierarchical *uu_c_element*/b] [get_pins -hierarchical *uu_c_element*/s]
 }

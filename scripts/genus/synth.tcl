@@ -9,7 +9,7 @@ source ../scripts/genus/defines.tcl
 set_db init_lib_search_path $LIB_PATH
 read_libs $LIB_LIST 
 
-set_db [get_db lib_cells */*LVT] .dont_use true
+# set_db [get_db lib_cells */*LVT] .dont_use true
 
 # ----------------------------------------
 # Lefs
@@ -53,7 +53,7 @@ set_db [get_db insts *DONT_TOUCH*] .dont_touch true
 set_db [get_db insts *DONT_TOUCH*] .preserve true
 
 # To run hierarchical synthesis, uncomment the line below
-#set_db auto_ungroup none
+set_db auto_ungroup none
 
 # ----------------------------------------
 # Constraints
