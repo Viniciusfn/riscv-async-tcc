@@ -16,9 +16,9 @@ set LEF_LIST {/Tools/pdks/gpdk045_v_6_0/gsclib045_all_v4_4/gsclib045_hvt/lef/gsc
 # ----------------------------------------
 set LIB_PATH {/Tools/pdks/gpdk045_v_6_0/gsclib045_all_v4_4/ }
 
-set LIB_LIST { gsclib045_hvt/timing/slow_vdd1v0_basicCells_hvt.lib \
-               gsclib045_lvt/timing/slow_vdd1v0_basicCells_lvt.lib \
-               gsclib045/timing/slow_vdd1v0_basicCells.lib }
+set LIB_LIST { gsclib045/timing/slow_vdd1v0_basicCells.lib \
+               gsclib045_hvt/timing/slow_vdd1v0_basicCells_hvt.lib \
+               gsclib045_lvt/timing/slow_vdd1v0_basicCells_lvt.lib }
                #gsclib045/timing/slow_vdd1v0_extvdd1v2.lib \
                #gsclib045/timing/slow_vdd1v0_extvdd1v0.lib }
 

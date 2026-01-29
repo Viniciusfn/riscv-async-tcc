@@ -47,8 +47,8 @@ synth:
 	genus -f ../scripts/genus/synth.tcl -log ../logs/genus/genus.log
 
 lec:
-	lec -dofile ../scripts/lec/rtl_to_fv_map.tcl -xl -nogui -log ../logs/lec/rtl_to_fv_map.log
-	lec -dofile ../scripts/lec/fv_map_final.tcl -xl -nogui -log ../logs/lec/fv_map_to_final.log
+	lec -dofile ../scripts/lec/rtl_to_fv_map.tcl -xl -nogui
+	lec -dofile ../scripts/lec/fv_map_final.tcl -xl -nogui
 
 clean:
 	rm -rf obj_dir *.vcd *.log *.cmd $(WAVE_FILE)
