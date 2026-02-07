@@ -12,14 +12,14 @@ module ariscv_ctrlpath #(
    parameter DELAY_REG_DE  = 1,
    parameter DELAY_LOOP    = 1,
    // Initialization
-   parameter bit INIT_PC       = 0,
+   parameter bit INIT_PC       = 1,
    parameter bit INIT_FD       = 0,
-   parameter bit INIT_DE       = 1,
+   parameter bit INIT_DE       = 0,
    parameter bit INIT_EM       = 0,
    parameter bit INIT_MW       = 0,
    parameter bit INIT_REG      = 1,
    parameter bit INIT_LOOP1    = 0,
-   parameter bit INIT_LOOP2    = 1
+   parameter bit INIT_LOOP2    = 0
 )(
    /* INTERFACE */
    input  logic                  rst_async_n,

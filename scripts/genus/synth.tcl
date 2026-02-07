@@ -45,7 +45,7 @@ set_db use_area_from_lef true
 set_db optimize_net_area true
 set_db map_mt_area_opt_cleanup true
 elaborate $DESIGN
-#suspend
+# suspend
 
 # Seting blackbox in analog blocks
 
