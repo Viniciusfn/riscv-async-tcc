@@ -2,14 +2,6 @@
 # Timing Exception
 # ----------------------------------------
 
-set DELAY_PC_FD 16.000
-set DELAY_FD_DE 28.000
-set DELAY_DE_EM 38.000
-set DELAY_DE_PC 38.000
-set DELAY_EM_MW 28.000
-set DELAY_MW_REG 38.000
-set DELAY_REG_DE 28.000
-
 set_false_path -from [get_ports rst_async_n]
 
 if { ${SYNC_VERSION} == 0 } {

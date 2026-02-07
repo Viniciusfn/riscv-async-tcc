@@ -66,7 +66,7 @@ check_design -unresolved > ../reports/genus/unresolved_modules.rpt
 report_clocks
 report_clocks -generated
 report_timing -lint -verbose > ../reports/genus/lint_check.rpt
-
+suspend
 # Set up LEC script to use the normal netlists instead of the "fv" directory.
 set_db wlec_write_lec_flow true
 

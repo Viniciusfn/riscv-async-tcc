@@ -8,3 +8,13 @@ report qor            	    > ${REPORTS_PATH}${DESIGN}_qor.rpt
 report messages       	    > ${REPORTS_PATH}${DESIGN}_messages.rpt
 report summary        	    > ${REPORTS_PATH}${DESIGN}_summary.rpt
 report_multibit_inferencing > ${REPORTS_PATH}${DESIGN}_multibit.rpt
+
+if { ${SYNC_VERSION} == 0 } {
+    report_timing -from [get_clocks ACLK_PC_0] -to [get_clocks ACLK_FD_1]  > ${REPORTS_PATH}dtpath_time_PC_to_FD.rpt
+    report_timing -from [get_clocks ACLK_FD_1] -to [get_clocks ACLK_DE_2]  > ${REPORTS_PATH}dtpath_time_FD_to_DE.rpt
+    report_timing -from [get_clocks ACLK_DE_2] -to [get_clocks ACLK_EM_3]  > ${REPORTS_PATH}dtpath_time_DE_to_EM.rpt
+    report_timing -from [get_clocks ACLK_DE_2] -to [get_clocks ACLK_PC_0]  > ${REPORTS_PATH}dtpath_time_DE_to_PC.rpt
+    report_timing -from [get_clocks ACLK_EM_3] -to [get_clocks ACLK_MW_4]  > ${REPORTS_PATH}dtpath_time_EM_to_MW.rpt
+    report_timing -from [get_clocks ACLK_MW_4] -to [get_clocks ACLK_REG_5] > ${REPORTS_PATH}dtpath_time_MW_to_REG.rpt
+    report_timing -from [get_clocks ACLK_REG_5] -to [get_clocks ACLK_DE_2] > ${REPORTS_PATH}dtpath_time_REG_to_DE.rpt
+}
