@@ -66,7 +66,7 @@ check_design -unresolved > ../reports/genus/unresolved_modules.rpt
 report_clocks
 report_clocks -generated
 report_timing -lint -verbose > ../reports/genus/lint_check.rpt
-suspend
+# suspend
 # Set up LEC script to use the normal netlists instead of the "fv" directory.
 set_db wlec_write_lec_flow true
 
@@ -155,8 +155,7 @@ source ../scripts/genus/reports.tcl
 
 write_db       ${DATABASE_PATH}${DESIGN}_db_file.db
 write_netlist > ${NETLIST_PATH}${DESIGN}_netlist.v
-write_sdf     > ${DESIGN}.sdf
-#write_sdc     > ${SDC_PATH}${DESIGN}.sdc
+write_sdf     > ../timing/${DESIGN}.sdf
 
 # Write do LEC. Mapped vs Placed
 write_do_lec -golden_design fv_map -revised_design ${NETLIST_PATH}${DESIGN}_netlist.v -logfile ../logs/lec/fv_map_to_final.log > ../scripts/lec/fv_map_final.tcl
