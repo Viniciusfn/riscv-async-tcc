@@ -6,8 +6,8 @@ GCC_PREFIX = riscv32-unknown-elf
 GCC_VER    = 15.1.0
 
 # [CONFIGURE] CoreMark specific definitions
-ITERATIONS     = 1200        # Iterations of CoreMark (120 for score in ariscv)
-CLOCKS_PER_SEC = 100000000  # Core clock speed
+ITERATIONS     = 3000        # Iterations of CoreMark (120 for score in ariscv)
+CLOCKS_PER_SEC = 250000000  # Core clock speed
 FLAGS_STR      = ""
 CORE_DEBUG     = 0 # 1 to activate debug prompts
 VALIDATION_RUN = 0
