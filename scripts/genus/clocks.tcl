@@ -3,7 +3,7 @@
 # ----------------------------------------
 
 # Create clocks
-set PERIOD_SYNC_CLK 10.000
+set PERIOD_SYNC_CLK 4.000
 
 set DELAY_PC_FD 1.900
 set DELAY_FD_DE 2.500
