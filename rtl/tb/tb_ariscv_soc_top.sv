@@ -1,4 +1,4 @@
-`timescale 1ns / 1ns
+`timescale 1ns / 100ps
 `define PERF_CLK_PERIOD 10
 //`define BENCHMARK_TEST
 
@@ -505,8 +505,10 @@ module tb_ariscv_soc_top;
 
    /* TEST SEQUENCE */
    initial begin
+      `ifndef BENCHMARK_TEST
       $dumpfile("wave_trace.vcd");
       $dumpvars(0, tb_ariscv);
+      `endif
 
       /* INITIALIZING */
       rst_async_n = 1'b1;

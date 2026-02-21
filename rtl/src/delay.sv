@@ -7,8 +7,6 @@ module delay #(
    output logic   o_data
 );
 
-   //timeunit 1ns;
-
    `ifdef SYNTHESIS
 
    genvar i;
@@ -22,6 +20,7 @@ module delay #(
    assign o_data = w_delay[DELAY-1];
 
    `else
+   timeunit 100ps;
    always @(i_data) begin
       o_data <= #(DELAY) i_data;
    end
