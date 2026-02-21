@@ -1,5 +1,5 @@
 `timescale 1ns / 100ps
-`define PERF_CLK_PERIOD 10
+`define PERF_CLK_PERIOD 4
 //`define BENCHMARK_TEST
 
 import ariscv_params_pkg::*;
@@ -23,7 +23,8 @@ module tb_ariscv_soc_top;
    localparam PERF_COUNTER_ADDR = 32'h00010004;
    time TIMEOUT_BENCHMARK = 15s;
    // time TIMEOUT_BENCHMARK = 50ms;
-   time UPDATE_PROG = 1ms;
+   time UPDATE_PROG = 100ms;
+   localparam PROGRESSION_VERBOSE = 1;
 
    /* INTERFACE */
    logic                                 perf_clk;
@@ -456,7 +457,9 @@ module tb_ariscv_soc_top;
          // Thread 4: Progression bar
          begin
             for (time t = 0; t <= TIMEOUT_BENCHMARK; t += UPDATE_PROG) begin
-               print_progress($time, TIMEOUT_BENCHMARK);
+               if (PROGRESSION_VERBOSE == 1) begin
+                  print_progress($time, TIMEOUT_BENCHMARK);
+               end
                #(UPDATE_PROG);
             end
          end
