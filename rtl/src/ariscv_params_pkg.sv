@@ -36,21 +36,21 @@ package ariscv_params_pkg;
       // CTRLPATH
          // Delays: DELAY_Source_Receiver
       `ifdef SYNTHESIS
-      DELAY_PC_FD    : 19,
+      DELAY_PC_FD    : 13,
       DELAY_FD_DE    : 25,
       DELAY_DE_EM    : 32,
       DELAY_DE_PC    : 45,
-      DELAY_EM_MW    : 10,
-      DELAY_MW_REG   : 17,
+      DELAY_EM_MW    : 6,
+      DELAY_MW_REG   : 16,
       DELAY_REG_DE   : 15,
       DELAY_LOOP     : 1,
       `else
-      DELAY_PC_FD    : 19,
+      DELAY_PC_FD    : 13,
       DELAY_FD_DE    : 25,
       DELAY_DE_EM    : 32,
       DELAY_DE_PC    : 45,
-      DELAY_EM_MW    : 10,
-      DELAY_MW_REG   : 17,
+      DELAY_EM_MW    : 6,
+      DELAY_MW_REG   : 16,
       DELAY_REG_DE   : 15,
       DELAY_LOOP     : 1,
       `endif

@@ -5,12 +5,12 @@
 # Create clocks
 set PERIOD_SYNC_CLK 4.000
 
-set DELAY_PC_FD 1.900
+set DELAY_PC_FD 1.300
 set DELAY_FD_DE 2.500
 set DELAY_DE_EM 3.200
 set DELAY_DE_PC 4.500
-set DELAY_EM_MW 1.000
-set DELAY_MW_REG 1.700
+set DELAY_EM_MW 0.600
+set DELAY_MW_REG 1.600
 set DELAY_REG_DE 1.500
 
 set PERIOD_PC_0  0 ;#[expr 2*${DELAY_DE_PC}]
@@ -41,35 +41,34 @@ if { ${SYNC_VERSION} == 1 } {
     create_clock -name "DUMMY_LOOP2"   -period ${DUMMY_PERIOD} [get_pins uu_ctrlpath/uu_cell_LOOP2/uu_c_element/s]
 
     # Event Propagation Clocks (EPC)
-    create_generated_clock -name "EPC_LOOP1_req" -source [get_pins uu_ctrlpath/uu_cell_LOOP1/uu_c_element/a]   -add -master_clock [get_clocks ACLK_PC_0] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_LOOP1/uu_c_element/s]
-    create_generated_clock -name "EPC_LOOP1_ack" -source [get_pins uu_ctrlpath/uu_cell_LOOP1/uu_c_element/b]   -add -master_clock [get_clocks ACLK_PC_0] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_LOOP1/uu_c_element/s]
-    create_generated_clock -name "EPC_LOOP2_req" -source [get_pins uu_ctrlpath/uu_cell_LOOP2/uu_c_element/a]   -add -master_clock [get_clocks ACLK_PC_0] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_LOOP2/uu_c_element/s]
-    create_generated_clock -name "EPC_LOOP2_ack" -source [get_pins uu_ctrlpath/uu_cell_LOOP2/uu_c_element/b]   -add -master_clock [get_clocks ACLK_PC_0] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_LOOP2/uu_c_element/s]
-    create_generated_clock -name "EPC_F1_ack0"   -source [get_pins uu_ctrlpath/uu_fork_F1/uu_c_element_fork/a] -add -master_clock [get_clocks ACLK_FD_1] -divide_by 1 [get_pins uu_ctrlpath/uu_fork_F1/uu_c_element_fork/s]
-    create_generated_clock -name "EPC_F1_ack1"   -source [get_pins uu_ctrlpath/uu_fork_F1/uu_c_element_fork/b] -add -master_clock [get_clocks ACLK_PC_0] -divide_by 1 [get_pins uu_ctrlpath/uu_fork_F1/uu_c_element_fork/s]
-    create_generated_clock -name "EPC_F2_ack0"   -source [get_pins uu_ctrlpath/uu_fork_F2/uu_c_element_fork/a] -add -master_clock [get_clocks ACLK_PC_0] -divide_by 1 [get_pins uu_ctrlpath/uu_fork_F2/uu_c_element_fork/s]
-    create_generated_clock -name "EPC_F2_ack1"   -source [get_pins uu_ctrlpath/uu_fork_F2/uu_c_element_fork/b] -add -master_clock [get_clocks ACLK_EM_3] -divide_by 1 [get_pins uu_ctrlpath/uu_fork_F2/uu_c_element_fork/s]
-    create_generated_clock -name "EPC_J1_req0"   -source [get_pins uu_ctrlpath/uu_join_J1/uu_c_element_join/a] -add -master_clock [get_clocks ACLK_DE_2] -divide_by 1 [get_pins uu_ctrlpath/uu_join_J1/uu_c_element_join/s]
-    create_generated_clock -name "EPC_J1_req1"   -source [get_pins uu_ctrlpath/uu_join_J1/uu_c_element_join/b] -add -master_clock [get_clocks ACLK_PC_0] -divide_by 1 [get_pins uu_ctrlpath/uu_join_J1/uu_c_element_join/s]
-    create_generated_clock -name "EPC_J2_req0"   -source [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/a] -add -master_clock [get_clocks ACLK_FD_1] -divide_by 1 [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/s]
-    create_generated_clock -name "EPC_J2_req1"   -source [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/b] -add -master_clock [get_clocks ACLK_REG_5] -divide_by 1 [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/s]
+    create_generated_clock -name "EPC_LOOP1_req" -source [get_pins uu_ctrlpath/uu_cell_LOOP1/uu_c_element/a]   -add -master_clock [get_clocks ACLK_PC_0] -combinational [get_pins uu_ctrlpath/uu_cell_LOOP1/uu_c_element/s]
+    create_generated_clock -name "EPC_LOOP1_ack" -source [get_pins uu_ctrlpath/uu_cell_LOOP1/uu_c_element/b]   -add -master_clock [get_clocks ACLK_PC_0] -combinational [get_pins uu_ctrlpath/uu_cell_LOOP1/uu_c_element/s]
+    create_generated_clock -name "EPC_LOOP2_req" -source [get_pins uu_ctrlpath/uu_cell_LOOP2/uu_c_element/a]   -add -master_clock [get_clocks ACLK_PC_0] -combinational [get_pins uu_ctrlpath/uu_cell_LOOP2/uu_c_element/s]
+    create_generated_clock -name "EPC_LOOP2_ack" -source [get_pins uu_ctrlpath/uu_cell_LOOP2/uu_c_element/b]   -add -master_clock [get_clocks ACLK_PC_0] -combinational [get_pins uu_ctrlpath/uu_cell_LOOP2/uu_c_element/s]
+    create_generated_clock -name "EPC_F1_ack0"   -source [get_pins uu_ctrlpath/uu_fork_F1/uu_c_element_fork/a] -add -master_clock [get_clocks ACLK_FD_1] -combinational [get_pins uu_ctrlpath/uu_fork_F1/uu_c_element_fork/s]
+    create_generated_clock -name "EPC_F1_ack1"   -source [get_pins uu_ctrlpath/uu_fork_F1/uu_c_element_fork/b] -add -master_clock [get_clocks ACLK_PC_0] -combinational [get_pins uu_ctrlpath/uu_fork_F1/uu_c_element_fork/s]
+    create_generated_clock -name "EPC_F2_ack0"   -source [get_pins uu_ctrlpath/uu_fork_F2/uu_c_element_fork/a] -add -master_clock [get_clocks ACLK_PC_0] -combinational [get_pins uu_ctrlpath/uu_fork_F2/uu_c_element_fork/s]
+    create_generated_clock -name "EPC_F2_ack1"   -source [get_pins uu_ctrlpath/uu_fork_F2/uu_c_element_fork/b] -add -master_clock [get_clocks ACLK_EM_3] -combinational [get_pins uu_ctrlpath/uu_fork_F2/uu_c_element_fork/s]
+    create_generated_clock -name "EPC_J1_req0"   -source [get_pins uu_ctrlpath/uu_join_J1/uu_c_element_join/a] -add -master_clock [get_clocks ACLK_DE_2] -combinational [get_pins uu_ctrlpath/uu_join_J1/uu_c_element_join/s]
+    create_generated_clock -name "EPC_J1_req1"   -source [get_pins uu_ctrlpath/uu_join_J1/uu_c_element_join/b] -add -master_clock [get_clocks ACLK_PC_0] -combinational [get_pins uu_ctrlpath/uu_join_J1/uu_c_element_join/s]
+    create_generated_clock -name "EPC_J2_req0"   -source [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/a] -add -master_clock [get_clocks ACLK_FD_1] -combinational [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/s]
+    create_generated_clock -name "EPC_J2_req1"   -source [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/b] -add -master_clock [get_clocks ACLK_REG_5] -combinational [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/s]
 
     # Launch/Capture Clocks (EPC)
-    create_generated_clock -name "CAPTURE_DE_PC" -source [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_DE_2}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_PC/uu_c_element/s]
-    create_generated_clock -name "LAUNCH_FD_PC"  -source [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_FD_1}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_PC/uu_c_element/s]
-    create_generated_clock -name "CAPTURE_PC_FD" -source [get_pins uu_ctrlpath/uu_cell_PC/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_PC_0}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/s]
-    create_generated_clock -name "LAUNCH_DE_FD"  -source [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_DE_2}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/s]
-    create_generated_clock -name "CAPTURE_FD_DE" -source [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_FD_1}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]
-    create_generated_clock -name "CAPTURE_REG_DE" -source [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/s] -add -master_clock [get_clocks {ACLK_REG_5}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]
-    create_generated_clock -name "LAUNCH_PC_DE"  -source [get_pins uu_ctrlpath/uu_cell_PC/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_PC_0}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]
-    create_generated_clock -name "LAUNCH_EM_DE"  -source [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_EM_3}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]
-    create_generated_clock -name "CAPTURE_DE_EM" -source [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_DE_2}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/s]
-    create_generated_clock -name "LAUNCH_MW_EM"  -source [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_MW_4}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/s]
-    create_generated_clock -name "CAPTURE_EM_MW" -source [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_EM_3}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/s]
-    create_generated_clock -name "LAUNCH_REG_MW" -source [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_REG_5}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/s]
-    create_generated_clock -name "CAPTURE_MW_REG" -source [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/s] -add -master_clock [get_clocks {ACLK_MW_4}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/s]
-    create_generated_clock -name "LAUNCH_DE_REG" -source [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]  -add -master_clock [get_clocks {ACLK_DE_2}] -divide_by 1 [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/s]
-
+    create_generated_clock -name "CAPTURE_DE_PC" -source [get_pins uu_ctrlpath/uu_cell_PC/uu_c_element/a]  -add -master_clock [get_clocks {ACLK_DE_2}] -combinational [get_pins uu_ctrlpath/uu_cell_PC/uu_c_element/s]
+    create_generated_clock -name "LAUNCH_FD_PC"  -source [get_pins uu_ctrlpath/uu_cell_PC/uu_c_element/b]  -add -master_clock [get_clocks {ACLK_FD_1}] -combinational [get_pins uu_ctrlpath/uu_cell_PC/uu_c_element/s]
+    create_generated_clock -name "CAPTURE_PC_FD" -source [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/a]  -add -master_clock [get_clocks {ACLK_PC_0}] -combinational [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/s]
+    create_generated_clock -name "LAUNCH_DE_FD"  -source [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/b]  -add -master_clock [get_clocks {ACLK_DE_2}] -combinational [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/s]
+    create_generated_clock -name "CAPTURE_FD_DE" -source [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/a]  -add -master_clock [get_clocks {ACLK_FD_1}] -combinational [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]
+    create_generated_clock -name "CAPTURE_REG_DE" -source [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/a] -add -master_clock [get_clocks {ACLK_REG_5}] -combinational [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]
+    create_generated_clock -name "LAUNCH_PC_DE"  -source [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/b]  -add -master_clock [get_clocks {ACLK_PC_0}] -combinational [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]
+    create_generated_clock -name "LAUNCH_EM_DE"  -source [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/b]  -add -master_clock [get_clocks {ACLK_EM_3}] -combinational [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s]
+    create_generated_clock -name "CAPTURE_DE_EM" -source [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/a]  -add -master_clock [get_clocks {ACLK_DE_2}] -combinational [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/s]
+    create_generated_clock -name "LAUNCH_MW_EM"  -source [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/b]  -add -master_clock [get_clocks {ACLK_MW_4}] -combinational [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/s]
+    create_generated_clock -name "CAPTURE_EM_MW" -source [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/a]  -add -master_clock [get_clocks {ACLK_EM_3}] -combinational [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/s]
+    create_generated_clock -name "LAUNCH_REG_MW" -source [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/b]  -add -master_clock [get_clocks {ACLK_REG_5}] -combinational [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/s]
+    create_generated_clock -name "CAPTURE_MW_REG" -source [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/a] -add -master_clock [get_clocks {ACLK_MW_4}] -combinational [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/s]
+    create_generated_clock -name "LAUNCH_DE_REG" -source [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/b]  -add -master_clock [get_clocks {ACLK_DE_2}] -combinational [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/s]
 }
 
 # Set clock groups (synchronous by default)

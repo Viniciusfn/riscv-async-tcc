@@ -25,6 +25,7 @@
 # Verilator/simulator temporaries
 *.dmp
 *.log~
+logs/genus
 *.cmd*
 *.csrc
 *.vcd
