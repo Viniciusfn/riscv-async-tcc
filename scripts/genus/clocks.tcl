@@ -13,12 +13,12 @@ set DELAY_EM_MW 0.600
 set DELAY_MW_REG 1.600
 set DELAY_REG_DE 1.500
 
-set PERIOD_PC_0  0 ;#[expr 2*${DELAY_DE_PC}]
-set PERIOD_FD_1  0 ;#[expr 2*${DELAY_PC_FD}]
-set PERIOD_DE_2  0 ;#[expr 2*${DELAY_FD_DE}]
-set PERIOD_EM_3  0 ;#[expr 2*${DELAY_DE_EM}]
-set PERIOD_MW_4  0 ;#[expr 2*${DELAY_EM_MW}]
-set PERIOD_REG_5 0 ;#[expr 2*${DELAY_MW_REG}]
+set PERIOD_PC_0  [expr 2*${DELAY_PC_FD}]
+set PERIOD_FD_1  [expr 2*${DELAY_FD_DE}]
+set PERIOD_DE_2  [expr 2*${DELAY_DE_PC}]
+set PERIOD_EM_3  [expr 2*${DELAY_EM_MW}]
+set PERIOD_MW_4  [expr 2*${DELAY_MW_REG}]
+set PERIOD_REG_5 [expr 2*${DELAY_REG_DE}]
 set DUMMY_PERIOD 0
 
 set_global timing_enable_genclk_edge_based_source_latency false

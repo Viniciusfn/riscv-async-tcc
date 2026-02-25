@@ -13,8 +13,15 @@ if { ${SYNC_VERSION} == 0 } {
     set_false_path        -to   [get_clocks LAUNCH*]
 
     # Settting 0-cycle path from all clocks to all clocks
-    set_multicycle_path 0  -setup -from [all_clocks] -to [all_clocks]
-    set_multicycle_path -1 -hold  -from [all_clocks] -to [all_clocks]
+    # set_multicycle_path 0  -setup -from [all_clocks] -to [all_clocks]
+    # set_multicycle_path -1 -hold  -from [all_clocks] -to [all_clocks]
+
+    # Setting false path to/from all dummy/epc clocks
+    set_false_path -from [get_clocks {DUMMY_LOOP* EPC_*}]
+    set_false_path -to   [get_clocks {DUMMY_LOOP* EPC_*}]
+
+    # Disabling checks to control path
+    set_false_path -to [get_pins uu_ctrlpath/uu_*/uu_c_element*/s_reg/*]
 
     # Max delays between pipeline stages
     set_max_delay -from [get_clocks ACLK_PC_0] -to [get_clocks CAPTURE_PC_FD] $DELAY_PC_FD

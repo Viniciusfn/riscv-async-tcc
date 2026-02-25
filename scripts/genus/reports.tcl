@@ -17,5 +17,12 @@ if { ${SYNC_VERSION} == 0 } {
     report_timing -from [get_clocks ACLK_EM_3] -to [get_clocks CAPTURE_EM_MW]   -path_type full_clock > ${REPORTS_PATH}dtpath_time_EM_to_MW.rpt
     report_timing -from [get_clocks ACLK_MW_4] -to [get_clocks CAPTURE_MW_REG]  -path_type full_clock > ${REPORTS_PATH}dtpath_time_MW_to_REG.rpt
     report_timing -from [get_clocks ACLK_REG_5] -to [get_clocks CAPTURE_REG_DE] -path_type full_clock > ${REPORTS_PATH}dtpath_time_REG_to_DE.rpt
-    report_timing -from [get_clocks LAUNCH*] -path_type full_clock > ${REPORTS_PATH}hold.rpt
+
+    report_timing -from [get_pins uu_ctrlpath/uu_cell_PC/uu_c_element/s] -to [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/s_reg/D] -unconstrained > ${REPORTS_PATH}ctrlpath_time_PC_to_FD.rpt
+    report_timing -from [get_pins uu_ctrlpath/uu_cell_FD/uu_c_element/s] -to [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/s_reg/D] -unconstrained > ${REPORTS_PATH}ctrlpath_time_FD_to_DE.rpt
+    report_timing -from [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s] -to [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/s_reg/D] -unconstrained > ${REPORTS_PATH}ctrlpath_time_DE_to_EM.rpt
+    report_timing -from [get_pins uu_ctrlpath/uu_cell_DE/uu_c_element/s] -to [get_pins uu_ctrlpath/uu_join_J1/uu_c_element_join/s_reg/D] -unconstrained > ${REPORTS_PATH}ctrlpath_time_DE_to_PC.rpt
+    report_timing -from [get_pins uu_ctrlpath/uu_cell_EM/uu_c_element/s] -to [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/s_reg/D] -unconstrained > ${REPORTS_PATH}ctrlpath_time_EM_to_MW.rpt
+    report_timing -from [get_pins uu_ctrlpath/uu_cell_MW/uu_c_element/s] -to [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/s_reg/D] -unconstrained > ${REPORTS_PATH}ctrlpath_time_MW_to_REG.rpt
+    report_timing -from [get_pins uu_ctrlpath/uu_cell_REG/uu_c_element/s] -through [get_pins uu_ctrlpath/uu_join_J2/uu_c_element_join/b] -unconstrained > ${REPORTS_PATH}ctrlpath_time_REG_to_DE.rpt
 }
