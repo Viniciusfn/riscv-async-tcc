@@ -8,22 +8,22 @@ set PERIOD_SYNC_CLK 4.000
 set MEM_IO_DELAY 1.000 ;# Memories reference operating at 1GHz average
 
 # Slow 1.0v
-# set DELAY_PC_FD [expr ${MEM_IO_DELAY} + 0.200]
-# set DELAY_FD_DE 2.500
-# set DELAY_DE_EM 3.200
-# set DELAY_DE_PC 4.500
-# set DELAY_EM_MW [expr ${MEM_IO_DELAY} + 0.300]
-# set DELAY_MW_REG 1.600
-# set DELAY_REG_DE 1.500
+set DELAY_PC_FD [expr ${MEM_IO_DELAY} + 0.200]
+set DELAY_FD_DE 2.500
+set DELAY_DE_EM 3.200
+set DELAY_DE_PC 4.500
+set DELAY_EM_MW [expr ${MEM_IO_DELAY} + 0.200]
+set DELAY_MW_REG 1.600
+set DELAY_REG_DE 1.500
 
 # Fast 1.0v
-set DELAY_PC_FD [expr ${MEM_IO_DELAY} + 0.200]
-set DELAY_FD_DE 0.800
-set DELAY_DE_EM 2.000 
-set DELAY_DE_PC 2.400
-set DELAY_EM_MW [expr ${MEM_IO_DELAY} + 0.200]
-set DELAY_MW_REG 0.400
-set DELAY_REG_DE 0.400
+# set DELAY_PC_FD [expr ${MEM_IO_DELAY} + 0.200]
+# set DELAY_FD_DE 0.800
+# set DELAY_DE_EM 2.000 
+# set DELAY_DE_PC 2.400
+# set DELAY_EM_MW [expr ${MEM_IO_DELAY} + 0.200]
+# set DELAY_MW_REG 0.400
+# set DELAY_REG_DE 0.400
 
 set PERIOD_PC_0  [expr 2*${DELAY_PC_FD}]
 set PERIOD_FD_1  [expr 2*${DELAY_FD_DE}]
