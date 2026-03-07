@@ -2455,9 +2455,9 @@ Disassembly of section .text:
     250c:	00008067          	ret
 
 00002510 <time_in_secs>:
-    2510:	0ee6b5b7          	lui	a1,0xee6b
+    2510:	05f5e5b7          	lui	a1,0x5f5e
     2514:	ff010113          	addi	sp,sp,-16
-    2518:	28058593          	addi	a1,a1,640 # ee6b280 <main+0xee67f08>
+    2518:	10058593          	addi	a1,a1,256 # 5f5e100 <main+0x5f5ad88>
     251c:	00112623          	sw	ra,12(sp)
     2520:	5ad000ef          	jal	32cc <__hidden___udivsi3>
     2524:	00c12083          	lw	ra,12(sp)
@@ -4990,7 +4990,7 @@ Disassembly of section .data:
 	...
 
 800009c0 <seed4_volatile>:
-800009c0:	0bb8                	.insn	2, 0x0bb8
+800009c0:	0640                	.insn	2, 0x0640
 	...
 
 800009c4 <seed3_volatile>:
@@ -18200,18 +18200,18 @@ Disassembly of section .debug_loclists:
     2f1c:	009f 0802 0008      	.insn	6, 0x00080802009f
     2f22:	4c04                	.insn	2, 0x4c04
     2f24:	0f5f 007a 2ba8      	.insn	6, 0x2ba8007a0f5f
-    2f2a:	800c                	.insn	2, 0x800c
-    2f2c:	e6b2                	.insn	2, 0xe6b2
-    2f2e:	a80e                	.insn	2, 0xa80e
+    2f2a:	000c                	.insn	2, 0x000c
+    2f2c:	f5e1                	.insn	2, 0xf5e1
+    2f2e:	a805                	.insn	2, 0xa805
     2f30:	00a81b2b          	.insn	4, 0x00a81b2b
     2f34:	049f 6c5f a316      	.insn	6, 0xa3166c5f049f
     2f3a:	320aa503          	lw	a0,800(s5)
     2f3e:	2ba8                	.insn	2, 0x2ba8
     2f40:	00a8                	.insn	2, 0x00a8
     2f42:	2ba8                	.insn	2, 0x2ba8
-    2f44:	800c                	.insn	2, 0x800c
-    2f46:	e6b2                	.insn	2, 0xe6b2
-    2f48:	a80e                	.insn	2, 0xa80e
+    2f44:	000c                	.insn	2, 0x000c
+    2f46:	f5e1                	.insn	2, 0xf5e1
+    2f48:	a805                	.insn	2, 0xa805
     2f4a:	00a81b2b          	.insn	4, 0x00a81b2b
     2f4e:	009f 0602 0006      	.insn	6, 0x00060602009f
     2f54:	3404                	.insn	2, 0x3404

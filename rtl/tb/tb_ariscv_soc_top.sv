@@ -1,5 +1,5 @@
 `timescale 1ns / 100ps
-`define PERF_CLK_PERIOD 4
+`define PERF_CLK_PERIOD 10
 //`define BENCHMARK_TEST
 
 import ariscv_params_pkg::*;
