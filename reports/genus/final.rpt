@@ -5,23 +5,23 @@ QoS Summary for ariscv
 ================================================================================
 Metric                          generic         mapped          placed         
 ================================================================================
-Slack (ps):                      -156             -75               0
-  R2R (ps):                      -156             -75               0
-  I2R (ps):                     2,840           2,816           2,816
-  R2O (ps):                     2,724           2,686           2,720
-  I2O (ps):                     1,100           1,100           1,100
+Slack (ps):                       103              48               0
+  R2R (ps):                       103              48               0
+  I2R (ps):                     1,034             986             986
+  R2O (ps):                     1,006           1,004           1,003
+  I2O (ps):                       350             350             350
   CG  (ps):                  no_value        no_value        no_value
-TNS (ps):                     -29,161         -18,068               0
-  R2R (ps):                   -29,161         -18,068               0
+TNS (ps):                           0               0               0
+  R2R (ps):                         0               0               0
   I2R (ps):                         0               0               0
   R2O (ps):                         0               0               0
   I2O (ps):                         0               0               0
   CG  (ps):                  no_value        no_value        no_value
-Failing Paths:                    313             311               0
-Cell Area:                     11,452           7,359           7,078
-Total Cell Area:               11,452           7,359           7,078
-Leaf Instances:                12,536           7,485           6,928
-Total Instances:               12,536           7,485           6,928
+Failing Paths:                      0               0               0
+Cell Area:                     11,043           5,196           5,001
+Total Cell Area:               11,043           5,196           5,001
+Leaf Instances:                11,925           5,723           5,458
+Total Instances:               11,925           5,723           5,458
 Utilization (%):                 0.00            0.00            0.00
 Tot. Net Length (um):        no_value        no_value        no_value
 Avg. Net Length (um):        no_value        no_value        no_value
@@ -32,17 +32,17 @@ Norm Cong Hotspot Area:
   Max Cong:                  no_value        no_value        no_value
   Tot Cong:                  no_value        no_value        no_value
 ================================================================================
-CPU  Runtime (h:m:s):        00:01:00        00:01:57        00:01:02
-Real Runtime (h:m:s):        00:00:49        00:01:09        00:00:59
-CPU  Elapsed (h:m:s):        00:01:09        00:03:05        00:04:08
-Real Elapsed (h:m:s):        00:00:53        00:02:01        00:03:00
-Memory (MB):                  1562.75         1561.22         1563.04
+CPU  Runtime (h:m:s):        00:00:54        00:01:27        00:00:29
+Real Runtime (h:m:s):        00:00:42        00:00:47        00:00:27
+CPU  Elapsed (h:m:s):        00:01:03        00:02:30        00:02:59
+Real Elapsed (h:m:s):        00:00:47        00:01:33        00:02:01
+Memory (MB):                  1550.29         1555.87         1556.69
 ================================================================================
 ================================================================================
 Flow Settings:
 ================================================================================
-Total Runtime (h:m:s): 00:02:58
-Total Memory (MB):     1571.04
+Total Runtime (h:m:s): 00:01:57
+Total Memory (MB):     1564.70
 Executable Version:    22.14-s059_1
 ================================================================================
 Total Cell Area =  Cell Area + Physical Cell Area
