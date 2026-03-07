@@ -7,13 +7,13 @@ This program is proprietary and confidential information belonging to
 Cadence Design Systems, Inc., and may be used and disclosed only as authorized
 in a license agreement controlling such use and disclosure.
 
-// Warning: This version is 917 days old. You can download the latest version from http://downloads.cadence.com.
+// Warning: This version is 919 days old. You can download the latest version from http://downloads.cadence.com.
 
 0
 // Command: usage -auto -elapse
 CPU time     : 0.09    seconds
 Elapse time  : 0       seconds
-Memory usage : 79.81   M bytes
+Memory usage : 79.51   M bytes
 0
 // Command: set_mapping_method -sensitive
 0
@@ -82,15 +82,15 @@ Set computing threads of compare to 1,4.
 // Warning: (IGN3.2) Duplicate modules/entities are detected. Subsequent modules/entities are ignored (occurrence:489)
 // Note: Read Liberty library successfully
 0
-CPU time     : 0.44    seconds
+CPU time     : 0.43    seconds
 Elapse time  : 1       seconds
-Memory usage : 117.55  M bytes
+Memory usage : 116.90  M bytes
 // Command: read_design -verilog95   -golden -lastmod -noelab fv/ariscv/fv_map.v.gz
 // Parsing file fv/ariscv/fv_map.v.gz ...
 0
-CPU time     : 0.54    seconds
+CPU time     : 0.53    seconds
 Elapse time  : 1       seconds
-Memory usage : 130.30  M bytes
+Memory usage : 129.64  M bytes
 // Command: elaborate_design -golden -root {ariscv}
 // Golden root module is set to 'ariscv'
 // Warning: (RTL14) Signal has input but it has no output (occurrence:133)
@@ -99,9 +99,9 @@ Memory usage : 130.30  M bytes
 // Command: read_design -verilog95   -revised -lastmod -noelab ../structural/ariscv_netlist.v
 // Parsing file ../structural/ariscv_netlist.v ...
 0
-CPU time     : 0.73    seconds
+CPU time     : 0.71    seconds
 Elapse time  : 1       seconds
-Memory usage : 137.90  M bytes
+Memory usage : 140.16  M bytes
 // Command: elaborate_design -revised -root {ariscv}
 // Revised root module is set to 'ariscv'
 // Warning: (RTL2.5) Net is referenced without an assignment. Design verification will be based on set_undriven_signal setting (occurrence:97)
@@ -116,25 +116,25 @@ Memory usage : 137.90  M bytes
 Summary           Golden         Revised
 ============================================
 Design-modules        58              46
-Library-cells       5143            4991
+Library-cells       5127            4983
 ============================================
 Primitives      Golden              Revised
 ============================================
 INPUT               65                   65
 OUTPUT             101                  101
 --------------------------------------------
-AND        *      5683                 5724
-BUF        *       170                  153
+AND        *      5680                 5724
+BUF        *       167                  153
 DFF               1571                 1571
 DLAT                12                   12
-INV        *      3688                 3556
-NAND       *       658                  557
-NOR        *      1381                 1365
-OR         *      1927                 1900
-XNOR                89                   89
-XOR                 85                   85
+INV        *      3695                 3556
+NAND       *       653                  553
+NOR        *      1387                 1371
+OR         *      1923                 1898
+XNOR                90                   90
+XOR                 83                   83
 --------------------------------------------
-Total            15264                15012
+Total            15261                15011
 
 0
 // Command: report_black_box
@@ -181,9 +181,9 @@ Total Synthesis Equations:      8
 No Equation Modules:            0
 ================================================================================
 0
-CPU time     : 1.10    seconds
-Elapse time  : 6       seconds
-Memory usage : 139.73  M bytes
+CPU time     : 1.08    seconds
+Elapse time  : 5       seconds
+Memory usage : 139.32  M bytes
 // Command: set_analyze_option -auto -report_map
 0
 // Command: set_system_mode lec
@@ -193,9 +193,9 @@ Memory usage : 139.73  M bytes
 // Modeling Revised ...
 // Balanced modeling (auto) mapped 3166 out of 3166 DFF/DLATs
 // (F28) Converted 115 internal output port(s) to inout port(s)
-CPU time     : 2.88    seconds
+CPU time     : 2.85    seconds
 Elapse time  : 7       seconds
-Memory usage : 169.35  M bytes
+Memory usage : 168.56  M bytes
 // Mapping key points ...
 ================================================================================
 Mapped points: SYSTEM class
@@ -206,9 +206,9 @@ Golden            65     101    1571   12        1749
 --------------------------------------------------------------------------------
 Revised           65     101    1571   12        1749    
 ================================================================================
-CPU time     : 3.79    seconds
+CPU time     : 3.76    seconds
 Elapse time  : 8       seconds
-Memory usage : 170.02  M bytes
+Memory usage : 169.23  M bytes
 // Running automatic setup...
 ================================================================================
 Mapped points: SYSTEM class
@@ -221,9 +221,9 @@ Revised           65     101    1571   12        1749
 ================================================================================
 // Automatic setup finished.
 0
-CPU time     : 4.59    seconds
+CPU time     : 4.55    seconds
 Elapse time  : 9       seconds
-Memory usage : 170.02  M bytes
+Memory usage : 169.23  M bytes
 // Command: report_unmapped_points -summary
 There is no unmapped point
 0
@@ -240,9 +240,9 @@ Compared points      PO     DFF    DLAT      Total
 Equivalent           101    1571   12        1684    
 ================================================================================
 0
-CPU time     : 6.50    seconds
-Elapse time  : 15      seconds
-Memory usage : 177.10  M bytes
+CPU time     : 6.39    seconds
+Elapse time  : 14      seconds
+Memory usage : 176.19  M bytes
 // Command: report_compare_data -class nonequivalent -class abort -class notcompared
 0 Non-equivalent point(s) reported
 0 Abort point(s) reported
@@ -440,8 +440,8 @@ No of unknown points = 0
 |                  Conformal Version |23.10-s300 
 |                        Root Module |ariscv 
 |                           CPU Time |6 sec
-|                       Elapsed Time |15 sec
-|                             Memory |177.1 MB
+|                       Elapsed Time |14 sec
+|                             Memory |176.19 MB
 |              Power Grid Comparison |N/A 
 |               Power Intent Compare |N/A 
 |           Supply Power Consistency |N/A 
@@ -452,25 +452,25 @@ No of unknown points = 0
 |            Hierarchical Comparison |N/A 
 |                      Logfile Lines |435 
 |                       Logfile Name |fv_map_to_final.log 
-|              Logfile Modified Time |Wed Mar  4 22:28:05 2026 
+|              Logfile Modified Time |Sat Mar  7 11:38:13 2026 
 |         Implementation Information |fv/ariscv 
 |       Set Verification Information |/home/vinicius.franca/workarea/riscv-async-tcc/workspace/fv_map_ariscv_netlistv_db 
 |      Read Verification Information |N/A 
 |                   Analysis Elapsed |0.1 sec
 |                    Runtime / #Gate |0.0 sec
 |Matched back-to-back isolation cell |N/A 
-|            Time-consuming commands | 1. compare: 6s(40.00%) (execute 1 time(s))
-|                                    | 2. check verification information: 5s(33.33%) (execute 1 time(s))
-|                                    | 3. set system mode: 3s(20.00%) (execute 1 time(s))
+|            Time-consuming commands | 1. compare: 5s(35.71%) (execute 1 time(s))
+|                                    | 2. check verification information: 4s(28.57%) (execute 1 time(s))
+|                                    | 3. set system mode: 4s(28.57%) (execute 1 time(s))
 ================================================================================
            
 // Usage Breakdown Summary
 ================================================================================
 |Command                   |  Total Elapse Time|  Total CPU Time|    Peak Memory
 --------------------------------------------------------------------------------
-|read library              |                1 s|             0 s|      117.55 MB
-|read design -golden       |                0 s|             0 s|      130.30 MB
-|read design -revised      |                0 s|             0 s|      137.90 MB
+|read library              |                1 s|             0 s|      116.90 MB
+|read design -golden       |                0 s|             0 s|      129.64 MB
+|read design -revised      |                0 s|             0 s|      140.16 MB
            
 // Flatten Comparison Summary:
 --------------------------------------------------------------------------------
@@ -481,7 +481,7 @@ No of unknown points = 0
   1. compare (line: 236)
 --------------------------------------------------------------------------------
                
-// Resource usages of analysis: Cpu=0.16s Mem=123MB
+// Resource usages of analysis: Cpu=0.16s Mem=122MB
 0
 // Command: vpxmode
 // Command: exit -f
