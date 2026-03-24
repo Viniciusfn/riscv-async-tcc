@@ -4,9 +4,9 @@
 
 # Create clocks
 # Slow 1.0V
-# set PERIOD_SYNC_CLK 4.400
+set PERIOD_SYNC_CLK 4.400
 # Fast 1.0V
-set PERIOD_SYNC_CLK 2.400
+# set PERIOD_SYNC_CLK 2.400
 
 set MEM_IO_DELAY 1.000 ;# Memories reference operating at 1GHz average
 
