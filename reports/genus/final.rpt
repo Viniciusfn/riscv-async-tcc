@@ -5,23 +5,23 @@ QoS Summary for ariscv
 ================================================================================
 Metric                          generic         mapped          placed         
 ================================================================================
-Slack (ps):                       226               8               0
-  R2R (ps):                       226               8               0
-  I2R (ps):                     3,160           3,155           3,150
-  R2O (ps):                     3,044           3,068           3,062
-  I2O (ps):                     1,220           1,220           1,220
+Slack (ps):                      -121             -15               0
+  R2R (ps):                      -121             -15               0
+  I2R (ps):                       -19               1               4
+  R2O (ps):                     1,687           1,410           1,599
+  I2O (ps):                  no_value        no_value        no_value
   CG  (ps):                  no_value        no_value        no_value
-TNS (ps):                           0               0               0
-  R2R (ps):                         0               0               0
-  I2R (ps):                         0               0               0
+TNS (ps):                      -2,813            -226               0
+  R2R (ps):                    -1,616            -226               0
+  I2R (ps):                    -1,197               0               0
   R2O (ps):                         0               0               0
-  I2O (ps):                         0               0               0
+  I2O (ps):                  no_value        no_value        no_value
   CG  (ps):                  no_value        no_value        no_value
-Failing Paths:                      0               0               0
-Cell Area:                     11,506           6,846           6,433
-Total Cell Area:               11,506           6,846           6,433
-Leaf Instances:                12,618           7,033           6,456
-Total Instances:               12,618           7,033           6,456
+Failing Paths:                     78              17               0
+Cell Area:                         65           5,403           5,133
+Total Cell Area:                   65           5,403           5,133
+Leaf Instances:                11,527           5,799           5,213
+Total Instances:               11,527           5,799           5,213
 Utilization (%):                 0.00            0.00            0.00
 Tot. Net Length (um):        no_value        no_value        no_value
 Avg. Net Length (um):        no_value        no_value        no_value
@@ -32,17 +32,17 @@ Norm Cong Hotspot Area:
   Max Cong:                  no_value        no_value        no_value
   Tot Cong:                  no_value        no_value        no_value
 ================================================================================
-CPU  Runtime (h:m:s):        00:00:57        00:01:41        00:00:43
-Real Runtime (h:m:s):        00:00:46        00:00:56        00:00:40
-CPU  Elapsed (h:m:s):        00:01:06        00:02:46        00:03:29
-Real Elapsed (h:m:s):        00:00:50        00:01:45        00:02:26
-Memory (MB):                  1554.10         1561.93         1562.75
+CPU  Runtime (h:m:s):        00:01:00        00:01:49        00:00:39
+Real Runtime (h:m:s):        00:00:47        00:00:59        00:00:38
+CPU  Elapsed (h:m:s):        00:01:08        00:02:57        00:03:36
+Real Elapsed (h:m:s):        00:00:51        00:01:50        00:02:28
+Memory (MB):                  1569.36         1572.75         1573.57
 ================================================================================
 ================================================================================
 Flow Settings:
 ================================================================================
-Total Runtime (h:m:s): 00:02:23
-Total Memory (MB):     1570.75
+Total Runtime (h:m:s): 00:02:25
+Total Memory (MB):     1581.58
 Executable Version:    22.14-s059_1
 ================================================================================
 Total Cell Area =  Cell Area + Physical Cell Area
