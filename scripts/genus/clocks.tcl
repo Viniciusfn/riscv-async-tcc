@@ -4,9 +4,9 @@
 
 # Create clocks
 # Slow 1.0V
-set PERIOD_SYNC_CLK 4.000
+# set PERIOD_SYNC_CLK 4.400
 # Fast 1.0V
-# set PERIOD_SYNC_CLK 1.600
+set PERIOD_SYNC_CLK 2.400
 
 set MEM_IO_DELAY 1.000 ;# Memories reference operating at 1GHz average
 
@@ -14,7 +14,7 @@ set MEM_IO_DELAY 1.000 ;# Memories reference operating at 1GHz average
 set DELAY_PC_FD [expr ${MEM_IO_DELAY} + 0.200]
 set DELAY_FD_DE 2.500
 set DELAY_DE_EM 3.200
-set DELAY_DE_PC 4.500
+set DELAY_DE_PC 4.400
 set DELAY_EM_MW [expr ${MEM_IO_DELAY} + 0.200]
 set DELAY_MW_REG 1.600
 set DELAY_REG_DE 1.500

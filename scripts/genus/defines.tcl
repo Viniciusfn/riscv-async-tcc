@@ -1,7 +1,7 @@
 ## Set the DESIGN 
 set DESIGN ariscv
 
-set SYNC_VERSION 0
+set SYNC_VERSION 1
 
 # ----------------------------------------
 #    Lefs
@@ -22,7 +22,7 @@ set LIB_PATH {/Tools/pdks/gpdk045_v_6_0/gsclib045_all_v4_4/ }
                #gsclib045/timing/slow_vdd1v0_extvdd1v2.lib \
                #gsclib045/timing/slow_vdd1v0_extvdd1v0.lib }
 
-set LIB_LIST { gsclib045/timing/slow_vdd1v0_basicCells.lib }
+set LIB_LIST { gsclib045/timing/fast_vdd1v0_basicCells.lib }
 
 #fast_vdd1v0_basicCells_hvt.lib  fast_vdd1v2_basicCells_hvt.lib  slow_vdd1v0_basicCells_hvt.lib  slow_vdd1v2_basicCells_hvt.lib
 #fast_vdd1v0_basicCells_lvt.lib  fast_vdd1v2_basicCells_lvt.lib  slow_vdd1v0_basicCells_lvt.lib  slow_vdd1v2_basicCells_lvt.lib
