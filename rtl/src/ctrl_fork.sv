@@ -1,4 +1,4 @@
-module wchb_fork #(
+module ctrl_fork #(
    /* PARAMETERS */
    parameter INIT    = 0
 )(

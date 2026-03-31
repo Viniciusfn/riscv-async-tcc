@@ -14,5 +14,7 @@
 ../rtl/src/extend.sv
 ../rtl/src/reg_file.sv
 ../rtl/src/wchb_cell.sv
-../rtl/src/wchb_fork.sv
-../rtl/src/wchb_join.sv
+../rtl/src/ctrl_fork.sv
+../rtl/src/ctrl_join.sv
+../rtl/src/c_element_asym.sv
+../rtl/src/lc_cell.sv 

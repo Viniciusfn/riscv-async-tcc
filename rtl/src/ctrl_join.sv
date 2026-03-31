@@ -1,4 +1,4 @@
-module wchb_join #(
+module ctrl_join #(
    /* PARAMETERS */
    parameter INIT    = 0
 )(

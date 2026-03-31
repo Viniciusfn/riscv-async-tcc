@@ -146,7 +146,7 @@ module ariscv_ctrlpath #(
    );
 
    /* Forks and Joins */
-   wchb_fork #(
+   ctrl_fork #(
       .INIT    (0)
    ) uu_fork_F1 (
       .rst_n   (rst_async_n),
@@ -158,7 +158,7 @@ module ariscv_ctrlpath #(
       .i_ack_1 (ack_F1_L1)
    );
 
-   wchb_fork #(
+   ctrl_fork #(
       .INIT    (0)
    ) uu_fork_F2 (
       .rst_n   (rst_async_n),
@@ -170,7 +170,7 @@ module ariscv_ctrlpath #(
       .i_ack_1 (ack_F2_EM)
    );
 
-   wchb_join #(
+   ctrl_join #(
       .INIT    (0)
    ) uu_join_J1 (
       .rst_n   (rst_async_n),
@@ -182,7 +182,7 @@ module ariscv_ctrlpath #(
       .i_ack   (ack_J1_PC)
    );
 
-   wchb_join #(
+   ctrl_join #(
       .INIT    (0)
    ) uu_join_J2 (
       .rst_n   (rst_async_n),
