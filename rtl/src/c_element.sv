@@ -22,7 +22,55 @@ module c_element #(
    end
 
    `else
-   // TODO
+   wire n1,n2,n3,i1,i2;
+
+   NAND2X6 NAND2_1(
+      .A(a),
+      .B(b),
+      .Z(n1)
+   );
+
+   NAND2X6 NAND2_2(
+      .A(a),
+      .B(s),
+      .Z(n2)
+   );
+
+   NAND2X6 NAND2_3(
+      .A(b),
+      .B(s),
+      .Z(n3)
+   );
+
+   NAND3X4 NAND3_1(
+      .A(n1),
+      .B(n2),
+      .C(n3),
+      .Z(i1)
+   );
+
+   generate if (INIT == 1) begin
+
+      INVX8 INV_1(
+         .A(rst_n),
+         .Z(i2)
+      );
+
+      OR2X8 OR2_1(
+         .A(i1),
+         .B(i2),
+         .Z(s)
+      );
+   
+   end else begin
+   
+      AND2X8 AND2_1(
+         .A(i1),
+         .B(rst_n),
+         .Z(s)
+      );
+   
+   end endgenerate
 
    `endif
 
