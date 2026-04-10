@@ -21,7 +21,7 @@ if { ${SYNC_VERSION} == 0 } {
     set_false_path -to   [get_clocks {DUMMY_LOOP* EPC_*}]
 
     # Disabling checks to control path
-    set_false_path -to [get_pins uu_ctrlpath/uu_*/uu_c_element*/s_reg/*]
+    set_false_path -to [get_pins uu_ctrlpath/uu_*/uu_c_element*/*]
 
     # Max delays between pipeline stages
     set_max_delay -from [get_clocks ACLK_PC_0] -to [get_clocks CAPTURE_PC_FD] $DELAY_PC_FD
@@ -36,6 +36,8 @@ if { ${SYNC_VERSION} == 0 } {
     set_min_delay -from [get_clocks LAUNCH*] 0.100
 
     #Disabling timing in muller gates to avoid combinational loop breaking
-    # set_disable_timing [get_pins -hierarchical *uu_c_element*/a] [get_pins -hierarchical *uu_c_element*/s]
-    # set_disable_timing [get_pins -hierarchical *uu_c_element*/b] [get_pins -hierarchical *uu_c_element*/s]
+    set_disable_timing [get_pins -hierarchical *uu_c_element*/*OR2_1*/Y] [get_pins -hierarchical *uu_c_element*/NAND2_2*/B] ; #WCHB specific
+    set_disable_timing [get_pins -hierarchical *uu_c_element*/*OR2_1*/Y] [get_pins -hierarchical *uu_c_element*/NAND2_3*/B] ; #WCHB specific
+    set_disable_timing [get_pins -hierarchical *uu_c_element*/*AND2_1*/Y] [get_pins -hierarchical *uu_c_element*/NAND2_2*/B] ; #WCHB specific
+    set_disable_timing [get_pins -hierarchical *uu_c_element*/*AND2_1*/Y] [get_pins -hierarchical *uu_c_element*/NAND2_3*/B] ; #WCHB specific
 }

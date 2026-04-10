@@ -18,10 +18,10 @@ TNS (ps):                      -2,813            -226               0
   I2O (ps):                  no_value        no_value        no_value
   CG  (ps):                  no_value        no_value        no_value
 Failing Paths:                     78              17               0
-Cell Area:                         65           5,403           5,133
-Total Cell Area:                   65           5,403           5,133
-Leaf Instances:                11,527           5,799           5,213
-Total Instances:               11,527           5,799           5,213
+Cell Area:                        138           5,442           5,172
+Total Cell Area:                  138           5,442           5,172
+Leaf Instances:                11,505           5,813           5,227
+Total Instances:               11,505           5,813           5,227
 Utilization (%):                 0.00            0.00            0.00
 Tot. Net Length (um):        no_value        no_value        no_value
 Avg. Net Length (um):        no_value        no_value        no_value
@@ -32,17 +32,17 @@ Norm Cong Hotspot Area:
   Max Cong:                  no_value        no_value        no_value
   Tot Cong:                  no_value        no_value        no_value
 ================================================================================
-CPU  Runtime (h:m:s):        00:01:00        00:01:49        00:00:39
-Real Runtime (h:m:s):        00:00:47        00:00:59        00:00:38
-CPU  Elapsed (h:m:s):        00:01:08        00:02:57        00:03:36
-Real Elapsed (h:m:s):        00:00:51        00:01:50        00:02:28
-Memory (MB):                  1569.36         1572.75         1573.57
+CPU  Runtime (h:m:s):        00:00:58        00:01:46        00:00:39
+Real Runtime (h:m:s):        00:00:46        00:00:57        00:00:37
+CPU  Elapsed (h:m:s):        00:01:06        00:02:52        00:03:31
+Real Elapsed (h:m:s):        00:00:50        00:01:47        00:02:24
+Memory (MB):                  1565.09         1569.30         1570.12
 ================================================================================
 ================================================================================
 Flow Settings:
 ================================================================================
-Total Runtime (h:m:s): 00:02:25
-Total Memory (MB):     1581.58
+Total Runtime (h:m:s): 00:02:21
+Total Memory (MB):     1578.13
 Executable Version:    22.14-s059_1
 ================================================================================
 Total Cell Area =  Cell Area + Physical Cell Area
