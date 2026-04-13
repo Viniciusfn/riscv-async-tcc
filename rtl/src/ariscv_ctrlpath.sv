@@ -57,7 +57,11 @@ module ariscv_ctrlpath #(
    logic dummy_aclk[1:0];
 
    /* WCHB cells */
+   `ifdef PROTO_LC
+   lc_cell #(
+   `else
    wchb_cell #(
+   `endif
       .INIT    (INIT_PC)
    ) uu_cell_PC (
       .rst_n   (rst_async_n),
@@ -68,7 +72,11 @@ module ariscv_ctrlpath #(
       .o_aclk  (o_aclk[0])
    );
 
+   `ifdef PROTO_LC
+   lc_cell #(
+   `else
    wchb_cell #(
+   `endif
       .INIT    (INIT_FD)
    ) uu_cell_FD (
       .rst_n   (rst_async_n),
@@ -79,7 +87,11 @@ module ariscv_ctrlpath #(
       .o_aclk  (o_aclk[1])
    );
 
+   `ifdef PROTO_LC
+   lc_cell #(
+   `else
    wchb_cell #(
+   `endif
       .INIT    (INIT_DE)
    ) uu_cell_DE (
       .rst_n   (rst_async_n),
@@ -90,7 +102,11 @@ module ariscv_ctrlpath #(
       .o_aclk  (o_aclk[2])
    );
 
+   `ifdef PROTO_LC
+   lc_cell #(
+   `else
    wchb_cell #(
+   `endif
       .INIT    (INIT_EM)
    ) uu_cell_EM (
       .rst_n   (rst_async_n),
@@ -101,7 +117,11 @@ module ariscv_ctrlpath #(
       .o_aclk  (o_aclk[3])
    );
 
+   `ifdef PROTO_LC
+   lc_cell #(
+   `else
    wchb_cell #(
+   `endif
       .INIT    (INIT_MW)
    ) uu_cell_MW (
       .rst_n   (rst_async_n),
@@ -112,7 +132,11 @@ module ariscv_ctrlpath #(
       .o_aclk  (o_aclk[4])
    );
 
+   `ifdef PROTO_LC
+   lc_cell #(
+   `else
    wchb_cell #(
+   `endif
       .INIT    (INIT_REG)
    ) uu_cell_REG (
       .rst_n   (rst_async_n),
@@ -123,7 +147,11 @@ module ariscv_ctrlpath #(
       .o_aclk  (o_aclk[5])
    );
 
+   `ifdef PROTO_LC
+   lc_cell #(
+   `else
    wchb_cell #(
+   `endif
       .INIT    (INIT_LOOP1)
    ) uu_cell_LOOP1 (
       .rst_n   (rst_async_n),
@@ -134,6 +162,10 @@ module ariscv_ctrlpath #(
       .o_aclk  (dummy_aclk[0])
    );
 
+   `ifdef PROTO_LC
+   assign req_L2_J1 = req_L1_L2_delayed;
+   assign ack_L1_L2 = ack_L2_J1;
+   `else
    wchb_cell #(
       .INIT    (INIT_LOOP2)
    ) uu_cell_LOOP2 (
@@ -144,6 +176,7 @@ module ariscv_ctrlpath #(
       .o_ack   (ack_L1_L2),
       .o_aclk  (dummy_aclk[1])
    );
+   `endif
 
    /* Forks and Joins */
    ctrl_fork #(
@@ -203,7 +236,11 @@ module ariscv_ctrlpath #(
    );
 
    delay #(
+      `ifdef PROTO_LC
+      .DELAY   (DELAY_PC_FD/2)
+      `else
       .DELAY   (DELAY_PC_FD)
+      `endif
    ) uu_dly_PC_FD (
       .i_data  (req_F1_FD),
       .o_data  (req_F1_FD_delayed)
@@ -216,50 +253,78 @@ module ariscv_ctrlpath #(
       .o_data  (req_L1_L2_delayed)
    );
 
+   `ifdef PROTO_LC
+   assign req_L2_J1_delayed = req_L2_J1;
+   `else
    delay #(
       .DELAY   (DELAY_LOOP)
    ) uu_dly_L2_J1 (
       .i_data  (req_L2_J1),
       .o_data  (req_L2_J1_delayed)
    );
+   `endif
 
    delay #(
+      `ifdef PROTO_LC
+      .DELAY   (DELAY_FD_DE/2)
+      `else
       .DELAY   (DELAY_FD_DE)
+      `endif
    ) uu_dly_FD_J2 (
       .i_data  (req_FD_J2),
       .o_data  (req_FD_J2_delayed)
    );
 
    delay #(
+      `ifdef PROTO_LC
+      .DELAY   (DELAY_DE_PC/2)
+      `else
       .DELAY   (DELAY_DE_PC)
+      `endif
    ) uu_dly_DE_PC (
       .i_data  (req_F2_J1),
       .o_data  (req_F2_J1_delayed)
    );
 
    delay #(
+      `ifdef PROTO_LC
+      .DELAY   (DELAY_DE_EM/2)
+      `else
       .DELAY   (DELAY_DE_EM)
+      `endif
    ) uu_dly_DE_EM (
       .i_data  (req_F2_EM),
       .o_data  (req_F2_EM_delayed)
    );
 
    delay #(
+      `ifdef PROTO_LC
+      .DELAY   (DELAY_EM_MW/2)
+      `else
       .DELAY   (DELAY_EM_MW)
+      `endif
    ) uu_dly_EM_MW (
       .i_data  (req_EM_MW),
       .o_data  (req_EM_MW_delayed)
    );
 
    delay #(
+      `ifdef PROTO_LC
+      .DELAY   (DELAY_MW_REG/2)
+      `else
       .DELAY   (DELAY_MW_REG)
+      `endif
    ) uu_dly_MW_REG (
       .i_data  (req_MW_REG),
       .o_data  (req_MW_REG_delayed)
    );
 
    delay #(
+      `ifdef PROTO_LC
+      .DELAY   (DELAY_REG_DE/2)
+      `else
       .DELAY   (DELAY_REG_DE)
+      `endif
    ) uu_dly_REG_J2 (
       .i_data  (req_REG_J2),
       .o_data  (req_REG_J2_delayed)

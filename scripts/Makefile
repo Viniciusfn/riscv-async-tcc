@@ -1,5 +1,9 @@
-ROOT_DIR    := $(shell pwd)/..
+# PARAMTERS ##############################
+DEFINES_RTL := -DPROTO_LC #-DSYNC_RISCV
 TB_NAME     := tb_ariscv_soc_top
+##########################################
+
+ROOT_DIR    := $(shell pwd)/..
 SRC_DIR     := $(ROOT_DIR)/rtl/src
 MODEL_DIR   := $(ROOT_DIR)/model
 TB_DIR      := $(ROOT_DIR)/rtl/tb
@@ -7,7 +11,6 @@ SRC_FILE    := $(shell find $(SRC_DIR) -name '*.sv') $(shell find $(MODEL_DIR) -
 CPP_WRAPPER := --main #$(ROOT_DIR)/scripts/verilator/sim_main.cpp 
 WAVE_FILE   := wave_trace.vcd
 NO_WARNINGS := -Wno-fatal -Wno-TIMESCALEMOD -Wno-UNOPTFLAT -Wno-IMPORTSTAR -Wno-VARHIDDEN -Wno-UNUSEDSIGNAL -Wno-UNUSEDPARAM
-DEFINES_RTL := #-DSYNC_RISCV
 COMP_FLAGS  := --cc -Wall $(NO_WARNINGS) --assert --no-stop-fail --exe --trace --trace-structs --build --timing $(DEFINES_RTL)
 DEFINES_COREMARK := -DBENCHMARK_TEST -DCOREMARK
 DEFINES_DHRYSTONE := -DBENCHMARK_TEST -DDHRYSTONE

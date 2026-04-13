@@ -27,7 +27,7 @@ module lc_cell #(
       .a(i_ack),
       .b(~i_req),
       .rst_n(rst_n),
-      .o(c1_out_w)
+      .s(c1_out_w)
    );
 
    c_element_asym #(
@@ -36,7 +36,7 @@ module lc_cell #(
       .a(c1_out_w),
       .b(i_req),
       .rst_n(rst_n),
-      .o(c2_out_w)
+      .s(c2_out_w)
    );
 
    /* Output assignment */

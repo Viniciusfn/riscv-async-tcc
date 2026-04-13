@@ -6,7 +6,7 @@ GCC_PREFIX = riscv32-unknown-elf
 GCC_VER    = 15.1.0
 
 # [CONFIGURE] CoreMark specific definitions
-ITERATIONS     = 3000        # Iterations of CoreMark
+ITERATIONS     = 1          # Iterations of CoreMark
 CLOCKS_PER_SEC = 100000000  # Core clock speed
 FLAGS_STR      = ""
 CORE_DEBUG     = 0 # 1 to activate debug prompts
