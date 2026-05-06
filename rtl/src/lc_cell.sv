@@ -45,5 +45,6 @@ module lc_cell #(
 
    //Request output
    assign o_req = ~c2_out_w;
+   assign o_aclk = o_req;
 
 endmodule

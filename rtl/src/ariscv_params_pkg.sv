@@ -62,9 +62,20 @@ package ariscv_params_pkg;
       DELAY_EM_MW    : 12,
       DELAY_MW_REG   : 4,
       DELAY_REG_DE   : 4,
-      DELAY_LOOP     : 1,
+      DELAY_LOOP     : 2,
       `endif
+
          // Initialization
+      `ifdef PROTO_LC
+      INIT_PC        : 0,
+      INIT_FD        : 1,
+      INIT_DE        : 0,
+      INIT_EM        : 1,
+      INIT_MW        : 0,
+      INIT_REG       : 1,
+      INIT_LOOP1     : 1,
+      INIT_LOOP2     : 0,
+      `else
       INIT_PC        : 1,
       INIT_FD        : 0,
       INIT_DE        : 0,
@@ -73,6 +84,7 @@ package ariscv_params_pkg;
       INIT_REG       : 1,
       INIT_LOOP1     : 0,
       INIT_LOOP2     : 0,
+      `endif
 
       // DTPATH
       NBW_INST       : 32,

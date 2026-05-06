@@ -3,14 +3,14 @@ module ariscv_ctrlpath #(
    //
    parameter NBW_ACLK      = 6,
    // Delays: DELAY_Source_Receiver
-   parameter DELAY_PC_FD   = 1,
-   parameter DELAY_FD_DE   = 1,
-   parameter DELAY_DE_EM   = 1,
-   parameter DELAY_DE_PC   = 1,
-   parameter DELAY_EM_MW   = 1,
-   parameter DELAY_MW_REG  = 1,
-   parameter DELAY_REG_DE  = 1,
-   parameter DELAY_LOOP    = 1,
+   parameter integer DELAY_PC_FD   = 1,
+   parameter integer DELAY_FD_DE   = 1,
+   parameter integer DELAY_DE_EM   = 1,
+   parameter integer DELAY_DE_PC   = 1,
+   parameter integer DELAY_EM_MW   = 1,
+   parameter integer DELAY_MW_REG  = 1,
+   parameter integer DELAY_REG_DE  = 1,
+   parameter integer DELAY_LOOP    = 1,
    // Initialization
    parameter bit INIT_PC       = 1,
    parameter bit INIT_FD       = 0,

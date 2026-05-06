@@ -8,7 +8,7 @@ module c_element_asym #(
 );
 
    `ifndef SYNTHESIS
-   always_comb begin
+   always @* begin
       if (!rst_n) begin
          s = INIT;
       end

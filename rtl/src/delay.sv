@@ -1,6 +1,6 @@
 module delay #(
    /* PARAMETERS */
-   parameter DELAY   = 1
+   parameter integer DELAY   = 1
 )(
    /* INTERFACE */
    input  logic   i_data,
@@ -21,9 +21,7 @@ module delay #(
 
    `else
    timeunit 100ps;
-   always @(i_data) begin
-      o_data <= #(DELAY) i_data;
-   end
+   assign #(DELAY) o_data = i_data;
    `endif
 
 endmodule

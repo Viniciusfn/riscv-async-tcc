@@ -1,5 +1,6 @@
 # PARAMTERS ##############################
-DEFINES_RTL := -DPROTO_LC #-DSYNC_RISCV
+# DEFINES_RTL := -DSYNC_RISCV
+DEFINES_RTL := -DPROTO_LC
 TB_NAME     := tb_ariscv_soc_top
 ##########################################
 
