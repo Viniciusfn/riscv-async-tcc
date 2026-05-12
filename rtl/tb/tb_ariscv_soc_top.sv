@@ -132,6 +132,8 @@ module tb_ariscv_soc_top;
       // ADDI
       `ifdef SYNC_RISCV
       repeat(5) @(negedge reg_clk);
+      `elsif PROTO_LC
+      @(negedge reg_clk);
       `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 32'hFFFFFA5A);
@@ -279,6 +281,9 @@ module tb_ariscv_soc_top;
       assert(tb_reg_dt[4] != '1);
       @(negedge reg_clk);
       assert(tb_reg_dt[4] != '1);
+      `elsif PROTO_LC
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
       `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 1);
@@ -288,6 +293,9 @@ module tb_ariscv_soc_top;
       `ifdef SYNC_RISCV
       @(negedge reg_clk);
       assert(tb_reg_dt[4] != '1);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      `elsif PROTO_LC
       @(negedge reg_clk);
       assert(tb_reg_dt[4] != '1);
       `endif
@@ -309,6 +317,9 @@ module tb_ariscv_soc_top;
       assert(tb_reg_dt[4] != '1);
       @(negedge reg_clk);
       assert(tb_reg_dt[4] != '1);
+      `elsif PROTO_LC
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
       `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 4);
@@ -326,6 +337,9 @@ module tb_ariscv_soc_top;
       assert(tb_reg_dt[4] != '1);
       @(negedge reg_clk);
       assert(tb_reg_dt[4] != '1);
+      `elsif PROTO_LC
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
       `endif
       @(negedge reg_clk);
       assert(tb_reg_dt[4] == 6);
@@ -335,6 +349,9 @@ module tb_ariscv_soc_top;
       `ifdef SYNC_RISCV
       @(negedge reg_clk);
       assert(tb_reg_dt[4] != '1);
+      @(negedge reg_clk);
+      assert(tb_reg_dt[4] != '1);
+      `elsif PROTO_LC
       @(negedge reg_clk);
       assert(tb_reg_dt[4] != '1);
       `endif

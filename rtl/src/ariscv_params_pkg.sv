@@ -67,13 +67,13 @@ package ariscv_params_pkg;
 
          // Initialization
       `ifdef PROTO_LC
-      INIT_PC        : 0,
-      INIT_FD        : 1,
-      INIT_DE        : 0,
-      INIT_EM        : 1,
-      INIT_MW        : 0,
-      INIT_REG       : 1,
-      INIT_LOOP1     : 1,
+      INIT_PC        : 1,
+      INIT_FD        : 0,
+      INIT_DE        : 1,
+      INIT_EM        : 0,
+      INIT_MW        : 1,
+      INIT_REG       : 0,
+      INIT_LOOP1     : 0,
       INIT_LOOP2     : 0,
       `else
       INIT_PC        : 1,
